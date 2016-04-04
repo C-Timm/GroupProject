@@ -1,5 +1,11 @@
 #pragma once
+
+#include <vector>
+#include <iostream>
+#include <cliext/vector>
 #include <string>
+
+
 
 namespace GroupProject {
 
@@ -9,18 +15,18 @@ namespace GroupProject {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace std;
+
 
 
 
 	struct c
 	{
-		 char name;
-		char day;
+		std::string name;
+		std::string day;
 		int stime;
 		int etime;
 	};
-	void times(c []);
-
 
 
 
@@ -50,6 +56,7 @@ namespace GroupProject {
 			}
 		}
 	private: System::Windows::Forms::Button^  button1;
+
 	protected:
 
 	private:
@@ -70,9 +77,9 @@ namespace GroupProject {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(0, 0);
+			this->button1->Location = System::Drawing::Point(208, 147);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->Size = System::Drawing::Size(127, 53);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"button1";
 			this->button1->UseVisualStyleBackColor = true;
@@ -90,23 +97,26 @@ namespace GroupProject {
 
 		}
 #pragma endregion
+
+
+
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
+	{
 		
-		array<char>^ tueThurs = gcnew array<char>(100);
-		array<Int32,2>^ tueThurstime = gcnew array<Int32,2>(100,100);
-		array<char>^ MWF = gcnew array<char>(100);
-		array<Int32, 2>^ MWFtime = gcnew array<Int32, 2>(100, 100);
+		vector<c> Classesarray(4);
 
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		c Classesarray[100];
-		Classesarray[0] ={ 114,1 , 1230, 1400 };
-		Classesarray[1] = { 115, 1 , 1300, 1600 };
+		Classesarray[0] = { "CS114" , "T,Th" , 1230, 1400 };
+		Classesarray[1] = { "PY115", "T,Th" , 1300, 1600 };
 
-		Classesarray[2] = { 112,0 , 1230, 1400 };
-		Classesarray[3] = { 115, 0 , 1500, 1600 };
+		Classesarray[2] = { "CS112", "M,W,F", 1230, 1400 };
+		Classesarray[3] = { "MA116", "M,W,F", 1500, 1600 };
+		
+
+		// counts how many class are M,W,F and T,TH
 		int mwfcount = 0, tthcount = 0;
-		for (int q = 0; q < 100; q++)
+		for (int q = 0; q < Classesarray.size(); q++)
 		{
-			if (Classesarray[q].day == 0)
+			if (Classesarray[q].day == "M,W,F")
 			{
 				mwfcount++;
 
@@ -116,94 +126,60 @@ namespace GroupProject {
 				tthcount++;
 			}
 		}
-		
-		const int mwftotal = mwfcount;
-		const int tthtotal = tthcount;
 
-		c MWFarray[100], TTHarray[100];
-		 
-		
-		/*delete[] MWFarray;*/
+		//Vector of classes on M,W,F and T,TH 
+		vector<c> MWFarray(mwfcount);
+		vector<c> TTHarray(tthcount);
+
+
+		//Fills M,W,F and T,TH vectors with classes on respective days
 		int j = 0, h = 0;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < Classesarray.size(); i++)
 		{
-			if (Classesarray[i].day == 0)
+			if (Classesarray[i].day == "M,W,F")
 			{
 				MWFarray[j] = Classesarray[i];
-					j++;  
-					
+				j++;
 			}
 			else
 			{
 				TTHarray[h] = Classesarray[i];
 				h++;
-
 			}
 		}
+		
 		times(MWFarray);
-
 		times(TTHarray);
-		/*if (class1.day == 1)
-		{
-			tueThurs[0] = Classesarray[0].name;
-			tueThurs[1] = class2.name;
-
-			tueThurstime[0,0] = class1.stime;
-			tueThurstime[1,0] = class2.stime;
-			tueThurstime[0, 1] = class1.etime;
-			tueThurstime[1, 1] = class2.etime;
-
-			
-		}
-		else
-		{
-
-			MWF[0] = class3.name;
-			MWF[1] = class4.name;
-
-			MWFtime[0, 0] = class3.stime;
-			MWFtime[1, 0] = class4.stime;
-			MWFtime[0, 1] = class3.etime;
-			MWFtime[1, 1] = class4.etime;
-
-			
-
-		}*/
-		
-		/*times(MWF, MWFtime);*/
 	}
-	};
 
-
-	
-	
-
-	void times(c a[])
+	//Method that checks if times of classes overlap or not 
+	void times(vector<c> a)
 	{
-		int x = a[2].name;
-		for (int j = 0; j < sizeof(a); j++)
+			
+		for (int j = 0; j < a.size(); j++)
 		{
+			for (int i = 0; i < a.size(); i++)
+			{
 
-		
-		for (int i = 0; i < sizeof(a); i++)
-		{
-
-		
-			if (a[j].stime >= a[i].stime && a[j].stime <= a[i].etime)
+				if (a[j].stime >= a[i].stime && a[j].stime <= a[i].etime)
 				{
 					MessageBox::Show("Time1 is in time2");
 				}
-			else if (a[i].stime >= a[j].stime && a[i].stime <= a[j].etime)
-			{
-				MessageBox::Show("Time2 is in Time1");
+				else if (a[i].stime >= a[j].stime && a[i].stime <= a[j].etime)
+				{
+					MessageBox::Show("Time2 is in Time1");
+				}
+				else
+				{
+					MessageBox::Show("Different");
+				}
 			}
-			else
-			{
-				MessageBox::Show("Different");
-
-			}
-	   }
-	}	
+		}
 	}
-	
+
+
+
+
+
+	};
 }
