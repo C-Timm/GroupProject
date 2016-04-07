@@ -3,6 +3,11 @@
 #include <vector>
 #include <iostream>
 #include <cliext/vector>
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
 #include <string>
 
 
@@ -26,7 +31,11 @@ namespace GroupProject {
 		std::string day;
 		int stime;
 		int etime;
+		int problems;
+
 	};
+
+	
 
 
 
@@ -98,25 +107,64 @@ namespace GroupProject {
 		}
 #pragma endregion
 
-
+		
 
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		
-		vector<c> Classesarray(4);
 
-		Classesarray[0] = { "CS114" , "T,Th" , 1230, 1400 };
-		Classesarray[1] = { "PY115", "T,Th" , 1300, 1600 };
+		ifstream in("InputFile.txt");
 
-		Classesarray[2] = { "CS112", "M,W,F", 1230, 1400 };
-		Classesarray[3] = { "MA116", "M,W,F", 1500, 1600 };
+		string line;
+		int tLines = classCount();
+
+		vector<c> Classesarray(tLines);
+
+
+
+		if (in.is_open())
+		{
+			while (!in.eof())
+			{
+				in >> line;
+				int index = 0;
+
+				while (index < tLines)
+				{
+					Classesarray[index].name = line;
+					in >> line;
+
+					Classesarray[index].day = line;
+					in >> line;
+
+					Classesarray[index].stime = stoi(line);
+					in >> line;
+
+					Classesarray[index].etime = stoi(line);
+					in >> line;
+
+					
+
+					Classesarray[index].problems = 0;
+
+					index++;
+				}
+
+			}
+			in.close();
+
+		}
+		else
+		{
+			MessageBox::Show("fail");
+		}
+
 		
 
 		// counts how many class are M,W,F and T,TH
 		int mwfcount = 0, tthcount = 0;
 		for (int q = 0; q < Classesarray.size(); q++)
 		{
-			if (Classesarray[q].day == "M,W,F")
+			if (Classesarray[q].day == "MWF")
 			{
 				mwfcount++;
 
@@ -136,7 +184,7 @@ namespace GroupProject {
 		int j = 0, h = 0;
 		for (int i = 0; i < Classesarray.size(); i++)
 		{
-			if (Classesarray[i].day == "M,W,F")
+			if (Classesarray[i].day == "MWF")
 			{
 				MWFarray[j] = Classesarray[i];
 				j++;
@@ -147,35 +195,203 @@ namespace GroupProject {
 				h++;
 			}
 		}
+
 		
-		times(MWFarray);
-		times(TTHarray);
+		for (int y = 0; y < MWFarray.size(); y++)
+		{
+			
+			string clas = MWFarray[y].name;
+			int vectsize = countofeachClass(MWFarray, clas);
+			int j = 0;
+			while (j <= MWFarray.size())
+			{
+				switch (j)
+				{
+				case 0:
+				{
+				  vector<c> mwf0(vectsize);
+				  init(MWFarray, mwf0, j);
+				  times(mwf0, MWFarray);
+				}
+				break;	
+				case 1:
+				{
+				vector<c> mwf1(vectsize);
+				init(MWFarray, mwf1, j);
+				times(mwf1, MWFarray);
+				}
+				break;
+				case 2:
+				{
+				vector<c> mwf2(vectsize);
+				init(MWFarray, mwf2, j);
+				times(mwf2, MWFarray);
+				}
+				break;
+				case 3:
+				{
+				vector<c> mwf3(vectsize);
+				init(MWFarray, mwf3, j);
+				times(mwf3, MWFarray);
+				}
+				break;
+				case 4:
+				{
+				vector<c> mwf4(vectsize);
+				init(MWFarray, mwf4, j);
+				times(mwf4, MWFarray);
+				}
+				break;
+				case 5:
+				{
+				vector<c> mwf5(vectsize);
+				init(MWFarray, mwf5, j);
+				times(mwf5, MWFarray);
+				}
+				break;
+				}
+				j++;
+			}
+
+
+				
+		}
+		
+		for (int y = 0; y < TTHarray.size(); y++)
+		{
+			
+			string clas = TTHarray[y].name;
+			int vectsize = countofeachClass(TTHarray, clas);
+			int j = 0;
+			while (j <= TTHarray.size())
+			{
+				switch (j)
+				{
+				case 0:
+				{
+					vector<c> tth0(vectsize);
+					init(TTHarray, tth0, j);
+					times(tth0, TTHarray);
+					
+				}
+				break;
+				case 1:
+				{
+					vector<c> tth1(vectsize);
+					init(TTHarray, tth1, j);
+					times(tth1, TTHarray);
+				}
+				break;
+				case 2:
+				{
+					vector<c> tth2(vectsize);
+					init(TTHarray, tth2, j);
+					times(tth2, TTHarray);
+				}
+				break;
+				case 3:
+				{
+					vector<c> tth3(vectsize);
+					init(TTHarray, tth3, j);
+					times(tth3, TTHarray);
+				}
+				break;
+				case 4:
+				{
+					vector<c> tth4(vectsize);
+					init(TTHarray, tth4, j);
+					times(tth4, TTHarray);
+				}
+				break;
+				case 5:
+				{
+					vector<c> tth5(vectsize);
+					init(TTHarray, tth5, j);
+					times(tth5, TTHarray);
+				}
+				break;
+				}
+				j++;
+			}
+
+
+
+		}
+		
 	}
 
 	//Method that checks if times of classes overlap or not 
-	void times(vector<c> a)
-	{
-			
-		for (int j = 0; j < a.size(); j++)
+	void times(vector<c> & testClass, vector<c> allClass)
+	{					 			
+		for (int j = 0; j <testClass.size(); j++)
 		{
-			for (int i = 0; i < a.size(); i++)
+			for (int i = 1; i < allClass.size(); i++)
 			{
 
-				if (a[j].stime >= a[i].stime && a[j].stime <= a[i].etime)
+				if (testClass[j].name != allClass[i].name)
 				{
-					MessageBox::Show("Time1 is in time2");
-				}
-				else if (a[i].stime >= a[j].stime && a[i].stime <= a[j].etime)
-				{
-					MessageBox::Show("Time2 is in Time1");
-				}
-				else
-				{
-					MessageBox::Show("Different");
+
+					if (testClass[j].stime >= allClass[i].stime && testClass[j].stime <= allClass[i].etime)
+					{
+						testClass[j].problems++;
+						//MessageBox::Show("Time1 is in time2");
+					}
+					else if (allClass[i].stime >= testClass[j].stime && allClass[i].stime <= testClass[j].etime)
+					{
+						testClass[j].problems++;
+						//MessageBox::Show("Time2 is in Time1");
+					}
 				}
 			}
 		}
 	}
+
+	//Counts number of lines
+	int classCount()
+	{
+		ifstream in("InputFile.txt");
+		int numlines = 0;
+		string line;
+
+		if (in.is_open())
+		{
+			while (!in.eof())
+			{
+				getline(in, line);
+				numlines++;
+			}
+		}
+		return numlines;
+	}
+
+
+	int countofeachClass(vector<c> a,string c)
+	{
+		int count = 0;
+		for (int i = 0; i < a.size(); i++)
+		{
+			if (a[i].name == c)
+			{
+				count++;
+			}
+		}
+		return count;
+
+	}
+
+
+	void init(vector<c> k, vector<c> & classnum, int j)
+	{
+		std::string t = k[j].name;
+		for (int i = 0; i < k.size(); i++)
+		{
+			if (k[i].name == t)
+			{
+				classnum[i] = k[i];
+			}
+		}
+	}
+
 
 
 
