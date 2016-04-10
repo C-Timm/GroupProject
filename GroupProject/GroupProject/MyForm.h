@@ -31,6 +31,7 @@ namespace GroupProject {
 		std::string day;
 		int stime;
 		int etime;
+		int period;
 		int problems;
 
 	};
@@ -107,7 +108,9 @@ namespace GroupProject {
 		}
 #pragma endregion
 
-		
+		const int period1 = 800;
+		const int period2 = 1100;
+		const int period3 = 1400;
 
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -141,8 +144,6 @@ namespace GroupProject {
 
 					Classesarray[index].etime = stoi(line);
 					in >> line;
-
-					
 
 					Classesarray[index].problems = 0;
 
@@ -195,6 +196,10 @@ namespace GroupProject {
 				h++;
 			}
 		}
+
+		periodInti(MWFarray);
+		periodInti(TTHarray);
+
 
 		
 		for (int y = 0; y < MWFarray.size(); y++)
@@ -330,17 +335,20 @@ namespace GroupProject {
 
 				if (testClass[j].name != allClass[i].name)
 				{
-
-					if (testClass[j].stime >= allClass[i].stime && testClass[j].stime <= allClass[i].etime)
+					if (testClass[j].period == allClass[i].period)
 					{
-						testClass[j].problems++;
-						//MessageBox::Show("Time1 is in time2");
+						if (testClass[j].stime >= allClass[i].stime && testClass[j].stime <= allClass[i].etime)
+						{
+							testClass[j].problems++;
+							//MessageBox::Show("Time1 is in time2");
+						}
+						else if (allClass[i].stime >= testClass[j].stime && allClass[i].stime <= testClass[j].etime)
+						{
+							testClass[j].problems++;
+							//MessageBox::Show("Time2 is in Time1");
+						}
 					}
-					else if (allClass[i].stime >= testClass[j].stime && allClass[i].stime <= testClass[j].etime)
-					{
-						testClass[j].problems++;
-						//MessageBox::Show("Time2 is in Time1");
-					}
+					
 				}
 			}
 		}
@@ -379,7 +387,7 @@ namespace GroupProject {
 
 	}
 
-
+	//fill initilizes each class vector with the class
 	void init(vector<c> k, vector<c> & classnum, int j)
 	{
 		std::string t = k[j].name;
@@ -388,9 +396,59 @@ namespace GroupProject {
 			if (k[i].name == t)
 			{
 				classnum[i] = k[i];
+
 			}
 		}
+
+
+		for (int j = 0; j < classnum.size(); j++)
+		{
+			if (classnum[j].stime < period2)
+			{
+				classnum[j].period = 1;
+			}
+			else if (classnum[j].stime < period3)
+			{
+				classnum[j].period = 2;
+			}
+			else
+				classnum[j].period = 3;
+		}
+
 	}
+
+
+
+
+	void periodInti(vector<c> & dayArray)
+	{
+
+		for (int j = 0; j < dayArray.size(); j++)
+		{
+			if (dayArray[j].stime < period2)
+			{
+				dayArray[j].period = 1;
+			}
+			else if (dayArray[j].stime < period3)
+			{
+				dayArray[j].period = 2;
+			}
+			else
+				dayArray[j].period = 3;
+		}
+	}
+
+
+
+
+
+	
+	
+
+
+
+
+
 
 
 
