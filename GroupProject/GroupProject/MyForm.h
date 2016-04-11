@@ -33,7 +33,7 @@ namespace GroupProject {
 		int etime;
 		int period;
 		int problems;
-
+		std::string work[1200];
 	};
 
 	
@@ -125,8 +125,13 @@ namespace GroupProject {
 		const int period2 = 1100;
 		const int period3 = 1400;
 
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+
+	
+	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+
 
 		ifstream in("InputFile.txt");
 
@@ -171,6 +176,9 @@ namespace GroupProject {
 		{
 			MessageBox::Show("fail");
 		}
+
+	
+
 
 		
 
@@ -238,6 +246,7 @@ namespace GroupProject {
 				vector<c> mwf1(vectsize);
 				init(MWFarray, mwf1, j);
 				Try(MWFarray, mwf1, vectsize);
+
 				times(mwf1, MWFarray);
 				}
 				break;
@@ -353,7 +362,8 @@ namespace GroupProject {
 
 	//Method that checks if times of classes overlap or not 
 	void times(vector<c> & testClass, vector<c> allClass)
-	{					 			
+	{
+		int f = 0;
 		for (int j = 0; j <testClass.size(); j++)
 		{
 			for (int i = 1; i < allClass.size(); i++)
@@ -361,8 +371,8 @@ namespace GroupProject {
 
 				if (testClass[j].name != allClass[i].name)
 				{
-					if (testClass[j].period == allClass[i].period)
-					{
+					//if (testClass[j].period == allClass[i].period)
+					//{
 						if (testClass[j].stime >= allClass[i].stime && testClass[j].stime <= allClass[i].etime)
 						{
 							testClass[j].problems++;
@@ -373,7 +383,12 @@ namespace GroupProject {
 							testClass[j].problems++;
 							//MessageBox::Show("Time2 is in Time1");
 						}
-					}
+						else
+						{
+							testClass[j].work[f] = allClass[i].name;
+							f++;
+						}
+					//}
 					
 				}
 			}
@@ -483,16 +498,11 @@ namespace GroupProject {
 				textBox1->Text =hola;
 			}
 		}
-
-
-
-
 	}
 
 
 
 	
-	
 
 
 
@@ -504,7 +514,5 @@ namespace GroupProject {
 
 
 
-	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-	}
 };
 }
