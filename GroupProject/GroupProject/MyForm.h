@@ -66,6 +66,7 @@ namespace GroupProject {
 			}
 		}
 	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::TextBox^  textBox1;
 
 	protected:
 
@@ -83,6 +84,7 @@ namespace GroupProject {
 		void InitializeComponent(void)
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -95,15 +97,26 @@ namespace GroupProject {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(38, 226);
+			this->textBox1->Multiline = true;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(224, 50);
+			this->textBox1->TabIndex = 1;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(532, 345);
+			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -216,6 +229,7 @@ namespace GroupProject {
 				{
 				  vector<c> mwf0(vectsize);
 				  init(MWFarray, mwf0, j);
+				  Try(MWFarray, mwf0, vectsize);
 				  times(mwf0, MWFarray);
 				}
 				break;	
@@ -223,6 +237,7 @@ namespace GroupProject {
 				{
 				vector<c> mwf1(vectsize);
 				init(MWFarray, mwf1, j);
+				Try(MWFarray, mwf1, vectsize);
 				times(mwf1, MWFarray);
 				}
 				break;
@@ -230,6 +245,7 @@ namespace GroupProject {
 				{
 				vector<c> mwf2(vectsize);
 				init(MWFarray, mwf2, j);
+				Try(MWFarray, mwf2, vectsize);
 				times(mwf2, MWFarray);
 				}
 				break;
@@ -237,6 +253,7 @@ namespace GroupProject {
 				{
 				vector<c> mwf3(vectsize);
 				init(MWFarray, mwf3, j);
+				Try(MWFarray, mwf3, vectsize);
 				times(mwf3, MWFarray);
 				}
 				break;
@@ -244,6 +261,7 @@ namespace GroupProject {
 				{
 				vector<c> mwf4(vectsize);
 				init(MWFarray, mwf4, j);
+				Try(MWFarray, mwf4, vectsize);
 				times(mwf4, MWFarray);
 				}
 				break;
@@ -251,6 +269,7 @@ namespace GroupProject {
 				{
 				vector<c> mwf5(vectsize);
 				init(MWFarray, mwf5, j);
+				Try(MWFarray, mwf5, vectsize);
 				times(mwf5, MWFarray);
 				}
 				break;
@@ -276,6 +295,7 @@ namespace GroupProject {
 				{
 					vector<c> tth0(vectsize);
 					init(TTHarray, tth0, j);
+					Try(TTHarray, tth0, vectsize);
 					times(tth0, TTHarray);
 					
 				}
@@ -284,6 +304,7 @@ namespace GroupProject {
 				{
 					vector<c> tth1(vectsize);
 					init(TTHarray, tth1, j);
+					Try(TTHarray, tth1, vectsize);
 					times(tth1, TTHarray);
 				}
 				break;
@@ -291,6 +312,7 @@ namespace GroupProject {
 				{
 					vector<c> tth2(vectsize);
 					init(TTHarray, tth2, j);
+					Try(TTHarray, tth2, vectsize);
 					times(tth2, TTHarray);
 				}
 				break;
@@ -298,6 +320,7 @@ namespace GroupProject {
 				{
 					vector<c> tth3(vectsize);
 					init(TTHarray, tth3, j);
+					Try(TTHarray, tth3, vectsize);
 					times(tth3, TTHarray);
 				}
 				break;
@@ -305,6 +328,7 @@ namespace GroupProject {
 				{
 					vector<c> tth4(vectsize);
 					init(TTHarray, tth4, j);
+					Try(TTHarray, tth4, vectsize);
 					times(tth4, TTHarray);
 				}
 				break;
@@ -312,6 +336,7 @@ namespace GroupProject {
 				{
 					vector<c> tth5(vectsize);
 					init(TTHarray, tth5, j);
+					Try(TTHarray, tth5, vectsize);
 					times(tth5, TTHarray);
 				}
 				break;
@@ -322,6 +347,7 @@ namespace GroupProject {
 
 
 		}
+		
 		
 	}
 
@@ -438,7 +464,30 @@ namespace GroupProject {
 		}
 	}
 
+	//This is Zach's
+	//I was just trying to see if I could get it to display the name in a textbox
+	//Because I have not found an easy way to do it with a variable
+	//It kinda works
+	//it says that the vector is out of range
+	
+	void Try(vector<c> k, vector<c> & classnum, int j)
+	{
+		int q = 1;
+		
+		for (int qw = 0; qw < j; qw++)
+		{
+			if (q == 1)
+			{
+				//ignore the hola i copied it from online
+				String^ hola = gcnew String(k[qw].name.c_str());
+				textBox1->Text =hola;
+			}
+		}
 
+
+
+
+	}
 
 
 
@@ -455,5 +504,7 @@ namespace GroupProject {
 
 
 
-	};
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+	}
+};
 }
