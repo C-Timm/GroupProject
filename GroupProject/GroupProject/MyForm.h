@@ -33,7 +33,7 @@ namespace GroupProject {
 		int etime;
 		int period;
 		int problems;
-		std::string work[1200];
+		std::string work[120];
 	};
 
 	
@@ -354,7 +354,6 @@ namespace GroupProject {
 			}
 
 
-
 		}
 		
 		
@@ -368,8 +367,12 @@ namespace GroupProject {
 		{
 			for (int i = 1; i < allClass.size(); i++)
 			{
-
-				if (testClass[j].name != allClass[i].name)
+				std::string testC = testClass[j].name;
+				std::string allC = allClass[i].name;
+				testC.resize(5);
+				allC.resize(5);
+				
+				if (testC != allC)
 				{
 					//if (testClass[j].period == allClass[i].period)
 					//{
@@ -395,7 +398,7 @@ namespace GroupProject {
 		}
 	}
 
-	//Counts number of lines
+	//Counts number of lines  int the file
 	int classCount()
 	{
 		ifstream in("InputFile.txt");
@@ -413,7 +416,7 @@ namespace GroupProject {
 		return numlines;
 	}
 
-
+  // Counts the number of classes for each class to initlize the class vector
 	int countofeachClass(vector<c> a,string c)
 	{
 		int count = 0;
@@ -434,7 +437,10 @@ namespace GroupProject {
 		std::string t = k[j].name;
 		for (int i = 0; i < k.size(); i++)
 		{
-			if (k[i].name == t)
+			std::string s = k[i].name;
+			s.resize(5);
+			t.resize(5);
+			if (s == t)
 			{
 				classnum[i] = k[i];
 
@@ -455,12 +461,10 @@ namespace GroupProject {
 			else
 				classnum[j].period = 3;
 		}
-
+		
 	}
 
-
-
-
+	//Assigns each class to a period
 	void periodInti(vector<c> & dayArray)
 	{
 
@@ -495,7 +499,7 @@ namespace GroupProject {
 			{
 				//ignore the hola i copied it from online
 				String^ hola = gcnew String(k[qw].name.c_str());
-				textBox1->Text =hola;
+				textBox1->Text = hola;
 			}
 		}
 	}
