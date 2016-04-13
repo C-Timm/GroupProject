@@ -3,6 +3,10 @@
 #include <vector>
 #include <iostream>
 #include <cliext/vector>
+
+#include <iostream>
+#include <vector>
+#include <string>
 #include <fstream>
 #include <string>
 
@@ -63,6 +67,11 @@ namespace GroupProject {
 		}
 	private: System::Windows::Forms::Button^  button1;
 	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::TextBox^  textBox2;
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  pictureBox2;
+	private: System::Windows::Forms::PictureBox^  pictureBox3;
+
 
 	protected:
 
@@ -79,13 +88,21 @@ namespace GroupProject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(208, 147);
+			this->button1->Location = System::Drawing::Point(765, 63);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(127, 53);
 			this->button1->TabIndex = 0;
@@ -95,12 +112,13 @@ namespace GroupProject {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(38, 226);
+			this->textBox1->Location = System::Drawing::Point(41, 47);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(224, 50);
+			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBox1->Size = System::Drawing::Size(433, 213);
 			this->textBox1->TabIndex = 1;
-			//
+			// 
 			// textBox2
 			// 
 			this->textBox2->Location = System::Drawing::Point(548, 47);
@@ -152,6 +170,9 @@ namespace GroupProject {
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -163,23 +184,24 @@ namespace GroupProject {
 		Drawing::Graphics^ g1;
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
-		
-		
+
 	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+
 		g1 = pictureBox1->CreateGraphics();
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+
 		vector<c> Classesarray(totalclassCount);
 		readFile(Classesarray);
 
 
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
-		int r = Classesarray.size();
-		DrawSchedule(Classesarray, r);
+
+		DrawSchedule(Classesarray, totalclassCount);
 
 		//Vector of classes on M,W,F and T,TH 
 		vector<c> MWFarray(mwfvecSize);
@@ -204,8 +226,8 @@ namespace GroupProject {
 		}
 
 
-		int mwfnon= numofnames(MWFarray);
-		int tthnon= numofnames(TTHarray);
+		int mwfnon = numofnames(MWFarray);
+		int tthnon = numofnames(TTHarray);
 
 		int x = 0, count;
 		while (x <= mwfnon)
@@ -217,8 +239,7 @@ namespace GroupProject {
 				string mwf0Name = MWFarray[x].name;
 				int mwf0Size = classCount(MWFarray, mwf0Name);
 				vector<c> mwf0(mwf0Size);
-				init(MWFarray, mwf0,mwf0Name);
-				Try(MWFarray, mwf0, mwf0Size);
+				init(MWFarray, mwf0, mwf0Name);
 				times(mwf0, MWFarray);
 				count += mwf0Size;
 			}
@@ -228,8 +249,7 @@ namespace GroupProject {
 				string mwf1Name = MWFarray[count].name;
 				int mwf1Size = classCount(MWFarray, mwf1Name);
 				vector<c> mwf1(mwf1Size);
-				init(MWFarray, mwf1,mwf1Name);
-				Try(MWFarray, mwf1, mwf1Size);
+				init(MWFarray, mwf1, mwf1Name);
 				times(mwf1, MWFarray);
 				count += mwf1Size;
 			}
@@ -239,8 +259,7 @@ namespace GroupProject {
 				string mwf2Name = MWFarray[count].name;
 				int mwf2Size = classCount(MWFarray, mwf2Name);
 				vector<c> mwf2(mwf2Size);
-				init(MWFarray, mwf2,mwf2Name);
-				Try(MWFarray, mwf2, mwf2Size);
+				init(MWFarray, mwf2, mwf2Name);
 				times(mwf2, MWFarray);
 				count += mwf2Size;
 			}
@@ -250,8 +269,7 @@ namespace GroupProject {
 				string mwf3Name = MWFarray[count].name;
 				int mwf3Size = classCount(MWFarray, mwf3Name);
 				vector<c> mwf3(mwf3Size);
-				init(MWFarray, mwf3,mwf3Name);
-				Try(MWFarray, mwf3, mwf3Size);
+				init(MWFarray, mwf3, mwf3Name);
 				times(mwf3, MWFarray);
 				count += mwf3Size;
 			}
@@ -261,8 +279,7 @@ namespace GroupProject {
 				string mwf4Name = MWFarray[count].name;
 				int mwf4Size = classCount(MWFarray, mwf4Name);
 				vector<c> mwf4(mwf4Size);
-				init(MWFarray, mwf4,mwf4Name);
-				Try(MWFarray, mwf4, mwf4Size);
+				init(MWFarray, mwf4, mwf4Name);
 				times(mwf4, MWFarray);
 				count += mwf4Size;
 			}
@@ -272,8 +289,7 @@ namespace GroupProject {
 				string mwf5Name = MWFarray[count].name;
 				int mwf5Size = classCount(MWFarray, mwf5Name);
 				vector<c> mwf5(mwf5Size);
-				init(MWFarray, mwf5,mwf5Name);
-				Try(MWFarray, mwf5, mwf5Size);
+				init(MWFarray, mwf5, mwf5Name);
 				times(mwf5, MWFarray);
 				count += mwf5Size;
 			}
@@ -283,7 +299,7 @@ namespace GroupProject {
 		}
 
 
-		int u = 0,count1 = 0;
+		int u = 0, count1 = 0;
 		while (u <= tthnon)
 		{
 			switch (u)
@@ -295,7 +311,6 @@ namespace GroupProject {
 				int tth0Size = classCount(TTHarray, tth0Name);
 				vector<c> tth0(tth0Size);
 				init(TTHarray, tth0, tth0Name);
-				Try(TTHarray, tth0, tth0Size);
 				times(tth0, TTHarray);
 				count1 += tth0Size;
 			}
@@ -305,8 +320,7 @@ namespace GroupProject {
 				string tth1Name = TTHarray[count1].name;
 				int tth1Size = classCount(TTHarray, tth1Name);
 				vector<c> tth1(tth1Size);
-				init(TTHarray, tth1,tth1Name);
-				Try(TTHarray, tth1, tth1Size);
+				init(TTHarray, tth1, tth1Name);
 				times(tth1, TTHarray);
 				count1 += tth1Size;
 			}
@@ -316,8 +330,7 @@ namespace GroupProject {
 				string tth2Name = TTHarray[count1].name;
 				int tth2Size = classCount(TTHarray, tth2Name);
 				vector<c> tth2(tth2Size);
-				init(TTHarray, tth2,tth2Name);
-				Try(TTHarray, tth2, tth2Size);
+				init(TTHarray, tth2, tth2Name);
 				times(tth2, TTHarray);
 				count1 += tth2Size;
 			}
@@ -327,8 +340,7 @@ namespace GroupProject {
 				string tth3Name = TTHarray[count1].name;
 				int tth3Size = classCount(TTHarray, tth3Name);
 				vector<c> tth3(tth3Size);
-				init(TTHarray, tth3,tth3Name);
-				Try(TTHarray, tth3, tth3Size);
+				init(TTHarray, tth3, tth3Name);
 				times(tth3, TTHarray);
 				count1 += tth3Size;
 			}
@@ -338,8 +350,7 @@ namespace GroupProject {
 				string tth4Name = TTHarray[count1].name;
 				int tth4Size = classCount(TTHarray, tth4Name);
 				vector<c> tth4(tth4Size);
-				init(TTHarray, tth4,tth4Name);
-				Try(TTHarray, tth4, tth4Size);
+				init(TTHarray, tth4, tth4Name);
 				times(tth4, TTHarray);
 				count1 += tth4Size;
 			}
@@ -349,8 +360,7 @@ namespace GroupProject {
 				string tth5Name = TTHarray[count1].name;
 				int tth5Size = classCount(TTHarray, tth5Name);
 				vector<c> tth5(tth5Size);
-				init(TTHarray, tth5,tth5Name);
-				Try(TTHarray, tth5, tth5Size);
+				init(TTHarray, tth5, tth5Name);
 				times(tth5, TTHarray);
 				count1 += tth5Size;
 			}
@@ -358,8 +368,8 @@ namespace GroupProject {
 			}
 			u++;
 		}
-	
-}
+
+	}
 
 			 /*
 			 Method that checks if times of classes overlap or not
@@ -394,14 +404,31 @@ namespace GroupProject {
 							 }
 							 else
 							 {
-								 testClass[j].work[f] = allClass[i].name;
+								 string h = testClass[j].name;
+								 string k = allClass[i].name;
+								 bool g = sort1(h, k);
+								 if (g == true)
+								 {
+									 testClass[j].work[f] = allClass[i].name;
+								 }
+
 								 f++;
 							 }
 						 }
 					 }
 				 }
 			 }
+			 bool sort1(string test, string all)
+			 {
+				 test.resize(5);
+				 all.resize(5);
+				 if (test == all)
+				 {
+					 return false;
+				 }
 
+				 return true;
+			 }
 			 /*
 			 Counts number of lines  int the file
 			 */
@@ -426,9 +453,9 @@ namespace GroupProject {
 			 initilizes each class
 			 vector with the class
 			 */
-			 void init(vector<c> k, vector<c> & classnum,string j)
+			 void init(vector<c> k, vector<c> & classnum, string j)
 			 {
-				 int q=0;
+				 int q = 0;
 				 for (int i = 0; i < k.size(); i++)
 				 {
 					 std::string s = k[i].name;
@@ -503,7 +530,7 @@ namespace GroupProject {
 				 {
 					 string st = classVec[i].name;
 					 st.resize(5);
-					 if ( st == className)
+					 if (st == className)
 					 {
 						 count++;
 					 }
@@ -555,112 +582,164 @@ namespace GroupProject {
 			 /*
 			 to count the number of each
 			 type of classes on MWF and TTH
-			 
+
 			 */
 			 int numofnames(vector<c> & qw)
 			 {
-				 int count=0;
-				 int j = 0,i=0;
-				 while ( j < qw.size())
+				 int count = 0;
+				 int j = 0, i = 0;
+				 while (j < qw.size())
 				 {
-
-				
 					 string r = qw[j].name;
 					 string r1 = qw[i].name;
 					 r.resize(5);
 					 r1.resize(5);
 					 if (r == r1)
 					 {
-						 
+
 						 j++;
 					 }
 					 else
 					 {
-						count++;
-						i=j;
+						 count++;
+						 i = j;
 					 }
 
-				 
-				}
+
+				 }
 				 return count;
 			 }
 
-			//graphically displays schedule and classes according to class day, time, and length
+			 void DrawSchedule(vector<c> & dayArray, int j) {
+				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
+				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
-			void DrawSchedule(vector<c> & dayArray, int j) {
-				Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
-				Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
-				/*g1->DrawImage(bmp, 0, 0);
-				g2->DrawImage(bmp, 0, 0);
-				g3->DrawImage(bmp, 0, 0);*/
-	
-				int x;
-				int b, h;
-				int y1, y2, y3;
-				for (int i = 0; i < j; i++)
-				{
-					b = (dayArray[i].etime - dayArray[i].stime) / 2;
-					h = 72;
-					x = (dayArray[i].stime - 500) / 6;
-					if (dayArray[i].day == "MWF")
-					{
-						y1 = 0;
-						y2 = 144;
-						y3 = 288;
-						Rectangle gridRect1 = Rectangle(x, y1, b, h);
-						Rectangle gridRect2 = Rectangle(x, y2, b, h);
-						Rectangle gridRect3 = Rectangle(x, y3, b, h);
-						g1->DrawIcon(clas, gridRect1);
-						g1->DrawIcon(clas, gridRect2);
-						g1->DrawIcon(clas, gridRect3);
-					}
-					else
-					{
-						y1 = 72;
-						y2 = 216;
-						Rectangle gridRect4 = Rectangle(x, y1, b, h);
-						Rectangle gridRect5 = Rectangle(x, y2, b, h);
-						g1->DrawIcon(clas, gridRect4);
-						g1->DrawIcon(clas, gridRect5);
-					}
-				}
-			}
+
+				 int x;
+				 int b, h;
+				 int y1, y2, y3;
+				 for (int i = 0; i < j; i++)
+				 {
+					 b = (dayArray[i].etime - dayArray[i].stime) / 2;
+					 h = 72;
+					 x = (dayArray[i].stime - 500) / 6;
+					 if (dayArray[i].day == "MWF")
+					 {
+						 y1 = 0;
+						 y2 = 144;
+						 y3 = 288;
+						 Rectangle gridRect1 = Rectangle(x, y1, b, h);
+						 Rectangle gridRect2 = Rectangle(x, y2, b, h);
+						 Rectangle gridRect3 = Rectangle(x, y3, b, h);
+						 g1->DrawIcon(clas, gridRect1);
+						 g1->DrawIcon(clas, gridRect2);
+						 g1->DrawIcon(clas, gridRect3);
+					 }
+					 else
+					 {
+						 y1 = 72;
+						 y2 = 216;
+						 Rectangle gridRect4 = Rectangle(x, y1, b, h);
+						 Rectangle gridRect5 = Rectangle(x, y2, b, h);
+						 g1->DrawIcon(clas, gridRect4);
+						 g1->DrawIcon(clas, gridRect5);
+					 }
+				 }
+
+			 }
+
 
 			 //This is Zach's
-			 //I was just trying to see if I could get it to display the name in a textbox
-			 //Because I have not found an easy way to do it with a variable
-			 //It kinda works
-			 //it says that the vector is out of range
 
-			 void Try(vector<c> k, vector<c> & classnum, int j)
-			 {
-				 //int q = 1;
-				 //
-				 //for (int qw = 0; qw < j; qw++)
-				 //{
-				 //	if (q == 1)
-				 //	{
-				 //		//ignore the hola i copied it from online
-				 //		String^ hola = gcnew String(k[qw].name.c_str());
-				 //		textBox1->Text = hola;
-				 //	}
-				 //}
-			 }
+
+
+
+
+
 
 			 //-------------------------------------Notes----------------------------------------------\\
 
 			 /*
-			 Left off at the problem in the "init" function it stays the vector is out out range
-			 When it hits the case 1.
-			 --Chris--
+			 Thing to do
+			 1.Testing what class vector has all the classes that the user has selected
+			 2.Start making the fails safes
+			 5.Implement user input
+			 3.Tweak coordinates for DrawSchedule
+			 4.Update graphics
 
 
-			 Can't Figure out how to use the Classesarray in the button push while it is in
-			 forum load. --Chris--
+			 */
+
+			 //========================================================================================\\
+
+
+			 //-------------------------------------Graveyard------------------------------------------\\	
+
+			 /*
+
+
+			 //Method that assigned each class a Period
+			 void periodInti(vector<c> & dayArray)
+			 {
+
+			 for (int j = 0; j < dayArray.size(); j++)
+			 {
+			 if (dayArray[j].stime < period2)
+			 {
+			 dayArray[j].period = 1;
+			 }
+			 else if (dayArray[j].stime < period3)
+			 {
+			 dayArray[j].period = 2;
+			 }
+			 else
+			 dayArray[j].period = 3;
+			 }
+			 }
 
 
 
+			 //From Init Method that assigned the peroids to the classes
+			 for (int j = 0; j < classnum.size(); j++)
+			 {
+			 if (classnum[j].stime < period2)
+			 {
+			 classnum[j].period = 1;
+			 }
+			 else if (classnum[j].stime < period3)
+			 {
+			 classnum[j].period = 2;
+			 }
+			 else
+			 classnum[j].period = 3;
+			 }
 
+
+			 //Periods
+			 const int period1 = 800;
+			 const int period2 = 1100;
+			 const int period3 = 1400;
+
+
+			 //I was just trying to see if I could get it to display the name in a textbox
+			 //Because I have not found an easy way to do it with a variable
+			 //It kinda works
+			 //Passes in the vector of al the classes on either TTh or MWF "k"
+			 //and the vector of the test class "classnum" and te place holder "j"
+			 void Try(vector<c> k, vector<c> & classnum, int j)
+			 {
+			 int q = 1;
+
+			 for (int qw = 0; qw < j; qw++)
+			 {
+			 if (q == 1)
+			 {
+			 //ignore the hola i copied it from online
+			 String^ hola = gcnew String(k[qw].name.c_str());
+			 textBox1->Text = hola;
+			 }
+			 }
+			 }
 
 
 
@@ -669,64 +748,6 @@ namespace GroupProject {
 			 */
 
 			 //========================================================================================\\
-			 //-------------------------------------Old Stuff------------------------------------------\\	
-
-/*
-
-
-//Method that assigned each class a Period
-void periodInti(vector<c> & dayArray)
-{
-
-for (int j = 0; j < dayArray.size(); j++)
-{
-if (dayArray[j].stime < period2)
-{
-dayArray[j].period = 1;
-}
-else if (dayArray[j].stime < period3)
-{
-dayArray[j].period = 2;
-}
-else
-dayArray[j].period = 3;
-}
-}
-
-
-
-//From Init Method that assigned the peroids to the classes
-for (int j = 0; j < classnum.size(); j++)
-{
-if (classnum[j].stime < period2)
-{
-classnum[j].period = 1;
-}
-else if (classnum[j].stime < period3)
-{
-classnum[j].period = 2;
-}
-else
-classnum[j].period = 3;
-}
-
-
-//Periods
-const int period1 = 800;
-const int period2 = 1100;
-const int period3 = 1400;
-
-
-
-
-
-
-
-
-
-*/
-
-//========================================================================================\\
 
 
 
