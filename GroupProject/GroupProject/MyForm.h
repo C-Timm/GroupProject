@@ -119,11 +119,15 @@ namespace GroupProject {
 	public:
 
 		const int totalclassCount = lineCount();
-
+		Drawing::Graphics^ g1;
+		Drawing::Graphics^ g2;
+		Drawing::Graphics^ g3;
+		
+		
 	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-
-
-
+		g1 = pictureBox1->CreateGraphics();
+		g2 = pictureBox2->CreateGraphics();
+		g3 = pictureBox3->CreateGraphics();
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -133,7 +137,8 @@ namespace GroupProject {
 
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
-
+		int r = Classesarray.size();
+		DrawSchedule(Classesarray, r);
 
 		//Vector of classes on M,W,F and T,TH 
 		vector<c> MWFarray(mwfvecSize);
@@ -539,7 +544,46 @@ namespace GroupProject {
 				 return count;
 			 }
 
+			//graphically displays schedule and classes according to class day, time, and length
 
+			void DrawSchedule(vector<c> & dayArray, int j) {
+				Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
+				Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+				/*g1->DrawImage(bmp, 0, 0);
+				g2->DrawImage(bmp, 0, 0);
+				g3->DrawImage(bmp, 0, 0);*/
+	
+				int x;
+				int b, h;
+				int y1, y2, y3;
+				for (int i = 0; i < j; i++)
+				{
+					b = (dayArray[i].etime - dayArray[i].stime) / 2;
+					h = 72;
+					x = (dayArray[i].stime - 500) / 6;
+					if (dayArray[i].day == "MWF")
+					{
+						y1 = 0;
+						y2 = 144;
+						y3 = 288;
+						Rectangle gridRect1 = Rectangle(x, y1, b, h);
+						Rectangle gridRect2 = Rectangle(x, y2, b, h);
+						Rectangle gridRect3 = Rectangle(x, y3, b, h);
+						g1->DrawIcon(clas, gridRect1);
+						g1->DrawIcon(clas, gridRect2);
+						g1->DrawIcon(clas, gridRect3);
+					}
+					else
+					{
+						y1 = 72;
+						y2 = 216;
+						Rectangle gridRect4 = Rectangle(x, y1, b, h);
+						Rectangle gridRect5 = Rectangle(x, y2, b, h);
+						g1->DrawIcon(clas, gridRect4);
+						g1->DrawIcon(clas, gridRect5);
+					}
+				}
+			}
 
 			 //This is Zach's
 			 //I was just trying to see if I could get it to display the name in a textbox
