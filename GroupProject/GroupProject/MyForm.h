@@ -3,9 +3,6 @@
 #include <vector>
 #include <iostream>
 #include <cliext/vector>
-
-#include <iostream>
-#include <vector>
 #include <string>
 #include <fstream>
 #include <string>
@@ -23,8 +20,6 @@ namespace GroupProject {
 	using namespace std;
 
 
-
-
 	struct c
 	{
 		std::string name;
@@ -36,9 +31,14 @@ namespace GroupProject {
 		std::string work[120];
 	};
 
+	const std::string class1 = "MA116";
+	const std::string class2 = "CS114";
+	const std::string class3 = "EE201";
+	const std::string class4 = "QF115"; 
+	const std::string class5 = "null";
+	const std::string class6 = "null";
 
-
-
+	
 
 	/// <summary>
 	/// Summary for MyForm
@@ -71,6 +71,11 @@ namespace GroupProject {
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::PictureBox^  pictureBox2;
 	private: System::Windows::Forms::PictureBox^  pictureBox3;
+	private: System::Windows::Forms::TextBox^  textBox3;
+	private: System::Windows::Forms::TextBox^  textBox4;
+	private: System::Windows::Forms::TextBox^  textBox5;
+	private: System::Windows::Forms::TextBox^  textBox6;
+	private: System::Windows::Forms::TextBox^  textBox7;
 
 
 	protected:
@@ -95,6 +100,11 @@ namespace GroupProject {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -112,6 +122,8 @@ namespace GroupProject {
 			// 
 			// textBox1
 			// 
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Centaur", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->textBox1->Location = System::Drawing::Point(41, 47);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
@@ -124,8 +136,9 @@ namespace GroupProject {
 			this->textBox2->Location = System::Drawing::Point(548, 47);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(211, 199);
+			this->textBox2->Size = System::Drawing::Size(211, 36);
 			this->textBox2->TabIndex = 2;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -154,6 +167,46 @@ namespace GroupProject {
 			this->pictureBox3->TabIndex = 5;
 			this->pictureBox3->TabStop = false;
 			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(548, 154);
+			this->textBox3->Multiline = true;
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(211, 36);
+			this->textBox3->TabIndex = 6;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Location = System::Drawing::Point(548, 122);
+			this->textBox4->Multiline = true;
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(211, 36);
+			this->textBox4->TabIndex = 7;
+			// 
+			// textBox5
+			// 
+			this->textBox5->Location = System::Drawing::Point(548, 89);
+			this->textBox5->Multiline = true;
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(211, 36);
+			this->textBox5->TabIndex = 8;
+			// 
+			// textBox6
+			// 
+			this->textBox6->Location = System::Drawing::Point(548, 224);
+			this->textBox6->Multiline = true;
+			this->textBox6->Name = L"textBox6";
+			this->textBox6->Size = System::Drawing::Size(211, 36);
+			this->textBox6->TabIndex = 9;
+			// 
+			// textBox7
+			// 
+			this->textBox7->Location = System::Drawing::Point(548, 187);
+			this->textBox7->Multiline = true;
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(211, 36);
+			this->textBox7->TabIndex = 10;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -161,6 +214,11 @@ namespace GroupProject {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1397, 838);
+			this->Controls->Add(this->textBox7);
+			this->Controls->Add(this->textBox6);
+			this->Controls->Add(this->textBox5);
+			this->Controls->Add(this->textBox4);
+			this->Controls->Add(this->textBox3);
 			this->Controls->Add(this->pictureBox3);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->pictureBox1);
@@ -181,22 +239,29 @@ namespace GroupProject {
 	public:
 
 		const int totalclassCount = lineCount();
+		
+
 		Drawing::Graphics^ g1;
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
+		
 
 	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 
 		g1 = pictureBox1->CreateGraphics();
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
+		vector<c> Classesarray(totalclassCount);
+		readFile(Classesarray);
+		displayClasses(Classesarray);
+		
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-
+		//vector<c> Classesarray(totalclassCount);
+		///*readFile2(Classesarray);*/
 		vector<c> Classesarray(totalclassCount);
 		readFile(Classesarray);
-
 
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
@@ -418,6 +483,14 @@ namespace GroupProject {
 					 }
 				 }
 			 }
+
+
+			 /*
+			 Checks to see if the
+			 class name is the same or not
+			 and returns false if the class
+			 name is the same
+			 */
 			 bool sort1(string test, string all)
 			 {
 				 test.resize(5);
@@ -491,6 +564,7 @@ namespace GroupProject {
 
 						 while (index < totalLines)
 						 {
+
 							 classes[index].name = line;
 							 in >> line;
 
@@ -509,12 +583,11 @@ namespace GroupProject {
 						 }
 
 					 }
-					 in.close();
 
 				 }
 				 else
 				 {
-					 MessageBox::Show("fail");
+					 MessageBox::Show("File read 1 has failed");
 				 }
 			 }
 
@@ -610,6 +683,12 @@ namespace GroupProject {
 				 return count;
 			 }
 
+
+			 /*
+			 Draws the Schedule 
+			 takes in the vector of the final
+			 schedule and the size of the vector
+			 */
 			 void DrawSchedule(vector<c> & dayArray, int j) {
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
@@ -647,10 +726,89 @@ namespace GroupProject {
 				 }
 
 			 }
+			 void displayClasses(vector<c> all)
+			 {
+				
+					 int count = 0;
+					 int j = 0, i = 0;
+					 while (j < all.size())
+					 {
+						 string r = all[j].name;
+						 string r1 = all[i].name;
+						 r.resize(5);
+						 r1.resize(5);
+						 if (r == r1)
+						 {
+
+							 j++;
+						 }
+						 else
+						 {	  
+							 string s = all[i].name;
+							 s.resize(5);
+							 String^ hola = gcnew String(s.c_str());
+							 textBox1->Text = textBox1->Text +  hola;
+							 textBox1->Text = textBox1->Text + "\r\n";
+							 /*textBox1->AppendText(hola & Environment);*/
+							 i = j;
+						 }
 
 
-			 //This is Zach's
+					 }
+						
+						
+					 
+				
+			 }
 
+
+			/* void readFile2(vector<c> allc)
+			 {
+				
+					 ifstream in("InputFile.txt");
+
+					 string line;
+					 int totalLines = lineCount();
+
+					 if (in.is_open())
+					 {
+						 while (!in.eof())
+						 {
+							 in >> line;
+							 int index = 0;
+
+							 while (index < totalLines)
+							 {
+								 if(line == class1 || line == class2 || line == class3 
+									 || line == class4 || line == class5 || line == class6)
+								 allc[index].name = line;
+								 in >> line;
+
+								 allc[index].day = line;
+								 in >> line;
+
+								 allc[index].stime = stoi(line);
+								 in >> line;
+
+								 allc[index].etime = stoi(line);
+								 in >> line;
+
+								 allc[index].problems = 0;
+
+								 index++;
+							 }
+
+						 }
+						 in.close();
+
+					 }
+					 else
+					 {
+						 MessageBox::Show("File read 1 has failed");
+					 }
+				 }
+*/
+			 
 
 
 
@@ -757,5 +915,7 @@ namespace GroupProject {
 
 
 
-	};
+	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
+};
 }
