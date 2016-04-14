@@ -258,10 +258,10 @@ namespace GroupProject {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		//vector<c> Classesarray(totalclassCount);
-		///*readFile2(Classesarray);*/
 		vector<c> Classesarray(totalclassCount);
-		readFile(Classesarray);
+		readFile2(Classesarray);
+		vector<c> esarray(totalclassCount);
+		readFile(esarray);
 
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
@@ -747,9 +747,7 @@ namespace GroupProject {
 							 string s = all[i].name;
 							 s.resize(5);
 							 String^ hola = gcnew String(s.c_str());
-							 textBox1->Text = textBox1->Text +  hola;
-							 textBox1->Text = textBox1->Text + "\r\n";
-							 /*textBox1->AppendText(hola & Environment);*/
+							 textBox1->Text = textBox1->Text +  hola + "\r\n";
 							 i = j;
 						 }
 
@@ -762,7 +760,7 @@ namespace GroupProject {
 			 }
 
 
-			/* void readFile2(vector<c> allc)
+			 void readFile2(vector<c> & allc)
 			 {
 				
 					 ifstream in("InputFile.txt");
@@ -779,23 +777,27 @@ namespace GroupProject {
 
 							 while (index < totalLines)
 							 {
-								 if(line == class1 || line == class2 || line == class3 
-									 || line == class4 || line == class5 || line == class6)
-								 allc[index].name = line;
-								 in >> line;
+								 string s = line;
+								 s.resize(5);
+								 if (s == class1 || s == class2 || s == class3 ||
+									 s == class4 || s == class5 || s == class6)
+								 {
+									 allc[index].name = line;
+									 in >> line;
 
-								 allc[index].day = line;
-								 in >> line;
+									 allc[index].day = line;
+									 in >> line;
 
-								 allc[index].stime = stoi(line);
-								 in >> line;
+									 allc[index].stime = stoi(line);
+									 in >> line;
 
-								 allc[index].etime = stoi(line);
-								 in >> line;
+									 allc[index].etime = stoi(line);
+									 in >> line;
 
-								 allc[index].problems = 0;
+									 allc[index].problems = 0;
 
-								 index++;
+									 index++;
+								 }
 							 }
 
 						 }
@@ -807,7 +809,6 @@ namespace GroupProject {
 						 MessageBox::Show("File read 1 has failed");
 					 }
 				 }
-*/
 			 
 
 
@@ -819,6 +820,9 @@ namespace GroupProject {
 
 			 /*
 			 Thing to do
+
+			 1.initlize all the text boxes the "null" then make a function to full the text
+			 boxes with the users input
 			 1.Testing what class vector has all the classes that the user has selected
 			 2.Start making the fails safes
 			 5.Implement user input
