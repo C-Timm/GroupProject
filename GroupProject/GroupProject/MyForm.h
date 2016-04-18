@@ -67,6 +67,7 @@ namespace GroupProject {
 	private: System::Windows::Forms::TextBox^  textBox5;
 	private: System::Windows::Forms::TextBox^  textBox6;
 	private: System::Windows::Forms::TextBox^  textBox7;
+	private: System::Windows::Forms::TextBox^  textBox8;
 
 
 	protected:
@@ -96,6 +97,7 @@ namespace GroupProject {
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -199,6 +201,13 @@ namespace GroupProject {
 			this->textBox7->Size = System::Drawing::Size(211, 36);
 			this->textBox7->TabIndex = 10;
 			// 
+			// textBox8
+			// 
+			this->textBox8->Location = System::Drawing::Point(54, 310);
+			this->textBox8->Name = L"textBox8";
+			this->textBox8->Size = System::Drawing::Size(298, 20);
+			this->textBox8->TabIndex = 11;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -206,6 +215,7 @@ namespace GroupProject {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1284, 838);
+			this->Controls->Add(this->textBox8);
 			this->Controls->Add(this->textBox7);
 			this->Controls->Add(this->textBox6);
 			this->Controls->Add(this->textBox5);
@@ -514,6 +524,22 @@ namespace GroupProject {
 
 		
 		sort3(finalsched,tthvecSize,mwfvecSize);
+		
+
+		//for (int bleh = 0; bleh < finalsched.size(); bleh++)
+		//{
+
+
+		//	for (int meh = 0; meh < finalsched[bleh].size(); meh++)
+		//	{
+		//		if (finalsched[bleh][meh].take == true)
+		//		{
+		//			String^ h = gcnew String(finalsched[bleh][meh].name.c_str());
+		//			textBox8->Text = textBox8->Text + h + "\r\n";
+
+		//		}
+		//	}
+		//}
 		//passtoDraw(finalsched, tthvecSize, mwfvecSize);
 		
 	}
