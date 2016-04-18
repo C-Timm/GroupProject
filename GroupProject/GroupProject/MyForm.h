@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <string>
+#include <ctime>
 
 
 
@@ -203,7 +204,7 @@ namespace GroupProject {
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(54, 310);
+			this->textBox8->Location = System::Drawing::Point(399, 310);
 			this->textBox8->Multiline = true;
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->Size = System::Drawing::Size(298, 133);
@@ -277,6 +278,9 @@ namespace GroupProject {
 
 		vector<c> Classesarray(totalclassCount);
 		readFile2(Classesarray);
+		userlineCount(Classesarray);
+
+		Classesarray.resize(userlineCount(Classesarray));
 
 
 		int mwfvecSize = MWFcount(Classesarray) + 1;
@@ -284,7 +288,7 @@ namespace GroupProject {
 
 		vector<c> totalm(mwfvecSize);
 		vector<c> totalt(tthvecSize);
-		//DrawSchedule(Classesarray, totalclassCount);
+		
 
 		//Vector of classes on M,W,F and T,TH 
 		vector<c> MWFarray(mwfvecSize);
@@ -536,22 +540,44 @@ namespace GroupProject {
 
 
 			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray )
-			 {
+			 {	
+				 srand(time(NULL));
 				 int i = 0;
-
+				 int u = 1;
+				
+				
 				 while (i < tt)
 				 {
 					 int j = 1;
 					 while (j < tm)
 					 {
-						 bool f = finals[i][0].take;
-						 bool g = finals[i][j].take;
-						 if (finals[i][0].take == true && finals[i][j].take == true)
+						int s = rand() % tt + 0;
+						int v = rand() % tm + 1;
+						
+						 if (finals[s][0].take == true && finals[s][j].take == true)
 						 {
-
-							 DrawSchedule(finals, i, j, classesArray);
+							 if(u == 1)
+							 {
+							   DrawSchedule(finals, i, j, classesArray);
 							 j++;
 							 i++;
+							 u++;
+							 }
+							 else if (u == 2)
+							 {
+								 //DrawSchedule2(finals, i, j, classesArray);
+								 j++;
+								 i++;
+								 u++;
+							 }
+							 else if (u == 3)
+							 {
+								 //DrawSchedule3(finals, i, j, classesArray);
+								 j++;
+								 i++;
+								 u++;
+							 }
+							
 
 						 }
 						 else
@@ -791,6 +817,26 @@ namespace GroupProject {
 				 return numlines;
 			 }
 
+			 int userlineCount(vector<c> & a)
+			 {
+				 String^ class1 = "PY115";
+				 String^ class2 = "QF115";
+				 String^ class3 = "EE201";
+				 String^ class4 = "MA116";
+				 int count = 0;
+				 for (int i = 0; i < a.size(); i++)
+				 {
+					 string c = a[i].name;
+					 c.resize(5);
+					 String^ s = gcnew String(c.c_str());
+					
+					 if (s == class1 || s == class2 || s == class3 || s == class4)
+					 {
+						 count++;
+					 }
+				 }
+				 return count;
+			 }
 			 /*
 			 initilizes each class
 			 vector with the class
@@ -961,12 +1007,22 @@ namespace GroupProject {
 			 */
 			 void DrawSchedule(vector<vector<c>> & finals, int l, int k, vector<c> & classesArray) {
 			
-
+				 for (int p = 0; p < 10; p++)
+				 {
+				   string tg = finals[l][0].work[p];
+				 }
+				
 				 vector<c> fnsched = finalSort(finals, l, k, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
-
+				 for (int g = 0; g < fnsched.size(); g++)
+				 {
+					 string s = fnsched[g].name;
+					 s.resize(5);
+					 String^ hola = gcnew String(s.c_str());
+					 textBox8->Text = textBox8->Text + hola + "\r\n";
+				 }
 
 				 int x;
 				 int b, h;
@@ -1133,9 +1189,7 @@ namespace GroupProject {
 					 }
 				
 					 int d = 0;
-					 /* string c = finals[i][j].work[k];
-					 c.resize(5);
-					 String^ s = gcnew String(c.c_str());*/
+					 
 					 for (int x = 0; x < i1; x++)
 					 {
 						 for (int z = 0; z < i1; z++)
@@ -1178,6 +1232,10 @@ namespace GroupProject {
 					 }					 
 				 }
 			
+				 for (int op = 0; op < 5; op++)
+				 {
+					 string	 ty = finals[l][0].work[op];
+				 }
 				 vector<c> lastSched(pass.size());
 				 int b = 0;
 				 int q = 0;
