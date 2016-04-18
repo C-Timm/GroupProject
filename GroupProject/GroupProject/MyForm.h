@@ -26,19 +26,10 @@ namespace GroupProject {
 		std::string day;
 		int stime;
 		int etime;
-		int period;
 		int problems;
-		std::string work[120];
-	};
-
-	const std::string class1 = "MA116";
-	const std::string class2 = "CS114";
-	const std::string class3 = "EE201";
-	const std::string class4 = "QF115"; 
-	const std::string class5 = "null";
-	const std::string class6 = "null";
-
-	
+		std::string work[50];
+		bool take; 
+	};	
 
 	/// <summary>
 	/// Summary for MyForm
@@ -169,7 +160,7 @@ namespace GroupProject {
 			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(548, 154);
+			this->textBox3->Location = System::Drawing::Point(548, 80);
 			this->textBox3->Multiline = true;
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(211, 36);
@@ -177,7 +168,8 @@ namespace GroupProject {
 			// 
 			// textBox4
 			// 
-			this->textBox4->Location = System::Drawing::Point(548, 122);
+			this->textBox4->ImeMode = System::Windows::Forms::ImeMode::Off;
+			this->textBox4->Location = System::Drawing::Point(548, 111);
 			this->textBox4->Multiline = true;
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(211, 36);
@@ -185,7 +177,7 @@ namespace GroupProject {
 			// 
 			// textBox5
 			// 
-			this->textBox5->Location = System::Drawing::Point(548, 89);
+			this->textBox5->Location = System::Drawing::Point(548, 144);
 			this->textBox5->Multiline = true;
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(211, 36);
@@ -193,7 +185,7 @@ namespace GroupProject {
 			// 
 			// textBox6
 			// 
-			this->textBox6->Location = System::Drawing::Point(548, 224);
+			this->textBox6->Location = System::Drawing::Point(548, 182);
 			this->textBox6->Multiline = true;
 			this->textBox6->Name = L"textBox6";
 			this->textBox6->Size = System::Drawing::Size(211, 36);
@@ -201,7 +193,7 @@ namespace GroupProject {
 			// 
 			// textBox7
 			// 
-			this->textBox7->Location = System::Drawing::Point(548, 187);
+			this->textBox7->Location = System::Drawing::Point(548, 224);
 			this->textBox7->Multiline = true;
 			this->textBox7->Name = L"textBox7";
 			this->textBox7->Size = System::Drawing::Size(211, 36);
@@ -213,7 +205,7 @@ namespace GroupProject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1397, 838);
+			this->ClientSize = System::Drawing::Size(1284, 838);
 			this->Controls->Add(this->textBox7);
 			this->Controls->Add(this->textBox6);
 			this->Controls->Add(this->textBox5);
@@ -236,6 +228,7 @@ namespace GroupProject {
 
 		}
 #pragma endregion
+		
 	public:
 
 		const int totalclassCount = lineCount();
@@ -251,48 +244,49 @@ namespace GroupProject {
 		g1 = pictureBox1->CreateGraphics();
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
-		vector<c> Classesarray(totalclassCount);
-		readFile(Classesarray);
-		displayClasses(Classesarray);
+		vector<c> Classarray(totalclassCount);
+		readFile(Classarray);
+		displayClasses(Classarray);
 		
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		vector<c> mwf0;
+		vector<c> mwf1;
+		vector<c> mwf2;
+		vector<c> mwf3;
+		vector<c> mwf4;
+		vector<c> mwf5;
+		vector<c> tth0;
+		vector<c> tth1;
+		vector<c> tth2;
+		vector<c> tth3;
+		vector<c> tth4;
+		vector<c> tth5;
+
 		vector<c> Classesarray(totalclassCount);
 		readFile2(Classesarray);
-		vector<c> esarray(totalclassCount);
-		readFile(esarray);
+
 
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
 
-		DrawSchedule(Classesarray, totalclassCount);
+		vector<c> totalm(mwfvecSize);
+		vector<c> totalt(tthvecSize);
+		//DrawSchedule(Classesarray, totalclassCount);
 
 		//Vector of classes on M,W,F and T,TH 
 		vector<c> MWFarray(mwfvecSize);
 		vector<c> TTHarray(tthvecSize);
 
+		fillVectors(MWFarray, TTHarray, Classesarray);
+		
+		
 
-		//Fills M,W,F and T,TH vectors with classes on respective days
-		int j = 0, h = 0;
-		for (int i = 0; i < Classesarray.size(); i++)
-		{
-			if (Classesarray[i].day == "MWF")
-			{
-				MWFarray[j] = Classesarray[i];
-				j++;
-			}
-			else if (h < TTHarray.size())
-			{
-				TTHarray[h] = Classesarray[i];
-				h++;
-
-			}
-		}
-
-
+		int count2 = 0;
 		int mwfnon = numofnames(MWFarray);
 		int tthnon = numofnames(TTHarray);
+		vector<c> totalmwftth(12);
 
 		int x = 0, count;
 		while (x <= mwfnon)
@@ -303,9 +297,15 @@ namespace GroupProject {
 			{
 				string mwf0Name = MWFarray[x].name;
 				int mwf0Size = classCount(MWFarray, mwf0Name);
-				vector<c> mwf0(mwf0Size);
+				mwf0.resize(mwf0Size);
 				init(MWFarray, mwf0, mwf0Name);
+				workDefault(mwf0);
 				times(mwf0, MWFarray);
+				for (int i = 0; i < mwf0Size; i++)
+				{
+					totalm[count2] = mwf0[i];
+					count2++;
+				}
 				count += mwf0Size;
 			}
 			break;
@@ -313,9 +313,15 @@ namespace GroupProject {
 			{
 				string mwf1Name = MWFarray[count].name;
 				int mwf1Size = classCount(MWFarray, mwf1Name);
-				vector<c> mwf1(mwf1Size);
+				mwf1.resize(mwf1Size);
 				init(MWFarray, mwf1, mwf1Name);
+				workDefault(mwf1);
 				times(mwf1, MWFarray);
+				for (int i = 0; i < mwf1Size; i++)
+				{
+					totalm[count2] = mwf1[i];
+					count2++;
+				}
 				count += mwf1Size;
 			}
 			break;
@@ -323,9 +329,15 @@ namespace GroupProject {
 			{
 				string mwf2Name = MWFarray[count].name;
 				int mwf2Size = classCount(MWFarray, mwf2Name);
-				vector<c> mwf2(mwf2Size);
+				mwf2.resize(mwf2Size);
 				init(MWFarray, mwf2, mwf2Name);
+				workDefault(mwf2);
 				times(mwf2, MWFarray);
+				for (int i = 0; i < mwf2Size; i++)
+				{
+					totalm[count2] = mwf2[i];
+					count2++;
+				}
 				count += mwf2Size;
 			}
 			break;
@@ -333,9 +345,15 @@ namespace GroupProject {
 			{
 				string mwf3Name = MWFarray[count].name;
 				int mwf3Size = classCount(MWFarray, mwf3Name);
-				vector<c> mwf3(mwf3Size);
+				mwf3.resize(mwf3Size);
 				init(MWFarray, mwf3, mwf3Name);
+				workDefault(mwf3);
 				times(mwf3, MWFarray);
+				for (int i = 0; i < mwf3Size; i++)
+				{
+					totalm[count2] = mwf3[i];
+					count2++;
+				}
 				count += mwf3Size;
 			}
 			break;
@@ -343,9 +361,15 @@ namespace GroupProject {
 			{
 				string mwf4Name = MWFarray[count].name;
 				int mwf4Size = classCount(MWFarray, mwf4Name);
-				vector<c> mwf4(mwf4Size);
+				mwf4.resize(mwf4Size);
 				init(MWFarray, mwf4, mwf4Name);
+				workDefault(mwf4);
 				times(mwf4, MWFarray);
+				for (int i = 0; i < mwf4Size; i++)
+				{
+					totalm[count2] = mwf4[i];
+					count2++;
+				}
 				count += mwf4Size;
 			}
 			break;
@@ -353,9 +377,15 @@ namespace GroupProject {
 			{
 				string mwf5Name = MWFarray[count].name;
 				int mwf5Size = classCount(MWFarray, mwf5Name);
-				vector<c> mwf5(mwf5Size);
+				mwf5.resize(mwf5Size);
 				init(MWFarray, mwf5, mwf5Name);
+				workDefault(mwf5);
 				times(mwf5, MWFarray);
+				for (int i = 0; i < mwf5Size; i++)
+				{
+					totalm[count2] = mwf5[i];
+					count2++;
+				}
 				count += mwf5Size;
 			}
 			break;
@@ -364,7 +394,7 @@ namespace GroupProject {
 		}
 
 
-		int u = 0, count1 = 0;
+		int u = 0, count1 = 0,count3 = 0;
 		while (u <= tthnon)
 		{
 			switch (u)
@@ -372,11 +402,16 @@ namespace GroupProject {
 			case 0:
 			{
 				string tth0Name = TTHarray[u].name;
-
 				int tth0Size = classCount(TTHarray, tth0Name);
-				vector<c> tth0(tth0Size);
+				tth0.resize(tth0Size);
 				init(TTHarray, tth0, tth0Name);
+				workDefault(tth0);
 				times(tth0, TTHarray);
+				for (int i = 0; i < tth0Size; i++)
+				{
+					totalt[count3] = tth0[i];
+					count3++;
+				}
 				count1 += tth0Size;
 			}
 			break;
@@ -384,9 +419,15 @@ namespace GroupProject {
 			{
 				string tth1Name = TTHarray[count1].name;
 				int tth1Size = classCount(TTHarray, tth1Name);
-				vector<c> tth1(tth1Size);
+				tth1.resize(tth1Size);
 				init(TTHarray, tth1, tth1Name);
+				workDefault(tth1);
 				times(tth1, TTHarray);
+				for (int i = 0; i < tth1Size; i++)
+				{
+					totalt[count3] = tth1[i];
+					count3++;
+				}
 				count1 += tth1Size;
 			}
 			break;
@@ -394,9 +435,15 @@ namespace GroupProject {
 			{
 				string tth2Name = TTHarray[count1].name;
 				int tth2Size = classCount(TTHarray, tth2Name);
-				vector<c> tth2(tth2Size);
+				tth2.resize(tth2Size);
 				init(TTHarray, tth2, tth2Name);
+				workDefault(tth2);
 				times(tth2, TTHarray);
+				for (int i = 0; i < tth2Size; i++)
+				{
+					totalt[count3] = tth2[i];
+					count3++;
+				}
 				count1 += tth2Size;
 			}
 			break;
@@ -404,9 +451,15 @@ namespace GroupProject {
 			{
 				string tth3Name = TTHarray[count1].name;
 				int tth3Size = classCount(TTHarray, tth3Name);
-				vector<c> tth3(tth3Size);
+				tth3.resize(tth3Size);
 				init(TTHarray, tth3, tth3Name);
+				workDefault(tth3);
 				times(tth3, TTHarray);
+				for (int i = 0; i < tth3Size; i++)
+				{
+					totalt[count3] = tth3[i];
+					count2++;
+				}
 				count1 += tth3Size;
 			}
 			break;
@@ -414,9 +467,15 @@ namespace GroupProject {
 			{
 				string tth4Name = TTHarray[count1].name;
 				int tth4Size = classCount(TTHarray, tth4Name);
-				vector<c> tth4(tth4Size);
+				tth4.resize(tth4Size);
 				init(TTHarray, tth4, tth4Name);
+				workDefault(tth4);
 				times(tth4, TTHarray);
+				for (int i = 0; i < tth4Size; i++)
+				{
+					totalt[count3] = tth4[i];
+					count2++;
+				}
 				count1 += tth4Size;
 			}
 			break;
@@ -424,18 +483,186 @@ namespace GroupProject {
 			{
 				string tth5Name = TTHarray[count1].name;
 				int tth5Size = classCount(TTHarray, tth5Name);
-				vector<c> tth5(tth5Size);
+				tth5.resize(tth5Size);
 				init(TTHarray, tth5, tth5Name);
+				workDefault(tth5);
 				times(tth5, TTHarray);
+				for (int i = 0; i < tth5Size; i++)
+				{
+					totalt[count3] = tth5[i];
+					count2++;
+				}
 				count1 += tth5Size;
 			}
 			break;
 			}
 			u++;
 		}
+		int mwf = mwfvecSize+1;
+		int tth = tthvecSize+1;
+		vector<vector<c>> finalsched (tth, vector<c> (mwf) );
+		sort2(totalm , totalt, finalsched);
+		
 
+		for (int z = 0; z < tthvecSize; z++)
+		{  
+			string f = finalsched[0][2].work[z];	
+			int g = 0;
+			
+		}  
+		
+
+		
+		sort3(finalsched,tthvecSize,mwfvecSize);
+		//passtoDraw(finalsched, tthvecSize, mwfvecSize);
+		
+	}
+	/*
+
+			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm)
+			 {
+				 int i = 0;
+				 
+				 while (i < tt)
+				 {
+					 int j = 1;
+					 while (j < tm)
+					 {
+						 if (finals[i][0].take == true && finals[i][j].take == true)
+						 {
+							 DrawSchedule(finals, i, j);
+							 j++;
+
+						 }
+						 else
+						 {
+							 j++;
+						 }
+					 }
+					 i++;
+				 }
+
+			 }
+*/
+	void sort3(vector<vector<c>> & finals, int tt, int tm)
+	{
+	
+		for (int i = 0; i < tt; i++)
+		{
+			int p = 0;
+			
+			bool test = classCheck(finals, i, p);
+			if (test == true)
+			{
+				for (int j = 1; j < tm; j++)
+					{
+						if(classCheck(finals,i,j) == true)
+							{
+								finals[i][j].take = true;
+								p++;
+							}
+						else 
+							{
+								finals[i][j].take = false;
+								p++;
+							}
+					}
+
+			}
+			else
+			{
+				p++;
+			}
+		}
+	
+	}
+	bool classCheck(vector<vector<c>> & finals, int i, int j)
+	{ 
+		
+		String^ class1 = "PY115";
+		String^ class2 = "QF115";
+		String^ class3 = "EE201";
+		String^ class4 = "MA116";
+	
+		int com = 0;
+		int k = 0;
+		string u = finals[i][j].name;
+		int finCount = worksCounter(finals, i, j);
+		while (k < finCount)
+		{
+		
+			string c = finals[i][j].work[k];
+			c.resize(5);
+			String^ s = gcnew String(c.c_str());
+
+			if (s == class1 || s == class2 || s == class3 ||
+				s == class4)
+			{
+				com++;
+				k++;
+			}
+			else
+			{
+			  k++;
+			}
+		}
+		if (com == finCount)
+		{ 
+			return true;
+		 }
+		else
+		{ 
+			return false;
+		}
 	}
 
+
+	int worksCounter(vector<vector<c>> & finals, int i, int j)
+	{
+		
+		int count = 0;
+		int x = 0;
+		string s = "NULL";
+		while (x < 50)
+		{
+			string p = finals[i][j].work[x];
+			if (p != s)
+			{
+			   count++;
+			   x++;
+			}
+			else
+			{
+				x++;
+			}
+		}
+		
+		return count;
+	}
+   
+	void sort2(vector<c> & tm, vector<c> & tt, vector<vector<c>> & finals)
+	{
+		for (int i = 0; i < tt.size(); i++)
+		{
+			finals[i][0] = tt[i];
+		}
+
+		for (int j = 0; j < tt.size(); j++)
+		{
+			int p = 0;
+
+			int k = 1; 
+			int l = tm.size()+1;
+			while(k < l)
+			{
+				string h = tm[p].name;
+				finals[j][k] = tm[p];
+				p++;
+				k++;
+			}
+		}
+
+	}
 			 /*
 			 Method that checks if times of classes overlap or not
 			 and fills the array that holds all the classes that
@@ -446,6 +673,7 @@ namespace GroupProject {
 				 int f = 0;
 				 for (int j = 0; j <testClass.size(); j++)
 				 {
+					 int q = 0;
 					 for (int i = 1; i < allClass.size(); i++)
 					 {
 						 std::string testC = testClass[j].name;
@@ -474,7 +702,8 @@ namespace GroupProject {
 								 bool g = sort1(h, k);
 								 if (g == true)
 								 {
-									 testClass[j].work[f] = allClass[i].name;
+									 testClass[j].work[q] = allClass[i].name;
+									 q++;
 								 }
 
 								 f++;
@@ -617,9 +846,10 @@ namespace GroupProject {
 			 class on Monday, Wednesday, and Friday
 			 for the size of the mmwf vector
 			 */
-			 int MWFcount(vector<c> & ac)
+			 int MWFcount(vector<c> ac)
 			 {
 				 int count = 0;
+
 				 for (int q = 0; q < ac.size(); q++)
 				 {
 					 if (ac[q].day == "MWF" || ac[q].day == "M" ||
@@ -690,6 +920,11 @@ namespace GroupProject {
 			 schedule and the size of the vector
 			 */
 			 void DrawSchedule(vector<c> & dayArray, int j) {
+				 /*
+				 take in the Finalsched 2d vector
+				 the tth classes are at finalsched[i][0].work[loop]
+				 and the mwf classes at at finalsched[i][j].work[loop]
+				 */
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
@@ -760,9 +995,21 @@ namespace GroupProject {
 			 }
 
 
-			 void readFile2(vector<c> & allc)
+			void readFile2(vector<c> & allc)
 			 {
-				
+				/* String^ class1 = textBox2->Text;
+				 String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text;
+				 String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text;
+				 String^ class6 = textBox7->Text;*/
+
+				 String^ class1 = "PY115";
+				 String^ class2 = "QF115";
+				 String^ class3 = "EE201";
+				 String^ class4 = "MA116";
+			
+				 int place = 0;
 					 ifstream in("InputFile.txt");
 
 					 string line;
@@ -777,29 +1024,39 @@ namespace GroupProject {
 
 							 while (index < totalLines)
 							 {
-								 string s = line;
-								 s.resize(5);
+								 string p = line;
+								 p.resize(5);
+								 String^ s = gcnew String(p.c_str());
+
 								 if (s == class1 || s == class2 || s == class3 ||
-									 s == class4 || s == class5 || s == class6)
+									 s == class4)
 								 {
-									 allc[index].name = line;
+									 allc[place].name = line;
 									 in >> line;
 
-									 allc[index].day = line;
+									 allc[place].day = line;
 									 in >> line;
 
-									 allc[index].stime = stoi(line);
+									 allc[place].stime = stoi(line);
 									 in >> line;
 
-									 allc[index].etime = stoi(line);
+									 allc[place].etime = stoi(line);
 									 in >> line;
 
-									 allc[index].problems = 0;
+									 allc[place].problems = 0;
 
-									 index++;
+									 place++;
+								 } 
+								 else
+								 {
+									 in >> line;
+									 in >> line;
+									 in >> line;
+									 in >> line;
 								 }
+								index++; 
 							 }
-
+						  
 						 }
 						 in.close();
 
@@ -808,36 +1065,76 @@ namespace GroupProject {
 					 {
 						 MessageBox::Show("File read 1 has failed");
 					 }
+					 
 				 }
 			 
 
+			 void workDefault(vector<c> & clas)
+			 {
+				 int j = 0;
+				 string s = "NULL";
+				 for (int i = 0; i < clas.size(); i++)
+				 {
+					 while (j < 50)
+					 {
+						 clas[i].work[j] = s;
+						 j++;
+					 }
+					 
+				 }
+				
+			 }
 
-
-
-
-
-			 //-------------------------------------Notes----------------------------------------------\\
 
 			 /*
+			 Fills M,W,F and T,TH 
+			 vectors with classes on respective days
+			 */
+			void fillVectors(vector<c> &  MWFarray, vector<c> & TTHarray, vector<c> Classesarray)
+			 {
+				 int j = 0, h = 0;
+				 for (int i = 0; i < Classesarray.size(); i++)
+				 {
+					 if (Classesarray[i].day == "MWF")
+					 {
+						 MWFarray[j] = Classesarray[i];
+						 j++;
+					 }
+					 else if (h < TTHarray.size() && Classesarray[i].day == "TTH")
+					 {
+						 TTHarray[h] = Classesarray[i];
+						 h++;
+
+					 }
+				 }
+			 }
+
+			
+
+
+	 //-------------------------------------Notes----------------------------------------------\\
+
+	 /*
 			 Thing to do
 
-			 1.initlize all the text boxes the "null" then make a function to full the text
-			 boxes with the users input
-			 1.Testing what class vector has all the classes that the user has selected
+			 1.Left of at when the worksCounter method returns the could of "real" wroks values it returns
+			 50 for EE201b when it should return 3. the two classes before that return the right numbers.
+			 set break point at line 588 --Chris--
+
 			 2.Start making the fails safes
-			 5.Implement user input
+			
 			 3.Tweak coordinates for DrawSchedule
 			 4.Update graphics
 
 
-			 */
+	*/
 
-			 //========================================================================================\\
+	//========================================================================================\\
 
 
-			 //-------------------------------------Graveyard------------------------------------------\\	
+	//-------------------------------------Graveyard------------------------------------------\\	
 
-			 /*
+	/*
 
 
 			 //Method that assigned each class a Period
@@ -907,9 +1204,9 @@ namespace GroupProject {
 
 
 
-			 */
+	*/
 
-			 //========================================================================================\\
+	//========================================================================================\\
 
 
 
@@ -921,5 +1218,9 @@ namespace GroupProject {
 
 	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	}
+
+
+
+
 };
 }
