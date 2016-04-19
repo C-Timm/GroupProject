@@ -514,29 +514,24 @@ namespace GroupProject {
 			u++;
 		}
 		int mwf = mwfvecSize + 1;
-		int tth = tthvecSize;
-		vector<vector<c>> finalsched(tth, vector<c>(mwf));
+		int tth = tthvecSize ;
+		
+		
+
+			vector<vector<c>> finalsched(tth, vector<c>(mwf));
+
+		
+
 		sort2(totalm, totalt, finalsched);
 
 
-		for (int z = 0; z < tthvecSize; z++)
-		{
-			string f = finalsched[0][2].work[z];
-			int g = 0;
-
-		}
-
-
-
 		sort3(finalsched, tthvecSize, mwfvecSize);
-
-
-		
 		passtoDraw(finalsched, tthvecSize, mwfvecSize,Classesarray);
 
-
-
 	}
+
+
+
 
 
 			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray )
@@ -630,6 +625,8 @@ namespace GroupProject {
 				 String^ class2 = "QF115";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU115";
 				 int com = 0;
 				 int k = 0;
 				 string u = finals[i][j].name;
@@ -662,6 +659,18 @@ namespace GroupProject {
 					 else if (s == class4 && c4 < 1)
 					 {
 						 c4++;
+						 com++;
+						 k++;
+					 }
+					 else if (s == class5 && c5 < 1)
+					 {
+						 c5++;
+						 com++;
+						 k++;
+					 }
+					 else if (s == class6 && c6 < 1)
+					 {
+						 c6++;
 						 com++;
 						 k++;
 					 }
@@ -823,6 +832,8 @@ namespace GroupProject {
 				 String^ class2 = "QF115";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU115";
 				 int count = 0;
 				 for (int i = 0; i < a.size(); i++)
 				 {
@@ -830,7 +841,7 @@ namespace GroupProject {
 					 c.resize(5);
 					 String^ s = gcnew String(c.c_str());
 					
-					 if (s == class1 || s == class2 || s == class3 || s == class4)
+					 if (s == class1 || s == class2 || s == class3 || s == class4 || s == class5|| s == class6)
 					 {
 						 count++;
 					 }
@@ -1072,6 +1083,8 @@ namespace GroupProject {
 				 String^ class2 = "QF115";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU115";
 				 while (finals[l][0].work[i] != n)
 				 {
 					 i++;
@@ -1104,6 +1117,19 @@ namespace GroupProject {
 					 c4++;
 					 y++;
 				 }
+				 else if (s == class5 && c5 < 1)
+				 {
+					 pass[y] = finals[l][0].name;
+					 c5++;
+					 y++;
+				 }
+				 else if (s == class6 && c6 < 1)
+				 {
+					 pass[y] = finals[l][0].name;
+					 c6++;
+					 y++;
+				 }
+
 			 }
 				 
 				 int d = 0;
@@ -1142,6 +1168,20 @@ namespace GroupProject {
 						 {
 							 pass[y] = finals[l][0].work[d];
 							 c4++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[l][0].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[l][0].work[d];
+							 c5++;
 							 d++;
 							 y++;
 						 }
@@ -1186,6 +1226,20 @@ namespace GroupProject {
 							 c4++;
 							 y++;
 						 }
+						 else if (s1 == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[l][0].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (s1 == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[l][0].work[d];
+							 c6++;
+							 d++;
+							 y++;
+						 }
 					 }
 				
 					 int d = 0;
@@ -1227,6 +1281,21 @@ namespace GroupProject {
 								 d++;
 								 y++;
 							 }
+							 else if (t == class5 && c5 < 1)
+							 {
+								 pass[y] = finals[l][k].work[d];
+								 c5++;
+								 d++;
+								 y++;
+							 }
+							 else if (t == class6 && c6 < 1)
+							 {
+								 pass[y] = finals[l][k].work[d];
+								 c6++;
+								 d++;
+								 y++;
+							 }
+							
 
 						 }
 					 }					 
@@ -1317,6 +1386,8 @@ namespace GroupProject {
 				 String^ class2 = "QF115";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU115";
 			
 				 int place = 0;
 					 ifstream in("InputFile.txt");
@@ -1338,7 +1409,7 @@ namespace GroupProject {
 								 String^ s = gcnew String(p.c_str());
 
 								 if (s == class1 || s == class2 || s == class3 ||
-									 s == class4)
+									 s == class4 || s == class5 || s == class6)
 								 {
 									 allc[place].name = line;
 									 in >> line;
@@ -1426,15 +1497,13 @@ namespace GroupProject {
 
 	 /*
 			 Thing to do
+			 +++++++++++++++FIX EXPLODING VECTOR++++++++++++++
 
-			 1.Left of at when the worksCounter method returns the could of "real" wroks values it returns
-			 50 for EE201b when it should return 3. the two classes before that return the right numbers.
-			 set break point at line 588 --Chris--
-
-			 2.Start making the fails safes
-			
-			 3.Tweak coordinates for DrawSchedule
-			 4.Update graphics
+			 1.Start making the fails safe
+			 2.Make DrawSchedule2 and DrawSchedule3
+			 3.Fix user imput
+			 4.implyment updated graphics
+			 5. add comments
 
 
 	*/
