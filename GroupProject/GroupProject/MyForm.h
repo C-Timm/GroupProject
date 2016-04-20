@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <string>
+#include <ctime>
 
 
 
@@ -28,8 +29,8 @@ namespace GroupProject {
 		int etime;
 		int problems;
 		std::string work[50];
-		bool take; 
-	};	
+		bool take;
+	};
 
 	/// <summary>
 	/// Summary for MyForm
@@ -203,7 +204,7 @@ namespace GroupProject {
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(54, 310);
+			this->textBox8->Location = System::Drawing::Point(399, 310);
 			this->textBox8->Multiline = true;
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->Size = System::Drawing::Size(298, 133);
@@ -277,14 +278,18 @@ namespace GroupProject {
 
 		vector<c> Classesarray(totalclassCount);
 		readFile2(Classesarray);
+		userlineCount(Classesarray);
+
+		int ty = userlineCount(Classesarray);
+		Classesarray.resize(userlineCount(Classesarray));
 
 
-		int mwfvecSize = MWFcount(Classesarray) + 1;
+		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
 
 		vector<c> totalm(mwfvecSize);
 		vector<c> totalt(tthvecSize);
-		//DrawSchedule(Classesarray, totalclassCount);
+
 
 		//Vector of classes on M,W,F and T,TH 
 		vector<c> MWFarray(mwfvecSize);
@@ -511,108 +516,217 @@ namespace GroupProject {
 		}
 		int mwf = mwfvecSize + 1;
 		int tth = tthvecSize;
-		vector<vector<c>> finalsched(tth, vector<c>(mwf));
-		sort2(totalm, totalt, finalsched);
-
-
-		for (int z = 0; z < tthvecSize; z++)
-		{
-			string f = finalsched[0][2].work[z];
-			int g = 0;
-
-		}
-
-
-
-		sort3(finalsched, tthvecSize, mwfvecSize);
 
 
 		
-		passtoDraw(finalsched, tthvecSize, mwfvecSize,Classesarray);
+		vector<vector<c>> finalsched(mwf, vector<c>(tth));
 
+		sort2(totalm, totalt, finalsched);
+		
 
+		sort3(finalsched,Classesarray, tth, mwf);
+		passtoDraw(finalsched, tth, mwf, Classesarray);
 
 	}
 
 
-			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray )
+
+
+
+			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
 			 {
-				 int i = 0;
+				 srand(time(NULL));
+				
+				 int u = 1;
 
-				 while (i < tt)
-				 {
-					 int j = 1;
-					 while (j < tm)
+				 /*while (u <= 3)
+				 {*/
+					 /*int s = rand() % tt + 0;
+					 int v = rand() % tm + 1;*/
+
+				 int s = tt;
+				 int v = tm;
+
+					 for (int s = 0; s < tt; s++)
 					 {
-						 bool f = finals[i][0].take;
-						 bool g = finals[i][j].take;
-						 if (finals[i][0].take == true && finals[i][j].take == true)
+						 for (int v = 1; v < tm; v++)
 						 {
 
-							 DrawSchedule(finals, i, j, classesArray);
-							 j++;
-							 i++;
+							 
 
+							 if (finals[0][s].take == true && finals[v][s].take == true)
+							 {
+								 if (u == 1)
+								 {
+									 DrawSchedule(finals, s, v, classesArray);
+
+									 u++;
+									 
+								 }
+								 else if (u == 2)
+								 {
+									 // DrawSchedule2(finals, i, j, classesArray);
+
+
+									 u++;
+								 }
+								 else if (u == 3)
+								 {
+									 // DrawSchedule3(finals, i, j, classesArray);
+
+
+									 u++;
+								 }
+
+
+							 }
+							 else
+							 {
+								 v++;
+							 }
 						 }
-						 else
-						 {
-							 j++;
-						 }
-					 }
-					 i++;
+					 /*}*/
 				 }
-
+			   
 			 }
 
-			 void sort3(vector<vector<c>> & finals, int tt, int tm)
+			 void sort3(vector<vector<c>> & finals,vector <c> allclas, int tt, int tm)
 			 {
 
 				 for (int i = 0; i < tt; i++)
 				 {
 					 int p = 0;
 
-					 bool test = classCheck(finals, i, p);
-					 if (test == true)
-					 {
-						 finals[i][p].take = true;
-						 for (int j = 1; j < tm; j++)
-						 {
-							 if (classCheck(finals, i, j) == true)
-							 {
-								 finals[i][j].take = true;
 
-							 }
+					 if ( classCheck(finals, i, p) == true)
+					 {
+						 if (workcheck(finals, allclas, i, p) == true)
+						 {
+							   finals[p][i].take = true;
+						 
+						
+								 for (int j = 1; j < tm; j++)
+									 {
+										 if (classCheck(finals, i, j) == true)
+										 {
+											 if (workcheck(finals, allclas, i, j) == true)
+											 {
+												 finals[j][i].take = true;
+
+											 }
+										}		
 							 else
 							 {
-								 finals[i][j].take = false;
+								 finals[j][i].take = false;
 
 							 }
 						 }
-
+					   }
+					 
+					 else 
+					 {
+						 finals[p][i].take = false;
+					 } 
+					 
 					 }
 					 else
 					 {
-
+						 finals[p][i].take = false;
 					 }
 				 }
 
 			 }
-			 bool classCheck(vector<vector<c>> & finals, int i, int j)
+			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, int i, int j)
+			 {
+				
+				 int place = 0;
+				
+				 int s = 0;
+				 for (int t = 0; t < 50; t++)
+				 {
+					 string uio = finals[0][0].work[t];
+					 if (finals[j][i].work[t] != "NULL")
+					 {
+						 s++;
+					 }
+				 }
+
+				 vector<c> check (s);
+				 for (int q = 0; q < 50; q++)
+				 {
+					 if (finals[j][i].work[q] != "NULL")
+					 {
+						 for (int y = 0; y < allclass.size(); y++)
+						 {
+							 if (finals[j][i].work[q] == allclass[y].name)
+							 {
+								 check[place] = allclass[y];
+								 place++;
+							 }
+						 }
+					 }
+				 }
+				 for (int j = 0; j < check.size(); j++)
+				 {
+					 int q = 0;
+					 for (int i = 0; i < check.size(); i++)
+					 {
+						 if (i != j && check[i].day == check[j].day )
+						 {
+						   
+							 if (check[j].stime >= check[i].stime
+								 && check[j].stime <= check[i].etime)
+							 {
+								 return false;
+
+							 }
+							 else if (check[i].stime >= check[j].stime
+								 && check[i].stime <= check[j].etime)
+							 {
+
+								 return false;
+							 }
+							 else if (check[j].stime == check[i].stime
+								 || check[j].stime == check[i].etime || check[i].stime == check[j].stime
+								 || check[i].stime == check[j].etime)
+							 {
+
+							 }
+							 else
+							 {
+
+							 }
+						 }
+						
+					 }
+
+					 }
+				 return true;
+			 }
+
+			 bool classCheck(vector<vector<c>> & finals, int j, int i)
 			 {
 
-				 String^ class1 = "PY115";
-				 String^ class2 = "QF115";
+				 String^ class1 = "PY215";
+				 String^ class2 = "QF315";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU415";
 				 int com = 0;
 				 int k = 0;
 				 string u = finals[i][j].name;
 				 int finCount = worksCounter(finals, i, j);
+				 if (finCount < 50)
+				 {
+					 finals[i][j].take = false;
+					 return false;
+				 }
 				 while (k < finCount)
 				 {
 					 int c1 = 0;	int c2 = 0; int c3 = 0; int c4 = 0; int c5 = 0; int c6 = 0;
 					 string c = finals[i][j].work[k];
-					 c.resize(5);
+					 					 c.resize(5);
 					 String^ s = gcnew String(c.c_str());
 
 					 if (s == class1 && c1 < 1)
@@ -636,6 +750,18 @@ namespace GroupProject {
 					 else if (s == class4 && c4 < 1)
 					 {
 						 c4++;
+						 com++;
+						 k++;
+					 }
+					 else if (s == class5 && c5 < 1)
+					 {
+						 c5++;
+						 com++;
+						 k++;
+					 }
+					 else if (s == class6 && c6 < 1)
+					 {
+						 c6++;
 						 com++;
 						 k++;
 					 }
@@ -696,7 +822,7 @@ namespace GroupProject {
 					 while (k < tm.size())
 					 {
 						 string h = tm[p].name;
-						 finals[j][k] = tm[p];
+						 finals[k][j] = tm[p];
 						 p++;
 						 k++;
 					 }
@@ -714,7 +840,7 @@ namespace GroupProject {
 				 for (int j = 0; j < testClass.size(); j++)
 				 {
 					 int q = 0;
-					 for (int i = 1; i < allClass.size(); i++)
+					 for (int i = 0; i < allClass.size(); i++)
 					 {
 						 std::string testC = testClass[j].name;
 						 std::string allC = allClass[i].name;
@@ -735,6 +861,12 @@ namespace GroupProject {
 								 testClass[j].problems++;
 
 							 }
+							 else if (testClass[j].stime == allClass[i].stime
+								 || testClass[j].stime == allClass[i].etime || allClass[i].stime == testClass[j].stime
+								 || allClass[i].stime == testClass[j].etime)
+							 {
+								 testClass[j].problems++;
+							 }
 							 else
 							 {
 								 string h = testClass[j].name;
@@ -742,6 +874,7 @@ namespace GroupProject {
 								 bool g = sort1(h, k);
 								 if (g == true && k != "")
 								 {
+									
 									 testClass[j].work[q] = allClass[i].name;
 									 q++;
 								 }
@@ -750,10 +883,12 @@ namespace GroupProject {
 							 }
 						 }
 					 }
-				 }
+				 
+				}
+				 
 			 }
 
-
+			 
 			 /*
 			 Checks to see if the
 			 class name is the same or not
@@ -791,6 +926,28 @@ namespace GroupProject {
 				 return numlines;
 			 }
 
+			 int userlineCount(vector<c> & a)
+			 {
+				 String^ class1 = "PY215";
+				 String^ class2 = "QF315";
+				 String^ class3 = "EE201";
+				 String^ class4 = "MA116";
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU415";
+				 int count = 0;
+				 for (int i = 0; i < a.size(); i++)
+				 {
+					 string c = a[i].name;
+					 c.resize(5);
+					 String^ s = gcnew String(c.c_str());
+
+					 if (s == class1 || s == class2 || s == class3 || s == class4 || s == class5 || s == class6)
+					 {
+						 count++;
+					 }
+				 }
+				 return count;
+			 }
 			 /*
 			 initilizes each class
 			 vector with the class
@@ -925,7 +1082,6 @@ namespace GroupProject {
 			 /*
 			 to count the number of each
 			 type of classes on MWF and TTH
-
 			 */
 			 int numofnames(vector<c> & qw)
 			 {
@@ -959,14 +1115,21 @@ namespace GroupProject {
 			 takes in the vector of the final
 			 schedule and the size of the vector
 			 */
-			 void DrawSchedule(vector<vector<c>> & finals, int l, int k, vector<c> & classesArray) {
-			
+			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, vector<c> & classesArray) {
 
-				 vector<c> fnsched = finalSort(finals, l, k, classesArray);
+				
+
+				 vector<c> fnsched = finalSort(finals, s, v, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
-
+				 for (int g = 0; g < fnsched.size(); g++)
+				 {
+					 string s = fnsched[g].name;
+					 
+					 String^ hola = gcnew String(s.c_str());
+					 textBox8->Text = textBox8->Text + hola + "\r\n";
+				 }
 
 				 int x;
 				 int b, h;
@@ -1004,7 +1167,7 @@ namespace GroupProject {
 			 vector<c> finalSort(vector<vector<c>> & finals, int l, int k, vector<c> & classesArray)
 			 {
 				 vector<string> pass(6);
-				 string c0 = finals[l][0].name;
+				 string c0 = finals[0][l].name;
 				 c0.resize(5);
 				 string n = "NULL";
 				 int y = 0;	 int c1 = 0;
@@ -1012,64 +1175,80 @@ namespace GroupProject {
 				 int c4 = 0; int c5 = 0;
 				 int i = 0;	 int c6 = 0;
 				 String^ s = gcnew String(c0.c_str());
-				 String^ class1 = "PY115";
-				 String^ class2 = "QF115";
+				 String^ class1 = "PY215";
+				 String^ class2 = "QF315";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
-				 while (finals[l][0].work[i] != n)
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU415";;
+				 while (finals[0][l].work[i] != n)
 				 {
+					 string k = finals[0][l].work[i];
 					 i++;
 				 }
 
 				 for (int p = 0; p < 1; p++)
-				 { 
-				 if (s == class1 && c1 < 1)
 				 {
-					 pass[y] = finals[l][0].name;
-					 c1++;
-					 y++;
+					 if (s == class1 && c1 < 1)
+					 {
+						 pass[y] = finals[0][l].name;
+						 c1++;
+						 y++;
+					 }
+					 else if (s == class2 && c2 < 1)
+					 {
+						 pass[y] = finals[0][l].name;
+						 c2++;
+						 y++;
+
+					 }
+					 else if (s == class3 && c3 < 1)
+					 {
+						 pass[y] = finals[0][l].name;
+						 c3++;
+						 y++;
+					 }
+					 else if (s == class4 && c4 < 1)
+					 {
+						 pass[y] = finals[0][l].name;
+						 c4++;
+						 y++;
+					 }
+					 else if (s == class5 && c5 < 1)
+					 {
+						 pass[y] = finals[0][l].name;
+						 c5++;
+						 y++;
+					 }
+					 else if (s == class6 && c6 < 1)
+					 {
+						 pass[y] = finals[0][l].name;
+						 c6++;
+						 y++;
+					 }
+
 				 }
-				 else if (s == class2 && c2 < 1)
-				 {
-					 pass[y] = finals[l][0].name;
-					 c2++;
-					 y++;
-					
-				 }
-				 else if (s == class3 && c3 < 1)
-				 {
-					 pass[y] = finals[l][0].name;
-					 c3++;
-					 y++;
-				 }
-				 else if (s == class4 && c4 < 1)
-				 {
-					 pass[y] = finals[l][0].name;
-					 c4++;
-					 y++;
-				 }
-			 }
-				 
+
 				 int d = 0;
-				 
+
 				 for (int x = 0; x < i; x++)
 				 {
 					 for (int z = 0; z < i; z++)
 					 {
-						 string w = finals[l][0].work[d];
+						 string w = finals[0][l].work[d];
 						 w.resize(5);
 						 String^ t = gcnew String(w.c_str());
-						
+
 						 if (t == class1 && c1 < 1)
 						 {
-							 pass[y] = finals[l][0].work[d];
+							 pass[y] = finals[0][l].work[d];
 							 c1++;
 							 d++;
 							 y++;
 						 }
 						 else if (t == class2 && c2 < 1)
 						 {
-							 pass[y] = finals[l][0].work[d];
+							 pass[y] = finals[0][l].work[d];
 							 c2++;
 							 d++;
 							 y++;
@@ -1077,83 +1256,110 @@ namespace GroupProject {
 						 }
 						 else if (t == class3 && c3 < 1)
 						 {
-							 pass[y] = finals[l][0].work[d];
+							 pass[y] = finals[0][l].work[d];
 							 c3++;
 							 d++;
 							 y++;
 						 }
 						 else if (t == class4 && c4 < 1)
 						 {
-							 pass[y] = finals[l][0].work[d];
+							 pass[y] = finals[0][l].work[d];
 							 c4++;
 							 d++;
 							 y++;
 						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][l].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][l].work[d];
+							 c6++;
+							 d++;
+							 y++;
+						 }
 
-					 } 
+					 }
 
 
 					 //FOR MWF
-					 string cu = finals[l][k].name;
+					 string cu = finals[k][l].name;
 					 cu.resize(5);
-					
+
 					 String^ s1 = gcnew String(cu.c_str());
 					 int i1 = 0;
-					 while (finals[l][k].work[i1] != n)
+					 while (finals[k][l].work[i1] != n)
 					 {
+						 string io = finals[k][l].work[i1];
 						 i1++;
 					 }
 					 for (int p1 = 0; p1 < 1; p1++)
 					 {
 						 if (s1 == class1 && c1 < 1)
 						 {
-							 pass[y] = finals[l][k].name;
+							 pass[y] = finals[k][l].name;
 							 c1++;
 							 y++;
 						 }
 						 else if (s1 == class2 && c2 < 1)
 						 {
-							 pass[y] = finals[l][k].name;
+							 pass[y] = finals[k][l].name;
 							 c2++;
 							 y++;
 
 						 }
 						 else if (s1 == class3 && c3 < 1)
 						 {
-							 pass[y] = finals[l][k].name;
+							 pass[y] = finals[k][l].name;
 							 c3++;
 							 y++;
 						 }
 						 else if (s1 == class4 && c4 < 1)
 						 {
-							 pass[y] = finals[l][k].name;
+							 pass[y] = finals[k][l].name;
 							 c4++;
 							 y++;
 						 }
+						 else if (s1 == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[k][l].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (s1 == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[k][l].work[d];
+							 c6++;
+							 d++;
+							 y++;
+						 }
 					 }
-				
+
 					 int d = 0;
-					 /* string c = finals[i][j].work[k];
-					 c.resize(5);
-					 String^ s = gcnew String(c.c_str());*/
+
 					 for (int x = 0; x < i1; x++)
 					 {
 						 for (int z = 0; z < i1; z++)
 						 {
-							 string w = finals[l][k].work[d];
+							 string w = finals[k][l].work[d];
 							 w.resize(5);
 							 String^ t = gcnew String(w.c_str());
 
 							 if (t == class1 && c1 < 1)
 							 {
-								 pass[y] = finals[l][k].work[d];
+								 pass[y] = finals[k][l].work[d];
 								 c1++;
 								 d++;
 								 y++;
 							 }
 							 else if (t == class2 && c2 < 1)
 							 {
-								 pass[y] = finals[l][k].work[d];
+								 pass[y] = finals[k][l].work[d];
 								 c2++;
 								 d++;
 								 y++;
@@ -1161,28 +1367,47 @@ namespace GroupProject {
 							 }
 							 else if (t == class3 && c3 < 1)
 							 {
-								 pass[y] = finals[l][k].work[d];
+								 pass[y] = finals[k][l].work[d];
 								 c3++;
 								 d++;
 								 y++;
 							 }
 							 else if (t == class4 && c4 < 1)
 							 {
-								 pass[y] = finals[l][k].work[d];
+								 pass[y] = finals[k][l].work[d];
 								 c4++;
 								 d++;
 								 y++;
 							 }
+							 else if (t == class5 && c5 < 1)
+							 {
+								 pass[y] = finals[k][l].work[d];
+								 c5++;
+								 d++;
+								 y++;
+							 }
+							 else if (t == class6 && c6 < 1)
+							 {
+								 pass[y] = finals[k][l].work[d];
+								 c6++;
+								 d++;
+								 y++;
+							 }
+
 
 						 }
-					 }					 
+					 }
 				 }
-			
+
+				 for (int op = 0; op < 5; op++)
+				 {
+					 string	 ty = finals[0][l].work[op];
+				 }
 				 vector<c> lastSched(pass.size());
 				 int b = 0;
 				 int q = 0;
 				 int t = 0;
-				 while (b < classesArray.size()-1)
+				 while (b < classesArray.size() - 1)
 				 {
 					 int u = 0;
 					 q = 0;
@@ -1199,130 +1424,130 @@ namespace GroupProject {
 						 }
 						 else
 						 {
-							q++; 
+							 q++;
 						 }
 						 u++;
-						 
+
 					 }
-					b++; 
+					 b++;
+				 }
+
+
+				 return lastSched;
+
+			 }
+			 void displayClasses(vector<c> all)
+			 {
+
+				 int count = 0;
+				 int j = 0, i = 0;
+				 while (j < all.size())
+				 {
+					 string r = all[j].name;
+					 string r1 = all[i].name;
+					 r.resize(5);
+					 r1.resize(5);
+					 if (r == r1)
+					 {
+
+						 j++;
+					 }
+					 else
+					 {
+						 string s = all[i].name;
+						 s.resize(5);
+						 String^ hola = gcnew String(s.c_str());
+						 textBox1->Text = textBox1->Text + hola + "\r\n";
+						 i = j;
+					 }
+
+
 				 }
 
 
 
-				 return lastSched;
-					
-			 }
-			 void displayClasses(vector<c> all)
-			 {
-				
-					 int count = 0;
-					 int j = 0, i = 0;
-					 while (j < all.size())
-					 {
-						 string r = all[j].name;
-						 string r1 = all[i].name;
-						 r.resize(5);
-						 r1.resize(5);
-						 if (r == r1)
-						 {
 
-							 j++;
-						 }
-						 else
-						 {	  
-							 string s = all[i].name;
-							 s.resize(5);
-							 String^ hola = gcnew String(s.c_str());
-							 textBox1->Text = textBox1->Text +  hola + "\r\n";
-							 i = j;
-						 }
-
-
-					 }
-						
-						
-					 
-				
 			 }
 
 
-			void readFile2(vector<c> & allc)
+			 void readFile2(vector<c> & allc)
 			 {
-				/* String^ class1 = textBox2->Text;
+				 /* String^ class1 = textBox2->Text;
 				 String^ class2 = textBox3->Text;
 				 String^ class3 = textBox4->Text;
 				 String^ class4 = textBox5->Text;
 				 String^ class5 = textBox6->Text;
 				 String^ class6 = textBox7->Text;*/
-
-				 String^ class1 = "PY115";
-				 String^ class2 = "QF115";
+				 String^ class1 = "PY215";
+				 String^ class2 = "QF315";
 				 String^ class3 = "EE201";
 				 String^ class4 = "MA116";
-			
+				 String^ class5 = "CS114";
+				 String^ class6 = "TU415";
+
 				 int place = 0;
-					 ifstream in("InputFile.txt");
+				 ifstream in("InputFile.txt");
 
-					 string line;
-					 int totalLines = lineCount();
+				 string line;
+				 int totalLines = lineCount();
 
-					 if (in.is_open())
+				 if (in.is_open())
+				 {
+					 while (!in.eof())
 					 {
-						 while (!in.eof())
+						 in >> line;
+						 int index = 0;
+
+						 while (index < totalLines)
 						 {
-							 in >> line;
-							 int index = 0;
+							 string p = line;
+							 p.resize(5);
+							 String^ s = gcnew String(p.c_str());
 
-							 while (index < totalLines)
+							 if (s == class1 || s == class2 || s == class3 ||
+								 s == class4 || s == class5 || s == class6)
 							 {
-								 string p = line;
-								 p.resize(5);
-								 String^ s = gcnew String(p.c_str());
+								 allc[place].name = line;
+								 in >> line;
 
-								 if (s == class1 || s == class2 || s == class3 ||
-									 s == class4)
-								 {
-									 allc[place].name = line;
-									 in >> line;
+								 allc[place].day = line;
+								 in >> line;
 
-									 allc[place].day = line;
-									 in >> line;
+								 allc[place].stime = stoi(line);
+								 in >> line;
 
-									 allc[place].stime = stoi(line);
-									 in >> line;
+								 allc[place].etime = stoi(line);
+								 in >> line;
 
-									 allc[place].etime = stoi(line);
-									 in >> line;
+								 allc[place].problems = 0;
 
-									 allc[place].problems = 0;
-
-									 place++;
-								 } 
-								 else
-								 {
-									 in >> line;
-									 in >> line;
-									 in >> line;
-									 in >> line;
-								 }
-								index++; 
+								 place++;
 							 }
-						  
+							 else
+							 {
+								 in >> line;
+								 in >> line;
+								 in >> line;
+								 in >> line;
+							 }
+							 index++;
 						 }
-						 in.close();
 
 					 }
-					 else
-					 {
-						 MessageBox::Show("File read 1 has failed");
-					 }
-					 
+					 in.close();
+
 				 }
-			 
+				 else
+				 {
+					 MessageBox::Show("File read 1 has failed");
+				 }
+
+			 }
+
 
 			 void workDefault(vector<c> & clas)
 			 {
-				 
+
 				 string s = "NULL";
 				 for (int i = 0; i < clas.size(); i++)
 				 {
@@ -1332,17 +1557,17 @@ namespace GroupProject {
 						 clas[i].work[j] = s;
 						 j++;
 					 }
-					 
+
 				 }
-				
+
 			 }
 
 
 			 /*
-			 Fills M,W,F and T,TH 
+			 Fills M,W,F and T,TH
 			 vectors with classes on respective days
 			 */
-			void fillVectors(vector<c> &  MWFarray, vector<c> & TTHarray, vector<c> Classesarray)
+			 void fillVectors(vector<c> &  MWFarray, vector<c> & TTHarray, vector<c> Classesarray)
 			 {
 				 int j = 0, h = 0;
 				 for (int i = 0; i < Classesarray.size(); i++)
@@ -1361,105 +1586,80 @@ namespace GroupProject {
 				 }
 			 }
 
-			
-
-
-	 //-------------------------------------Notes----------------------------------------------\\
-
-	 /*
-			 Thing to do
-
-			 1.Left of at when the worksCounter method returns the could of "real" wroks values it returns
-			 50 for EE201b when it should return 3. the two classes before that return the right numbers.
-			 set break point at line 588 --Chris--
-
-			 2.Start making the fails safes
-			
-			 3.Tweak coordinates for DrawSchedule
-			 4.Update graphics
-
-
-	*/
-
-	//========================================================================================\\
-
-
-	//-------------------------------------Graveyard------------------------------------------\\	
-
-	/*
-
-
-			 //Method that assigned each class a Period
-			 void periodInti(vector<c> & dayArray)
-			 {
-
-			 for (int j = 0; j < dayArray.size(); j++)
-			 {
-			 if (dayArray[j].stime < period2)
-			 {
-			 dayArray[j].period = 1;
-			 }
-			 else if (dayArray[j].stime < period3)
-			 {
-			 dayArray[j].period = 2;
-			 }
-			 else
-			 dayArray[j].period = 3;
-			 }
-			 }
 
 
 
-			 //From Init Method that assigned the peroids to the classes
-			 for (int j = 0; j < classnum.size(); j++)
-			 {
-			 if (classnum[j].stime < period2)
-			 {
-			 classnum[j].period = 1;
-			 }
-			 else if (classnum[j].stime < period3)
-			 {
-			 classnum[j].period = 2;
-			 }
-			 else
-			 classnum[j].period = 3;
-			 }
+			 //-------------------------------------Notes----------------------------------------------\\
+			 	
+			/*	Thing to do
+				 ++++++++++++++ + FIX EXPLODING VECTOR++++++++++++++
+				 1.Start making the fails safe
+				 2.Make DrawSchedule2 and DrawSchedule3
+				 3.Fix user imput
+				 4.implyment updated graphics
+				 5. add comments
+				 */
 
+				 //========================================================================================\\
 
-			 //Periods
-			 const int period1 = 800;
-			 const int period2 = 1100;
-			 const int period3 = 1400;
+				 //-------------------------------------Graveyard------------------------------------------\\	
+				 /*
+				 //Method that assigned each class a Period
+				 void periodInti(vector<c> & dayArray)
+				 {
+				 for (int j = 0; j < dayArray.size(); j++)
+				 {
+				 if (dayArray[j].stime < period2)
+				 {
+				 dayArray[j].period = 1;
+				 }
+				 else if (dayArray[j].stime < period3)
+				 {
+				 dayArray[j].period = 2;
+				 }
+				 else
+				 dayArray[j].period = 3;
+				 }
+				 }
+				 //From Init Method that assigned the peroids to the classes
+				 for (int j = 0; j < classnum.size(); j++)
+				 {
+				 if (classnum[j].stime < period2)
+				 {
+				 classnum[j].period = 1;
+				 }
+				 else if (classnum[j].stime < period3)
+				 {
+				 classnum[j].period = 2;
+				 }
+				 else
+				 classnum[j].period = 3;
+				 }
+				 //Periods
+				 const int period1 = 800;
+				 const int period2 = 1100;
+				 const int period3 = 1400;
+				 //I was just trying to see if I could get it to display the name in a textbox
+				 //Because I have not found an easy way to do it with a variable
+				 //It kinda works
+				 //Passes in the vector of al the classes on either TTh or MWF "k"
+				 //and the vector of the test class "classnum" and te place holder "j"
+				 void Try(vector<c> k, vector<c> & classnum, int j)
+				 {
+				 int q = 1;
+				 for (int qw = 0; qw < j; qw++)
+				 {
+				 if (q == 1)
+				 {
+				 //ignore the hola i copied it from online
+				 String^ hola = gcnew String(k[qw].name.c_str());
+				 textBox1->Text = hola;
+				 }
+				 }
+				 }
+				 */
 
-
-			 //I was just trying to see if I could get it to display the name in a textbox
-			 //Because I have not found an easy way to do it with a variable
-			 //It kinda works
-			 //Passes in the vector of al the classes on either TTh or MWF "k"
-			 //and the vector of the test class "classnum" and te place holder "j"
-			 void Try(vector<c> k, vector<c> & classnum, int j)
-			 {
-			 int q = 1;
-
-			 for (int qw = 0; qw < j; qw++)
-			 {
-			 if (q == 1)
-			 {
-			 //ignore the hola i copied it from online
-			 String^ hola = gcnew String(k[qw].name.c_str());
-			 textBox1->Text = hola;
-			 }
-			 }
-			 }
-
-
-
-
-
-	*/
-
-	//========================================================================================\\
-
+				 //========================================================================================\\
 
 
 
@@ -1469,10 +1669,10 @@ namespace GroupProject {
 
 
 	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	}
+			 }
 
 
 
 
-};
+	};
 }
