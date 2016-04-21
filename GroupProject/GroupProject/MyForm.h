@@ -1737,12 +1737,6 @@ namespace GroupProject {
 				 //========================================================================================\\
 
 
-
-
-
-
-
-
 	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 			 }
 
