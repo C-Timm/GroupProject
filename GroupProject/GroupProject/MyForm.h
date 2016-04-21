@@ -285,16 +285,16 @@ namespace GroupProject {
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
 		Drawing::Graphics^ g4;
-		Bitmap^ bmp = gcnew Bitmap(L"kava2.bmp");
+		/*Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");*/
 		
 
-		String^ class1 = "PY215";
-		String^ class2 = "QF315";
-		String^ class3 = "EE201";
-		String^ class4 = "MA116";
-		String^ class5 = "SM302";
-		String^ class6 = "TU415";
-	
+		String^ class1;
+		String^ class2;
+		String^ class3;
+		String^ class4;
+		String^ class5;
+		String^ class6;
+		int amountofclass = 0;
 
 
 	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
@@ -303,6 +303,7 @@ namespace GroupProject {
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
 		g4 = pictureBox4->CreateGraphics();
+
 		vector<c> Classarray(totalclassCount);
 		readFile(Classarray);
 		displayClasses(Classarray);
@@ -311,7 +312,41 @@ namespace GroupProject {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		g4->DrawImage(bmp, 0, 0);
+		class1 = textBox2->Text;
+		class2 = textBox3->Text;
+		class3 = textBox4->Text;
+		class4 = textBox5->Text;
+		class5 = textBox6->Text;
+		class6 = textBox7->Text;
+
+		if (class1 != "")
+		{
+			amountofclass++;
+		}
+		if (class2 != "")
+		{
+			amountofclass++;
+		}
+		if (class3 != "")
+		{
+			amountofclass++;
+		}
+		if (class4 != "")
+		{
+			amountofclass++;
+		}
+		if (class5 != "")
+		{
+			amountofclass++;
+		}
+		if (class6 != "")
+		{
+			amountofclass++;
+		}
+
+
+
+		/*g4->DrawImage(bmp, 0, 0);*/
 		vector<c> mwf0;	vector<c> tth0;
 		vector<c> mwf1; vector<c> tth1;
 		vector<c> mwf2; vector<c> tth2;
@@ -323,6 +358,7 @@ namespace GroupProject {
 		vector<c> Classesarray(totalclassCount);
 		readFile2(Classesarray);
 
+		int y = userlineCount(Classesarray);
 		Classesarray.resize(userlineCount(Classesarray));
 
 
@@ -347,214 +383,220 @@ namespace GroupProject {
 		
 
 		int x = 0, count;
-		while (x <= mwfnon)
+		if (mwfvecSize > 0)
 		{
-			switch (x)
+			while (x <= mwfnon)
 			{
-			case 0:
-			{
-				string mwf0Name = MWFarray[x].name;
-				int mwf0Size = classCount(MWFarray, mwf0Name);
-				mwf0.resize(mwf0Size);
-				init(MWFarray, mwf0, mwf0Name);
-				workDefault(mwf0);
-				times(mwf0, MWFarray);
-				for (int i = 0; i < mwf0Size; i++)
+				switch (x)
 				{
-					totalm[count2] = mwf0[i];
-					count2++;
-				}
-				count += mwf0Size;
-			}
-			break;
-			case 1:
-			{
-				string mwf1Name = MWFarray[count].name;
-				int mwf1Size = classCount(MWFarray, mwf1Name);
-				mwf1.resize(mwf1Size);
-				init(MWFarray, mwf1, mwf1Name);
-				workDefault(mwf1);
-				times(mwf1, MWFarray);
-				for (int i = 0; i < mwf1Size; i++)
+				case 0:
 				{
-					totalm[count2] = mwf1[i];
-					count2++;
+					string mwf0Name = MWFarray[x].name;
+					int mwf0Size = classCount(MWFarray, mwf0Name);
+					mwf0.resize(mwf0Size);
+					init(MWFarray, mwf0, mwf0Name);
+					workDefault(mwf0);
+					times(mwf0, MWFarray);
+					for (int i = 0; i < mwf0Size; i++)
+					{
+						totalm[count2] = mwf0[i];
+						count2++;
+					}
+					count += mwf0Size;
 				}
-				count += mwf1Size;
-			}
-			break;
-			case 2:
-			{
-				string mwf2Name = MWFarray[count].name;
-				int mwf2Size = classCount(MWFarray, mwf2Name);
-				mwf2.resize(mwf2Size);
-				init(MWFarray, mwf2, mwf2Name);
-				workDefault(mwf2);
-				times(mwf2, MWFarray);
-				for (int i = 0; i < mwf2Size; i++)
+				break;
+				case 1:
 				{
-					totalm[count2] = mwf2[i];
-					count2++;
+					string mwf1Name = MWFarray[count].name;
+					int mwf1Size = classCount(MWFarray, mwf1Name);
+					mwf1.resize(mwf1Size);
+					init(MWFarray, mwf1, mwf1Name);
+					workDefault(mwf1);
+					times(mwf1, MWFarray);
+					for (int i = 0; i < mwf1Size; i++)
+					{
+						totalm[count2] = mwf1[i];
+						count2++;
+					}
+					count += mwf1Size;
 				}
-				count += mwf2Size;
-			}
-			break;
-			case 3:
-			{
-				string mwf3Name = MWFarray[count].name;
-				int mwf3Size = classCount(MWFarray, mwf3Name);
-				mwf3.resize(mwf3Size);
-				init(MWFarray, mwf3, mwf3Name);
-				workDefault(mwf3);
-				times(mwf3, MWFarray);
-				for (int i = 0; i < mwf3Size; i++)
+				break;
+				case 2:
 				{
-					totalm[count2] = mwf3[i];
-					count2++;
+					string mwf2Name = MWFarray[count].name;
+					int mwf2Size = classCount(MWFarray, mwf2Name);
+					mwf2.resize(mwf2Size);
+					init(MWFarray, mwf2, mwf2Name);
+					workDefault(mwf2);
+					times(mwf2, MWFarray);
+					for (int i = 0; i < mwf2Size; i++)
+					{
+						totalm[count2] = mwf2[i];
+						count2++;
+					}
+					count += mwf2Size;
 				}
-				count += mwf3Size;
-			}
-			break;
-			case 4:
-			{
-				string mwf4Name = MWFarray[count].name;
-				int mwf4Size = classCount(MWFarray, mwf4Name);
-				mwf4.resize(mwf4Size);
-				init(MWFarray, mwf4, mwf4Name);
-				workDefault(mwf4);
-				times(mwf4, MWFarray);
-				for (int i = 0; i < mwf4Size; i++)
+				break;
+				case 3:
 				{
-					totalm[count2] = mwf4[i];
-					count2++;
+					string mwf3Name = MWFarray[count].name;
+					int mwf3Size = classCount(MWFarray, mwf3Name);
+					mwf3.resize(mwf3Size);
+					init(MWFarray, mwf3, mwf3Name);
+					workDefault(mwf3);
+					times(mwf3, MWFarray);
+					for (int i = 0; i < mwf3Size; i++)
+					{
+						totalm[count2] = mwf3[i];
+						count2++;
+					}
+					count += mwf3Size;
 				}
-				count += mwf4Size;
-			}
-			break;
-			case 5:
-			{
-				string mwf5Name = MWFarray[count].name;
-				int mwf5Size = classCount(MWFarray, mwf5Name);
-				mwf5.resize(mwf5Size);
-				init(MWFarray, mwf5, mwf5Name);
-				workDefault(mwf5);
-				times(mwf5, MWFarray);
-				for (int i = 0; i < mwf5Size; i++)
+				break;
+				case 4:
 				{
-					totalm[count2] = mwf5[i];
-					count2++;
+					string mwf4Name = MWFarray[count].name;
+					int mwf4Size = classCount(MWFarray, mwf4Name);
+					mwf4.resize(mwf4Size);
+					init(MWFarray, mwf4, mwf4Name);
+					workDefault(mwf4);
+					times(mwf4, MWFarray);
+					for (int i = 0; i < mwf4Size; i++)
+					{
+						totalm[count2] = mwf4[i];
+						count2++;
+					}
+					count += mwf4Size;
 				}
-				count += mwf5Size;
+				break;
+				case 5:
+				{
+					string mwf5Name = MWFarray[count].name;
+					int mwf5Size = classCount(MWFarray, mwf5Name);
+					mwf5.resize(mwf5Size);
+					init(MWFarray, mwf5, mwf5Name);
+					workDefault(mwf5);
+					times(mwf5, MWFarray);
+					for (int i = 0; i < mwf5Size; i++)
+					{
+						totalm[count2] = mwf5[i];
+						count2++;
+					}
+					count += mwf5Size;
+				}
+				break;
+				}
+				x++;
 			}
-			break;
-			}
-			x++;
+
 		}
-
-
 		int u = 0, count1 = 0, count3 = 0;
-		while (u <= tthnon)
+
+		if (tthvecSize > 0)
 		{
-			switch (u)
+			while (u <= tthnon)
 			{
-			case 0:
-			{
-				string tth0Name = TTHarray[u].name;
-				int tth0Size = classCount(TTHarray, tth0Name);
-				tth0.resize(tth0Size);
-				init(TTHarray, tth0, tth0Name);
-				workDefault(tth0);
-				times(tth0, TTHarray);
-				for (int i = 0; i < tth0Size; i++)
+				switch (u)
 				{
-					totalt[count3] = tth0[i];
-					count3++;
-				}
-				count1 += tth0Size;
-			}
-			break;
-			case 1:
-			{
-				string tth1Name = TTHarray[count1].name;
-				int tth1Size = classCount(TTHarray, tth1Name);
-				tth1.resize(tth1Size);
-				init(TTHarray, tth1, tth1Name);
-				workDefault(tth1);
-				times(tth1, TTHarray);
-				for (int i = 0; i < tth1Size; i++)
+				case 0:
 				{
-					totalt[count3] = tth1[i];
-					count3++;
+					string tth0Name = TTHarray[u].name;
+					int tth0Size = classCount(TTHarray, tth0Name);
+					tth0.resize(tth0Size);
+					init(TTHarray, tth0, tth0Name);
+					workDefault(tth0);
+					times(tth0, TTHarray);
+					for (int i = 0; i < tth0Size; i++)
+					{
+						totalt[count3] = tth0[i];
+						count3++;
+					}
+					count1 += tth0Size;
 				}
-				count1 += tth1Size;
-			}
-			break;
-			case 2:
-			{
-				string tth2Name = TTHarray[count1].name;
-				int tth2Size = classCount(TTHarray, tth2Name);
-				tth2.resize(tth2Size);
-				init(TTHarray, tth2, tth2Name);
-				workDefault(tth2);
-				times(tth2, TTHarray);
-				for (int i = 0; i < tth2Size; i++)
+				break;
+				case 1:
 				{
-					totalt[count3] = tth2[i];
-					count3++;
+					string tth1Name = TTHarray[count1].name;
+					int tth1Size = classCount(TTHarray, tth1Name);
+					tth1.resize(tth1Size);
+					init(TTHarray, tth1, tth1Name);
+					workDefault(tth1);
+					times(tth1, TTHarray);
+					for (int i = 0; i < tth1Size; i++)
+					{
+						totalt[count3] = tth1[i];
+						count3++;
+					}
+					count1 += tth1Size;
 				}
-				count1 += tth2Size;
-			}
-			break;
-			case 3:
-			{
-				string tth3Name = TTHarray[count1].name;
-				int tth3Size = classCount(TTHarray, tth3Name);
-				tth3.resize(tth3Size);
-				init(TTHarray, tth3, tth3Name);
-				workDefault(tth3);
-				times(tth3, TTHarray);
-				for (int i = 0; i < tth3Size; i++)
+				break;
+				case 2:
 				{
-					totalt[count3] = tth3[i];
-					count2++;
+					string tth2Name = TTHarray[count1].name;
+					int tth2Size = classCount(TTHarray, tth2Name);
+					tth2.resize(tth2Size);
+					init(TTHarray, tth2, tth2Name);
+					workDefault(tth2);
+					times(tth2, TTHarray);
+					for (int i = 0; i < tth2Size; i++)
+					{
+						totalt[count3] = tth2[i];
+						count3++;
+					}
+					count1 += tth2Size;
 				}
-				count1 += tth3Size;
-			}
-			break;
-			case 4:
-			{
-				string tth4Name = TTHarray[count1].name;
-				int tth4Size = classCount(TTHarray, tth4Name);
-				tth4.resize(tth4Size);
-				init(TTHarray, tth4, tth4Name);
-				workDefault(tth4);
-				times(tth4, TTHarray);
-				for (int i = 0; i < tth4Size; i++)
+				break;
+				case 3:
 				{
-					totalt[count3] = tth4[i];
-					count2++;
+					string tth3Name = TTHarray[count1].name;
+					int tth3Size = classCount(TTHarray, tth3Name);
+					tth3.resize(tth3Size);
+					init(TTHarray, tth3, tth3Name);
+					workDefault(tth3);
+					times(tth3, TTHarray);
+					for (int i = 0; i < tth3Size; i++)
+					{
+						totalt[count3] = tth3[i];
+						count2++;
+					}
+					count1 += tth3Size;
 				}
-				count1 += tth4Size;
-			}
-			break;
-			case 5:
-			{
-				string tth5Name = TTHarray[count1].name;
-				int tth5Size = classCount(TTHarray, tth5Name);
-				tth5.resize(tth5Size);
-				init(TTHarray, tth5, tth5Name);
-				workDefault(tth5);
-				times(tth5, TTHarray);
-				for (int i = 0; i < tth5Size; i++)
+				break;
+				case 4:
 				{
-					totalt[count3] = tth5[i];
-					count2++;
+					string tth4Name = TTHarray[count1].name;
+					int tth4Size = classCount(TTHarray, tth4Name);
+					tth4.resize(tth4Size);
+					init(TTHarray, tth4, tth4Name);
+					workDefault(tth4);
+					times(tth4, TTHarray);
+					for (int i = 0; i < tth4Size; i++)
+					{
+						totalt[count3] = tth4[i];
+						count2++;
+					}
+					count1 += tth4Size;
 				}
-				count1 += tth5Size;
+				break;
+				case 5:
+				{
+					string tth5Name = TTHarray[count1].name;
+					int tth5Size = classCount(TTHarray, tth5Name);
+					tth5.resize(tth5Size);
+					init(TTHarray, tth5, tth5Name);
+					workDefault(tth5);
+					times(tth5, TTHarray);
+					for (int i = 0; i < tth5Size; i++)
+					{
+						totalt[count3] = tth5[i];
+						count2++;
+					}
+					count1 += tth5Size;
+				}
+				break;
+				}
+				u++;
 			}
-			break;
-			}
-			u++;
 		}
 
 		int mwf = mwfvecSize + 1;
@@ -587,12 +629,20 @@ namespace GroupProject {
 
 				 int s = tt;
 				 int v = tm;
+			
 
 					 for (int s = 0; s < tt; s++)
 					 {
+						 if (tm == 1)
+						 {
+							 if (finals[0][s].take == true)
+							 {
+								 DrawSchedule(finals, s, v, classesArray);
+							 }
+						 }
 						 for (int v = 1; v < tm; v++)
 						 {
-
+							 
 							 
 
 							 if (finals[0][s].take == true && finals[v][s].take == true)
@@ -645,7 +695,7 @@ namespace GroupProject {
 						 {
 							   finals[p][i].take = true;
 						 
-						
+	
 								 for (int j = 1; j < tm; j++)
 									 {
 										 if (classCheck(finals, allclas, i, j) == true)
@@ -757,6 +807,7 @@ namespace GroupProject {
 				 int finCount = worksCounter(finals, i, j);
 				 int mclasses = mCount(allclass) -1;
 				 int tclasses = tCount(allclass) -1;
+
 				 if (finCount == 50)
 				 {
 					 finals[i][j].take = false;
@@ -1064,7 +1115,7 @@ namespace GroupProject {
 
 			 int userlineCount(vector<c> & a)
 			 {
-				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 /*String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
 				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
 				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
 				
@@ -1075,8 +1126,8 @@ namespace GroupProject {
 					 c.resize(5);
 					 String^ s = gcnew String(c.c_str());
 
-					 if (s == class1 || s == class2 || s == class3 || s == class4 
-						 || s == class5 || s == class6)
+					 if ((s == class1 || s == class2 || s == class3 || s == class4 
+						 || s == class5 || s == class6) && s != "")
 					 {
 						 count++;
 					 }
@@ -1266,32 +1317,32 @@ namespace GroupProject {
 					 textBox8->Text = textBox8->Text + hola + "\r\n";
 				 }
 
-				 int x;
+				 int y;
 				 int b, h;
-				 int y1, y2, y3;
+				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
-					 b = (fnsched[i].etime - fnsched[i].stime) / 2;
-					 h = 72;
-					 x = (fnsched[i].stime - 500) / 6;
+					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
+					 b = 130;
+					 y = (fnsched[i].stime - 500) / 3;
 					 if (fnsched[i].day == "MWF")
 					 {
-						 y1 = 0;
-						 y2 = 144;
-						 y3 = 288;
-						 Rectangle gridRect1 = Rectangle(x, y1, b, h);
-						 Rectangle gridRect2 = Rectangle(x, y2, b, h);
-						 Rectangle gridRect3 = Rectangle(x, y3, b, h);
+						 x1 = -40;
+						 x2 = 70;
+						 x3 = 180;
+						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
+						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
 						 g1->DrawIcon(clas, gridRect1);
 						 g1->DrawIcon(clas, gridRect2);
 						 g1->DrawIcon(clas, gridRect3);
 					 }
 					 else
 					 {
-						 y1 = 72;
-						 y2 = 216;
-						 Rectangle gridRect4 = Rectangle(x, y1, b, h);
-						 Rectangle gridRect5 = Rectangle(x, y2, b, h);
+						 x1 = 15;
+						 x2 = 125;
+						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
 						 g1->DrawIcon(clas, gridRect4);
 						 g1->DrawIcon(clas, gridRect5);
 					 }
@@ -1304,7 +1355,7 @@ namespace GroupProject {
 				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
 				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
 				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
-				 vector<string> pass(6);
+				 vector<string> pass(amountofclass);
 				 string c0 = finals[0][l].name;
 				 c0.resize(5);
 				 string n = "NULL";
@@ -1568,30 +1619,38 @@ namespace GroupProject {
 			 void displayClasses(vector<c> all)
 			 {
 				
-
-					 int count = 0;
+				
+					
 					 int j = 0, i = 0;
-					 while (j < all.size())
+					 
+					 for (int cl = 0; cl < all.size(); cl++)
 					 {
-						 string r = all[j].name;
-						 string r1 = all[i].name;
+						 for (int cl1 = 0; cl1 < all.size(); cl1++)
+						 {
+
+						 int u = all.size();
+						 string r = all[cl].name;
+						 string r1 = all[cl1].name;
 						 r.resize(5);
 						 r1.resize(5);
-						 if (r != r1)
+						 
+						 if (r != r1 || cl1 == 0)
 						 {
-							 string s = all[i].name;
-							 s.resize(5);
-							 String^ hola = gcnew String(s.c_str());
+
+							 String^ hola = gcnew String(r1.c_str());
 							 textBox1->Text = textBox1->Text + hola + "\r\n";
-							 i = j;
-							 
+							 cl = cl1;
+
 						 }
 						 else
 						 {
+						
 							 j++;
-						 }
+						 } 
+						 }	 
+						}
 					 }
-			 }
+			 
 			 void readFile2(vector<c> & allc)
 			 {
 				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
