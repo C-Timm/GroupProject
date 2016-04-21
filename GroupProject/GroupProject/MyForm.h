@@ -312,12 +312,12 @@ namespace GroupProject {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		class1 = textBox2->Text;
-		class2 = textBox3->Text;
-		class3 = textBox4->Text;
-		class4 = textBox5->Text;
-		class5 = textBox6->Text;
-		class6 = textBox7->Text;
+		class1 = textBox2->Text->ToUpper();
+		class2 = textBox3->Text->ToUpper();
+		class3 = textBox4->Text->ToUpper();
+		class4 = textBox5->Text->ToUpper();
+		class5 = textBox6->Text->ToUpper();
+		class6 = textBox7->Text->ToUpper();
 
 		if (class1 != "")
 		{
@@ -633,13 +633,13 @@ namespace GroupProject {
 
 					 for (int s = 0; s < tt; s++)
 					 {
-						 if (tm == 1)
+						 /*if (tm == 1)
 						 {
 							 if (finals[0][s].take == true)
 							 {
 								 DrawSchedule(finals, s, v, classesArray);
 							 }
-						 }
+						 }*/
 						 for (int v = 1; v < tm; v++)
 						 {
 							 
@@ -1675,7 +1675,7 @@ namespace GroupProject {
 							 string p = line;
 							 p.resize(5);
 							 String^ s = gcnew String(p.c_str());
-
+							
 							 if (s == class1 || s == class2 || s == class3 ||
 								 s == class4 || s == class5 || s == class6)
 							 {
