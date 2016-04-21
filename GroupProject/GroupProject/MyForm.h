@@ -270,6 +270,7 @@ namespace GroupProject {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		//Vector for each MWF class and TTH class	
 		vector<c> mwf0;	vector<c> tth0;
 		vector<c> mwf1; vector<c> tth1;
 		vector<c> mwf2; vector<c> tth2;
@@ -277,33 +278,53 @@ namespace GroupProject {
 		vector<c> mwf4; vector<c> tth4;
 		vector<c> mwf5; vector<c> tth5;
 		
-		
+		//Vector of all the classes the user has selected
 		vector<c> Classesarray(totalclassCount);
+		//inilizes the classesarray 
 		readFile2(Classesarray);
-
+		//resizes Classes to the total number of classes and sections 
 		Classesarray.resize(userlineCount(Classesarray));
 
-
+		//size of mwf vectors and tth vecotrs
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
-
+	
+		//vector of total mwf classes and tth classes
 		vector<c> totalm(mwfvecSize);
 		vector<c> totalt(tthvecSize);
 
 
-		//Vector of classes on M,W,F and T,TH 
+		// Vector of classes on M,W,F and T,TH 
 		vector<c> MWFarray(mwfvecSize);
 		vector<c> TTHarray(tthvecSize);
-
+		
+		// Initializes the MWFarray and TTHarray vectors using the Classesarray vector
 		fillVectors(MWFarray, TTHarray, Classesarray);
 
 
 		
 		int count2 = 0;
+		//Constraints for the while loops
 		int mwfnon = numofnames(MWFarray);
 		int tthnon = numofnames(TTHarray);
 		
 
+		//------inilizes the mwf0-5 vector and the totalm vecotor--------\\
+		// while goes for how ever many mwf classes and only inilizes
+		// mwf0-5 to the number of mwf classes
+		
+		/*
+		//----------------------------------Switch statement run walk through-----------------------------------------\\
+		  	1. gets class name 
+		  	2. gets number of section of that class
+		  	3. sets the class vecotr size
+		  	4. inilizes class the vector 
+		  	5. sets the 'work' struct array to default aka "NULL"
+		  	6. Checks teh times and fill 'work' with non conflicting classes
+		  	7. loops throught the class vector and puts its vaules in the totalm (total mwf class vector)
+		  	8. adds the size of that classes vecotr to the count so that the next case can grab the next class name 
+		*/
+		
 		int x = 0, count;
 		while (x <= mwfnon)
 		{
@@ -409,7 +430,23 @@ namespace GroupProject {
 			x++;
 		}
 
-
+		//------inilizes the tt0-5 vector and the totalm vecotor--------\\
+		// while goes for how ever many tth classes and only inilizes
+		// mwf0-5 to the number of tth classes
+		
+		
+			/*
+		//----------------------------------Switch statement run walk through-----------------------------------------\\
+		  	1. gets class name 
+		  	2. gets number of section of that class
+		  	3. sets the class vecotr size
+		  	4. inilizes class the vector 
+		  	5. sets the 'work' struct array to default aka "NULL" for each section 
+		  	6. checks the times and fills 'work' class names with non conflicting class
+		  	7. loops throught the class vector and puts its vaules in the totalm (total tth class vector)
+		  	8. adds the size of that classes vecotr to the count so that the next case can grab the next class name 
+		*/
+		
 		int u = 0, count1 = 0, count3 = 0;
 		while (u <= tthnon)
 		{
@@ -517,21 +554,30 @@ namespace GroupProject {
 
 		int mwf = mwfvecSize + 1;
 		int tth = tthvecSize;
-
 		vector<vector<c>> finalsched(mwf, vector<c>(tth));
-
 		sort2(totalm, totalt, finalsched);
-		
-
 		sort3(finalsched,Classesarray, tth, mwf);
 		passtoDraw(finalsched, tth, mwf, Classesarray);
 
   }
-
-
-
-
-
+  
+			/*
+			 =======================================================
+			 function:
+			  Check to see if the 'take' boolean of each class
+			  in the 2D vector is true or false using the 
+			  the size of the 'totalm' and 'totalt'.
+			  if the mwf class(finals[v][s]) and the tth class
+			  (finals[0][s]) are true it passes them to the 
+			  'DrawSchedule()' method
+			 
+			 parameters:
+			 vector<vector<c>> & finals - vector<vector<c>> finals
+			 int tt - constrainter and the size is finals[][size]
+			 int tm - constrainter and the size is finals[size][]
+			 vector<c> & classesArray - vector<c> Classesarray
+			 ========================================================
+			 */
 			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
 			 {
 				 srand(time(NULL));
@@ -588,7 +634,30 @@ namespace GroupProject {
 				 }
 			   
 			 }
-
+			/*
+			 =====================================================
+			 function:
+			  initializes the 'take' boolean in the struct. 
+			  if 'classCheck()' method come back true and the 
+			  'workCheck()' method comes back true it sets the 
+			  'take' boolean for that class either
+			  (finals[p][i] or finals[j][i]) to true. and 
+			  if 'classCheck()' method and the 'workCheck()'method
+			  come back false set that class
+			  (finals[p][i] or finals[j][i]) to false
+		
+			 parameters:
+			 vector<vector<c>> & finals - vector<vector<c>> finals
+			 vector <c> allclas - vector<c> Classesarray
+			 int tt - size of totalt vector 
+			 	  (also size of the the finals[][size])
+			 int tm - size of totalm vector + 1
+			 	  (also size of the the finals[size][])  
+			 	  
+			 finals[p][i] - tth classes
+			 finals[j][i] - mwf classes
+			 ======================================================
+			 */
 			 void sort3(vector<vector<c>> & finals,vector <c> allclas, int tt, int tm)
 			 {
 
@@ -639,6 +708,25 @@ namespace GroupProject {
 				 }
 
 			 }
+			 /*
+			 =====================================================
+			 function: 
+			  Check to see if there is any comflicting classes in
+			  the 'work' array, which getts called in 'sort3()' 
+			  method
+			 
+			 parameters:
+			 vector<vector<c>> & finals - vector<vector<c>> finals
+			 vector <c> allclass - vector<c> Classesarray
+			 int j - place hold for finals[j][]
+			 int i - place hold for finals[][i]
+			
+			 returns:
+			 	 true - if no classes in 'work' conflict
+			 	 flase - if a class in 'wokr' conflict or 
+			 	 	 if 'work' is empty
+			 ======================================================
+			 */
 			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, int i, int j)
 			 {
 				
@@ -703,7 +791,29 @@ namespace GroupProject {
 					 }
 				 return true;
 			 }
-														  // i	   p
+			 /*
+			 =====================================================
+			 function:
+			  Check to see if the 2D vector and the work array
+			  with is has all the classes the user has selected
+			  which getts called in 'sort3()' method
+			 
+			 parameters:
+			 vector<vector<c>> & finals - vector<vector<c>> finals
+			 vector <c> allclass - vector<c> Classesarray
+			 int j - place holder for vector<vector<c>> finals
+			 int i - place holder for vector<vector<c>> finals
+			 
+			 returns:
+			     	 true - if finals[i][j] and the finals.work[] 
+			     	        has all the classes the user selcted
+			     	        
+			     	 false - if finals[i][j] and the finals.work[] 
+			     	         DOES NOT have all the classes the 
+			     	         user selcted 
+			 ======================================================
+			 */
+											  // i	   p
 			 bool classCheck(vector<vector<c>> & finals, vector <c> allclass, int j, int i)
 			 {
 				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
@@ -773,7 +883,24 @@ namespace GroupProject {
 					 return false;
 				 }
 			 }
-
+			/*
+			 =====================================================
+			 function:
+			  loops throught the 'work' array and 
+			  counts all the "real" vaules. every time the value
+			  IS NOT "NULL" then the count goes up, which is then
+			  used for the constraint of the while loop in
+			  'classCheck' method
+			 
+			 parameters:
+			 vector<vector<c>> & finals - vector<vector<c>> finals
+			 int i - place hold for the 2D vector
+			 int j- place hold for the 2D vector
+			 
+			 returns: int 
+			 	number of real vaules in 'work' array
+			 ======================================================
+			 */
 
 			 int worksCounter(vector<vector<c>> & finals, int i, int j)
 			 {
@@ -797,7 +924,20 @@ namespace GroupProject {
 
 				 return count;
 			 }
-
+			/*
+			 =====================================================
+			 function:
+			  Counts the number of the classes on mwf but not the
+			  number of sections for that class, which is passed
+			  back to the classCheck method to test if the 
+			  classes work array has all the classes
+			 
+			 parameters:
+			  vector<c> allclass - vector<c> Classesarray
+			 
+			 returns: int
+			 ======================================================
+			 */
 			 int mCount(vector<c> allclass)
 			 {	 
 				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
@@ -849,7 +989,20 @@ namespace GroupProject {
 
 				 return count;
 			 }
-
+			/*
+			 =====================================================
+			 function: 
+			  Counts the number of the classes on tth but not the
+			  number of sections for that class, which is passed
+			  back to the classCheck method to test if the 
+			  classes work array has all the classes
+			 
+			 parameters:
+			  vector<c> allclass - vector<c> Classesarray
+			 
+			 returns: int
+			 ======================================================
+			 */
 			 int tCount(vector<c> allclass)
 			 {
 				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
@@ -901,7 +1054,24 @@ namespace GroupProject {
 
 				 return count;
 			 }
-
+			 /*
+			 =========================================================
+			 function:
+			  initializes the 2D vector
+			  all the ttm classes are at 
+			  [0][0-number of tth class]
+			  all the mwf classed are at 
+			  [1-number of mwf classes][1-number of mwf classes]
+			  
+			  using the totalm (total mwf vector) 
+			  and the totalt (total tth vecotr)
+			 
+			 parameters:
+			  vector<c> & tm - vector<c> totalm
+			  vector<c> & tt - vector<c> totalt
+			  vector<vector<c>> & finals - vector<vector<c>> finalsched
+			 ==========================================================
+			 */
 			 void sort2(vector<c> & tm, vector<c> & tt, vector<vector<c>> & finals)
 			 {
 
@@ -926,9 +1096,18 @@ namespace GroupProject {
 
 			 }
 			 /*
-			 Method that checks if times of classes overlap or not
-			 and fills the array that holds all the classes that
-			 DO NOT conflict with the test class
+			 =====================================================
+			 function:
+			  Checks to see if the class times overlap or not
+			  and fills the'work' array that holds all the classes 
+			  that DO NOT conflict with the test class
+			 
+			 parameters:
+			 vector<c> & testClass -either vector<c> mwf0-5
+			 			    or vector<c> tth0-5
+			 vector<c> allClass -either vector<c> MWFarray
+			 			 or vector<C> TTHarray
+			 ======================================================
 			 */
 			 void times(vector<c> & testClass, vector<c> allClass)
 			 {
@@ -981,13 +1160,23 @@ namespace GroupProject {
 				}
 				 
 			 }
-
+			/*
+			 =====================================================
+			 function:
+			  Used to take sureit doesnt store duplicate classes
+			  the works array.
+			  Checks to see if the class name that is getting test
+			  in "times" is the same as the class it is getting 
+			  tested against 
 			 
-			 /*
-			 Checks to see if the
-			 class name is the same or not
-			 and returns false if the class
-			 name is the same
+			 parameters: 
+			  string test - test class name
+			  string all - the name of the class the its getting tes
+			 
+			 returns:
+			 	true - if 'test' is different from 'all'
+			 	false -if 'test' and 'all' are the same
+			 ======================================================
 			 */
 			 bool sort1(string test, string all)
 			 {
@@ -1000,6 +1189,14 @@ namespace GroupProject {
 
 				 return true;
 			 }
+			 /*
+			 =====================================================
+			 function:
+			  Counts the total number of lines in the text file
+			 
+			 returns: int
+			 ======================================================
+			 */
 			 /*
 			 Counts number of lines  int the file
 			 */
@@ -1019,7 +1216,20 @@ namespace GroupProject {
 				 }
 				 return numlines;
 			 }
-
+			/*
+			 =====================================================
+			 function:
+			  Counts the total number of class and sections the 
+			  user has selected, whcih is used for the 
+			  Classesarray vecotr resize
+			 
+			 parameters:
+			 vector<c> & a - vector<c> Classesarray
+			 
+			 returns: int
+			    acutal size of the Classesarray vector
+			 ======================================================
+			 */
 			 int userlineCount(vector<c> & a)
 			 {
 				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
@@ -1042,8 +1252,18 @@ namespace GroupProject {
 				 return count;
 			 }
 			 /*
-			 initilizes each class
-			 vector with the class
+			 =====================================================
+			 function 
+			  initilizes each class vector. Using the name of the
+			  class and the MWFarray or the TTHarray, based in the 
+			  name of the class
+			  
+			 parameters:
+			  vector<c> & allclass
+			  vector<c> & classnum - the class vector either
+			  	vector<c> tth0-5 or vecotr<c> mwf0-6
+			  string & j - name of that class
+			 ======================================================
 			 */
 			 void init(vector<c> & allclass, vector<c> & classnum, string & j)
 			 {
@@ -1061,11 +1281,16 @@ namespace GroupProject {
 					 }
 				 }
 			 }
-
-			 /*
-			 Reads in the text file of classes
-			 assigns all the classes to the array
-			 of all the Classes
+			/*
+			 =====================================================
+			 function:
+			  Reads in the text file of classes and initializes
+			  the Classes vector, that then gets displayed to
+			  TextBox1 for the user to select classes
+			 
+			 parameters:
+			  vector<c> & classes - vecotr<c> Classes
+			 ======================================================
 			 */
 			 void readFile(vector<c> & classes)
 			 {
@@ -1109,7 +1334,21 @@ namespace GroupProject {
 					 MessageBox::Show("File read 1 has failed");
 				 }
 			 }
-
+			/*
+			 =====================================================
+			 function:
+			  Counts of sections offered for a class
+			  which is used to initlize  the size ofthe individual
+			  class vector
+			 parameters:
+			  vector<c> & classVec - either vector<c> MWFarray 
+			  			     or vector<c> TTHarray
+			  string className - Class name 
+			 
+			 returns: int 
+			 	number of the Class sections 
+			 ======================================================
+			 */
 			 /*
 			 Returns the count of sections offered for a class
 			 which is used to initlize that class vector
@@ -1130,11 +1369,19 @@ namespace GroupProject {
 				 return count;
 			 }
 
-
-			 /*
-			 returns the counts the number of all the
-			 class on Monday, Wednesday, and Friday
-			 for the size of the mmwf vector
+			/*
+			 =====================================================
+			 function:
+			  Counts the number of classes on MWF that 
+			  user selcted. Which is used for the size of the
+			  MWFarray
+			 
+			 parameters:
+			  vector<c> &ac - vector<c> MWFarray
+			 
+			 returns: int
+			  number of MWF classes has selected 
+			 ======================================================
 			 */
 			 int MWFcount(vector<c> ac)
 			 {
@@ -1153,9 +1400,18 @@ namespace GroupProject {
 			 }
 
 			 /*
-			 returns the counts the number of all the
-			 class on Tuesday and Thursday
-			 for the size of the tth vector
+			 =====================================================
+			 function:
+			  Counts the number of classes on TTH that 
+			  user selcted. Which is used for the size of the
+			  TTHarray
+			 
+			 parameters:
+			  vector<c> &ac - vector<c> TTHarray
+			 
+			 returns: int
+			  number of TTH classes that user has selected 
+			 ======================================================
 			 */
 			 int TThcount(vector<c> & ac)
 			 {
@@ -1171,10 +1427,20 @@ namespace GroupProject {
 				 return count;
 
 			 }
-
+			 
 			 /*
-			 to count the number of each
-			 type of classes on MWF and TTH
+			 =====================================================
+			 function:
+			  count the number of each class section
+			  on MWF and TTH. Used in the while loop for the 
+			  switch statments constratates.
+			 
+			 parameters: 
+			  vector<c> & qw -either vector<c> MWFarray 
+			  		      or vector<c> TTHarray 
+			  returns: int
+			   number of classes on TTH or MWF
+			 ======================================================
 			 */
 			 int numofnames(vector<c> & qw)
 			 {
@@ -1196,8 +1462,6 @@ namespace GroupProject {
 						 count++;
 						 i = j;
 					 }
-
-
 				 }
 				 return count;
 			 }
@@ -1205,15 +1469,17 @@ namespace GroupProject {
 			/*
 			 =====================================================
 			 function:
-			  Draws the Schedule 
-			  takes in the 2D vector for classes that work
+			  Draws the first Schedule takes in the
+			  2D vector for classes that work, the int place holders
+			  for the 2D vecoter and the vectors for all the classes
+			  that gets passed the the "finalSort" method.
+			  
 			 parameters:
+			  vector<vector<c>> & finals - vector<vector<c>> finals
+			  int s  - place holder for the y 2D vector [][y] 
+			  int v - place holder for the x 2D vector [x][]
+			  vector<c> & classesArray - vector<c> classesArray
 			 ======================================================
-			 */
-			 /*
-			 Draws the Schedule
-			 takes in the vector of the final
-			 schedule and the size of the vector
 			 */
 			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, vector<c> & classesArray) {
 
@@ -1301,7 +1567,9 @@ namespace GroupProject {
 				 int i = 0;	 int c6 = 0;
 				 String^ s = gcnew String(c0.c_str());
 				 int jk = l;
+				 
 			//----------Checkes the TTH Classes in the finals[][] vector-------------\\
+			
 				 while (finals[0][l].work[i] != n)
 				 {
 					 string k = finals[0][l].work[i];
@@ -1597,6 +1865,7 @@ namespace GroupProject {
 			   Reads text file of all the classes offered (again)
 			   initializes the "ClassesArray' vecotr to just the 
 			   the classes the user has selected  
+			   
 			  parameters: 
 			  	vector<c> allc - vector<c> ClassesArray
 			 ======================================================
@@ -1671,6 +1940,7 @@ namespace GroupProject {
 			 Function :
 			  Takes in the Individual class vector 
 			  initializes the struct array 'work' to "NULL" 
+			 
 			 parameter:
 			  vector<c> & clas - either vector<c> tth0-5 
 			 			or vector<c> mwf0-6
@@ -1728,16 +1998,6 @@ namespace GroupProject {
 					 }
 				 }
 			 }
-
-			/*
-			 =====================================================
-			 function:
-			 
-			 parameters:
-			 ======================================================
-			 */
-
-
 			 //-------------------------------------Notes----------------------------------------------\\
 			 	
 			/*	Thing to do
