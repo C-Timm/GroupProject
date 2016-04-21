@@ -297,7 +297,7 @@ namespace GroupProject {
 
 		fillVectors(MWFarray, TTHarray, Classesarray);
 
-
+		int wer = TTHarray.size();
 
 		int count2 = 0;
 		int mwfnon = numofnames(MWFarray);
@@ -413,6 +413,7 @@ namespace GroupProject {
 		int u = 0, count1 = 0, count3 = 0;
 		while (u <= tthnon)
 		{
+			int trwe = tthnon;
 			switch (u)
 			{
 			case 0:
@@ -425,6 +426,8 @@ namespace GroupProject {
 				times(tth0, TTHarray);
 				for (int i = 0; i < tth0Size; i++)
 				{
+					string uiro = tth0[0].name;
+					string uio = tth0[i].work[i];
 					totalt[count3] = tth0[i];
 					count3++;
 				}
@@ -505,6 +508,8 @@ namespace GroupProject {
 				times(tth5, TTHarray);
 				for (int i = 0; i < tth5Size; i++)
 				{
+					string uiro = tth5[1].name;
+					string uio = tth5[1].work[i];
 					totalt[count3] = tth5[i];
 					count2++;
 				}
@@ -523,8 +528,14 @@ namespace GroupProject {
 
 		sort2(totalm, totalt, finalsched);
 		
-
+		
 		sort3(finalsched,Classesarray, tth, mwf);
+		for (int er = 0; er < 10; er++)
+		{
+		string uiro = totalt[0].name;
+		string uio = totalt[0].work[er];
+		}
+		
 		passtoDraw(finalsched, tth, mwf, Classesarray);
 
 	}
@@ -717,7 +728,7 @@ namespace GroupProject {
 				 int k = 0;
 				 string u = finals[i][j].name;
 				 int finCount = worksCounter(finals, i, j);
-				 if (finCount < 50)
+				 if (finCount == 50)
 				 {
 					 finals[i][j].take = false;
 					 return false;
