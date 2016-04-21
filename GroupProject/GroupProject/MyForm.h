@@ -243,8 +243,10 @@ namespace GroupProject {
 #pragma endregion
 
 	public:
-
+		//total number of classes in the text file
 		const int totalclassCount = lineCount();
+		
+		
 		Drawing::Graphics^ g1;
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
@@ -263,8 +265,11 @@ namespace GroupProject {
 		g1 = pictureBox1->CreateGraphics();
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
+		// vecotr of all teh classes in the text file
 		vector<c> Classes(totalclassCount);
+		//inilizes the vector of all the classes 
 		readFile(Classes);
+		//Displays the classes for the user to select 
 		displayClasses(Classes);
 
 	}
