@@ -70,6 +70,10 @@ namespace GroupProject {
 	private: System::Windows::Forms::TextBox^  textBox6;
 	private: System::Windows::Forms::TextBox^  textBox7;
 	private: System::Windows::Forms::TextBox^  textBox8;
+	private: System::Windows::Forms::PictureBox^  pictureBox4;
+	private: System::Windows::Forms::PictureBox^  pictureBox5;
+
+	private: System::ComponentModel::IContainer^  components;
 
 
 	protected:
@@ -78,7 +82,7 @@ namespace GroupProject {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -100,116 +104,144 @@ namespace GroupProject {
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
+			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(765, 63);
+			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button1->Location = System::Drawing::Point(724, 46);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(127, 53);
+			this->button1->Size = System::Drawing::Size(94, 80);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
 			// textBox1
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Centaur", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Calibri", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->textBox1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(41)), static_cast<System::Int32>(static_cast<System::Byte>(62)),
+				static_cast<System::Int32>(static_cast<System::Byte>(70)));
 			this->textBox1->Location = System::Drawing::Point(41, 47);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(433, 213);
+			this->textBox1->Size = System::Drawing::Size(389, 200);
 			this->textBox1->TabIndex = 1;
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(548, 47);
+			this->textBox2->Location = System::Drawing::Point(507, 47);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(211, 36);
+			this->textBox2->Size = System::Drawing::Size(211, 27);
 			this->textBox2->TabIndex = 2;
-			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);
 			// 
 			// pictureBox1
 			// 
 			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBox1->Location = System::Drawing::Point(54, 310);
+			this->pictureBox1->Location = System::Drawing::Point(76, 336);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(298, 361);
+			this->pictureBox1->Size = System::Drawing::Size(265, 402);
 			this->pictureBox1->TabIndex = 3;
 			this->pictureBox1->TabStop = false;
 			// 
 			// pictureBox2
 			// 
 			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBox2->Location = System::Drawing::Point(367, 310);
+			this->pictureBox2->Location = System::Drawing::Point(392, 336);
 			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(298, 361);
+			this->pictureBox2->Size = System::Drawing::Size(268, 402);
 			this->pictureBox2->TabIndex = 4;
 			this->pictureBox2->TabStop = false;
 			// 
 			// pictureBox3
 			// 
 			this->pictureBox3->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBox3->Location = System::Drawing::Point(685, 310);
+			this->pictureBox3->Location = System::Drawing::Point(714, 336);
 			this->pictureBox3->Name = L"pictureBox3";
-			this->pictureBox3->Size = System::Drawing::Size(298, 361);
+			this->pictureBox3->Size = System::Drawing::Size(265, 402);
 			this->pictureBox3->TabIndex = 5;
 			this->pictureBox3->TabStop = false;
 			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(548, 80);
+			this->textBox3->Location = System::Drawing::Point(507, 80);
 			this->textBox3->Multiline = true;
 			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(211, 36);
+			this->textBox3->Size = System::Drawing::Size(211, 27);
 			this->textBox3->TabIndex = 6;
 			// 
 			// textBox4
 			// 
 			this->textBox4->ImeMode = System::Windows::Forms::ImeMode::Off;
-			this->textBox4->Location = System::Drawing::Point(548, 111);
+			this->textBox4->Location = System::Drawing::Point(507, 113);
 			this->textBox4->Multiline = true;
 			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(211, 36);
+			this->textBox4->Size = System::Drawing::Size(211, 27);
 			this->textBox4->TabIndex = 7;
 			// 
 			// textBox5
 			// 
-			this->textBox5->Location = System::Drawing::Point(548, 144);
+			this->textBox5->Location = System::Drawing::Point(507, 146);
 			this->textBox5->Multiline = true;
 			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(211, 36);
+			this->textBox5->Size = System::Drawing::Size(211, 30);
 			this->textBox5->TabIndex = 8;
 			// 
 			// textBox6
 			// 
-			this->textBox6->Location = System::Drawing::Point(548, 182);
+			this->textBox6->Location = System::Drawing::Point(507, 182);
 			this->textBox6->Multiline = true;
 			this->textBox6->Name = L"textBox6";
-			this->textBox6->Size = System::Drawing::Size(211, 36);
+			this->textBox6->Size = System::Drawing::Size(211, 30);
 			this->textBox6->TabIndex = 9;
 			// 
 			// textBox7
 			// 
-			this->textBox7->Location = System::Drawing::Point(548, 224);
+			this->textBox7->Location = System::Drawing::Point(507, 216);
 			this->textBox7->Multiline = true;
 			this->textBox7->Name = L"textBox7";
-			this->textBox7->Size = System::Drawing::Size(211, 36);
+			this->textBox7->Size = System::Drawing::Size(211, 30);
 			this->textBox7->TabIndex = 10;
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(399, 310);
+			this->textBox8->Location = System::Drawing::Point(362, 286);
 			this->textBox8->Multiline = true;
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->Size = System::Drawing::Size(298, 133);
 			this->textBox8->TabIndex = 11;
+			// 
+			// pictureBox4
+			// 
+			this->pictureBox4->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.BackgroundImage")));
+			this->pictureBox4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBox4->Location = System::Drawing::Point(1013, 216);
+			this->pictureBox4->Name = L"pictureBox4";
+			this->pictureBox4->Size = System::Drawing::Size(259, 549);
+			this->pictureBox4->TabIndex = 12;
+			this->pictureBox4->TabStop = false;
+			// 
+			// pictureBox5
+			// 
+			this->pictureBox5->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.BackgroundImage")));
+			this->pictureBox5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->pictureBox5->Location = System::Drawing::Point(884, 58);
+			this->pictureBox5->Name = L"pictureBox5";
+			this->pictureBox5->Size = System::Drawing::Size(333, 152);
+			this->pictureBox5->TabIndex = 13;
+			this->pictureBox5->TabStop = false;
 			// 
 			// MyForm
 			// 
@@ -218,6 +250,8 @@ namespace GroupProject {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1284, 838);
+			this->Controls->Add(this->pictureBox5);
+			this->Controls->Add(this->pictureBox4);
 			this->Controls->Add(this->textBox8);
 			this->Controls->Add(this->textBox7);
 			this->Controls->Add(this->textBox6);
@@ -236,6 +270,8 @@ namespace GroupProject {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -248,7 +284,10 @@ namespace GroupProject {
 		Drawing::Graphics^ g1;
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
+		Drawing::Graphics^ g4;
+		Bitmap^ bmp = gcnew Bitmap(L"kava2.bmp");
 		
+
 		String^ class1 = "PY215";
 		String^ class2 = "QF315";
 		String^ class3 = "EE201";
@@ -263,13 +302,16 @@ namespace GroupProject {
 		g1 = pictureBox1->CreateGraphics();
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
+		g4 = pictureBox4->CreateGraphics();
 		vector<c> Classarray(totalclassCount);
 		readFile(Classarray);
 		displayClasses(Classarray);
+		
 
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		g4->DrawImage(bmp, 0, 0);
 		vector<c> mwf0;	vector<c> tth0;
 		vector<c> mwf1; vector<c> tth1;
 		vector<c> mwf2; vector<c> tth2;
@@ -1737,11 +1779,12 @@ namespace GroupProject {
 				 //========================================================================================\\
 
 
-	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-			 }
 
 
 
 
-	};
+
+
+
+};
 }
