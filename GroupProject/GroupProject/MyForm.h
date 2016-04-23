@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+#include "Class.h"
+#include "Text.h"
 
 
 
@@ -22,16 +24,16 @@ namespace GroupProject {
 
 
 
-	struct c
+	/*struct c
 	{
-		std::string name;
-		std::string day;
-		int stime;
-		int etime;
-		int problems;
-		std::string work[50];
-		bool take;
-	};
+	std::string name;
+	std::string day;
+	int stime;
+	int etime;
+	int problems;
+	std::string work[50];
+	bool take;
+	};*/
 
 	/// <summary>
 	/// Summary for MyForm
@@ -144,6 +146,7 @@ namespace GroupProject {
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(211, 27);
 			this->textBox2->TabIndex = 2;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -215,10 +218,10 @@ namespace GroupProject {
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(76, 744);
+			this->textBox8->Location = System::Drawing::Point(362, 286);
 			this->textBox8->Multiline = true;
 			this->textBox8->Name = L"textBox8";
-			this->textBox8->Size = System::Drawing::Size(265, 47);
+			this->textBox8->Size = System::Drawing::Size(298, 133);
 			this->textBox8->TabIndex = 11;
 			// 
 			// pictureBox4
@@ -226,7 +229,7 @@ namespace GroupProject {
 			this->pictureBox4->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.BackgroundImage")));
 			this->pictureBox4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBox4->Location = System::Drawing::Point(1013, 216);
+			this->pictureBox4->Location = System::Drawing::Point(1024, 216);
 			this->pictureBox4->Name = L"pictureBox4";
 			this->pictureBox4->Size = System::Drawing::Size(259, 549);
 			this->pictureBox4->TabIndex = 12;
@@ -278,23 +281,26 @@ namespace GroupProject {
 		}
 #pragma endregion
 
-	public:
-		//total number of classes in the text file
-		const int totalclassCount = lineCount();
 
+
+		const int totalclassCount = lineCount();
 		Drawing::Graphics^ g1;
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
 		Drawing::Graphics^ g4;
 		/*Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");*/
 
-		//Strings for each class
+
+
 		String^ class1;
 		String^ class2;
 		String^ class3;
 		String^ class4;
 		String^ class5;
 		String^ class6;
+
+
+
 		int amountofclass = 0;
 
 
@@ -305,18 +311,15 @@ namespace GroupProject {
 		g3 = pictureBox3->CreateGraphics();
 		g4 = pictureBox4->CreateGraphics();
 
-		// vector of all the classes in the text file
 		vector<c> Classarray(totalclassCount);
-		//inilizes the vector of all the classes
 		readFile(Classarray);
-		//Displays the classes for the user to select 
 		displayClasses(Classarray);
 
 
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		//sets all the user input to upper case 
+
 		class1 = textBox2->Text->ToUpper();
 		class2 = textBox3->Text->ToUpper();
 		class3 = textBox4->Text->ToUpper();
@@ -324,7 +327,6 @@ namespace GroupProject {
 		class5 = textBox6->Text->ToUpper();
 		class6 = textBox7->Text->ToUpper();
 
-		// Counts the number of classes the user has selected  
 		if (class1 != "")
 		{
 			amountofclass++;
@@ -353,9 +355,6 @@ namespace GroupProject {
 
 
 		/*g4->DrawImage(bmp, 0, 0);*/
-
-
-		//Vector for each MWF class and TTH class
 		vector<c> mwf0;	vector<c> tth0;
 		vector<c> mwf1; vector<c> tth1;
 		vector<c> mwf2; vector<c> tth2;
@@ -363,19 +362,17 @@ namespace GroupProject {
 		vector<c> mwf4; vector<c> tth4;
 		vector<c> mwf5; vector<c> tth5;
 
-		//Vector for each MWF class and TTH class
+
 		vector<c> Classesarray(totalclassCount);
-		// initializes the classesarray 
 		readFile2(Classesarray);
 
-		//resizes Classes to the total number of classes and sections
+		int y = userlineCount(Classesarray);
 		Classesarray.resize(userlineCount(Classesarray));
 
-		//resizes Classes to the total number of classes and sections
+
 		int mwfvecSize = MWFcount(Classesarray);
 		int tthvecSize = TThcount(Classesarray);
 
-		//vector of total mwf classes and tth classes
 		vector<c> totalm(mwfvecSize);
 		vector<c> totalt(tthvecSize);
 
@@ -384,29 +381,13 @@ namespace GroupProject {
 		vector<c> MWFarray(mwfvecSize);
 		vector<c> TTHarray(tthvecSize);
 
-		// initializes the MWFarray and TTHarray vectors using the 
 		fillVectors(MWFarray, TTHarray, Classesarray);
 
+
+
 		int count2 = 0;
-		//Constraints for the while loops
 		int mwfnon = numofnames(MWFarray);
 		int tthnon = numofnames(TTHarray);
-
-		//----------initializes the mwf0-5 vector and the totalm vector-----------\\
-						// while goes for however many mwf classes and only initializes
-// mwf0-5 to the number of mwf classes
-
-/*
-//----------------------------------Switch statement run walk through-----------------------------------------\\
-1. gets class name
-2. gets number of section of that class
-3. sets the class vector size
-4. initializes class the vector
-5. sets the 'work' struct array to default aka "NULL"
-6. Checks the times and fill 'work' with non conflicting classes
-7. loops through the class vector and puts its values in the totalm (total mwf class vector)
-8. adds the size of that classes vector to the count so that the next case can grab the next class name
-*/
 
 
 		int x = 0, count;
@@ -517,23 +498,6 @@ namespace GroupProject {
 			}
 
 		}
-		//------initializes the tt0-5 vector and the totalm vector--------\\
-				// while goes for however many tth classes and only initializes
-// mwf0-5 to the number of tth classes
-
-
-/*
-//----------------------------------Switch statement run walk through-----------------------------------------\\
-1. gets class name
-2. gets number of section of that class
-3. sets the class vector size
-4. initializes class the vector
-5. sets the 'work' struct array to default aka "NULL" for each section
-6. checks the times and fills 'work' class names with non-conflicting class
-7. loops through the class vector and puts its values in the totalm (total tth class vector)
-8. adds the size of that classes vector to the count so that the next case can grab the next class name
-*/
-
 		int u = 0, count1 = 0, count3 = 0;
 
 		if (tthvecSize > 0)
@@ -646,33 +610,41 @@ namespace GroupProject {
 		int mwf = mwfvecSize + 1;
 		int tth = tthvecSize;
 
-		vector<vector<c>> finalsched(mwf, vector<c>(tth));
+		if (tth == 0)
+		{
+			int Extra = 1;
 
-		sort2(totalm, totalt, finalsched);
+			vector<vector<c>> finalsched(mwf, vector<c>(Extra));
+
+			int asd = totalm.size();
+
+			sort2(totalm, totalt, finalsched);
 
 
-		sort3(finalsched, Classesarray, tth, mwf);
-		passtoDraw(finalsched, tth, mwf, Classesarray);
+			sort3(finalsched, Classesarray, tth, mwf);
+			passtoDraw(finalsched, tth, mwf, Classesarray);
+		}
+		else
+		{
+			vector<vector<c>> finalsched(mwf, vector<c>(tth));
+
+
+
+
+			sort2(totalm, totalt, finalsched);
+
+
+			sort3(finalsched, Classesarray, tth, mwf);
+			passtoDraw(finalsched, tth, mwf, Classesarray);
+
+		}
 
 	}
 
-			 /*
-			 =======================================================
-			 function:
-			 Check to see if the 'take' Boolean of each class
-			 in the 2D vector is true or false using the
-			 the size of the 'totalm' and 'totalt'.
-			 if the mwf class(finals[v][s]) and the tth class
-			 (finals[0][s]) are true it passes them to the
-			 'DrawSchedule()' method
 
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 int tt - constrainer and the size is finals[][size]
-			 int tm - constrainer and the size is finals[size][]
-			 vector<c> & classesArray - vector<c> Classesarray
-			 ========================================================
-			 */
+
+
+
 			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
 			 {
 				 srand(time(NULL));
@@ -687,26 +659,16 @@ namespace GroupProject {
 				 int s = tt;
 				 int v = tm;
 
-
-				 for (int s = 0; s < tt; s++)
+				 if (tm == 1)
 				 {
-					 /*if (tm == 1)
-					 {
-					 if (finals[0][s].take == true)
-					 {
-					 DrawSchedule(finals, s, v, classesArray);
-					 }
-					 }*/
-					 for (int v = 1; v < tm; v++)
-					 {
 
-
-
-						 if (finals[0][s].take == true && finals[v][s].take == true)
+					 for (s = 0; s < tt; s++)
+					 {
+						 if (finals[0][s].take == true)
 						 {
 							 if (u == 1)
 							 {
-								 DrawSchedule(finals, s, v, classesArray);
+								 DrawSchedule(finals, s, v, tt, tm, classesArray);
 
 								 u++;
 
@@ -725,112 +687,165 @@ namespace GroupProject {
 
 								 u++;
 							 }
-
-
-						 }
-						 else
-						 {
-							 v++;
 						 }
 					 }
-					 /*}*/
+				 }
+				 else if (tt == 0)
+				 {
+					 s = 0;
+
+					 bool ewrq = finals[0][0].take;
+					 for (v = 1; v < tm; v++)
+					 {
+						 if (finals[v][s].take == true)
+						 {
+							 if (u == 1)
+							 {
+								 DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+								 u++;
+
+							 }
+							 else if (u == 2)
+							 {
+								 // DrawSchedule2(finals, i, j, classesArray);
+
+
+								 u++;
+							 }
+							 else if (u == 3)
+							 {
+								 // DrawSchedule3(finals, i, j, classesArray);
+
+
+								 u++;
+							 }
+						 }
+					 }
+				 }
+				 else
+				 {
+					 for (int s = 0; s < tt; s++)
+					 {
+
+						 for (int v = 1; v < tm; v++)
+						 {
+
+
+
+							 if (finals[0][s].take == true && finals[v][s].take == true)
+							 {
+								 if (u == 1)
+								 {
+									 DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+									 u++;
+
+								 }
+								 else if (u == 2)
+								 {
+									 // DrawSchedule2(finals, i, j, classesArray);
+
+
+									 u++;
+								 }
+								 else if (u == 3)
+								 {
+									 // DrawSchedule3(finals, i, j, classesArray);
+
+
+									 u++;
+								 }
+
+
+							 }
+							 else
+							 {
+								 v++;
+							 }
+						 }
+						 /*}*/
+					 }
 				 }
 
+
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 initializes the 'take' Boolean in the struct.
-			 if 'classCheck()' method come back true and the
-			 'workCheck()' method comes back true it sets the
-			 'take' Boolean for that class either
-			 (finals[p][i] or finals[j][i]) to true. and
-			 if 'classCheck()' method and the 'workCheck()'method
-			 come back false set that class
-			 (finals[p][i] or finals[j][i]) to false
 
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 vector <c> allclas - vector<c> Classesarray
-			 int tt - size of totalt vector
-			 (also size of the finals[][size])
-			 int tm - size of totalm vector + 1
-			 (also size of the finals[size][])
-
-			 finals[p][i] - tth classes
-			 finals[j][i] - mwf classes
-			 ======================================================
-			 */
 			 void sort3(vector<vector<c>> & finals, vector <c> allclas, int tt, int tm)
 			 {
-
-				 for (int i = 0; i < tt; i++)
+				 if (tt != 0)
 				 {
-					 int p = 0;
-
-
-					 if (classCheck(finals, allclas, i, p) == true)
+					 for (int i = 0; i < tt; i++)
 					 {
-						 if (workcheck(finals, allclas, i, p) == true)
+						 int p = 0;
+
+
+						 if (classCheck(finals, allclas, i, p) == true)
 						 {
-							 finals[p][i].take = true;
-
-
-							 for (int j = 1; j < tm; j++)
+							 if (workcheck(finals, allclas, i, p) == true)
 							 {
-								 if (classCheck(finals, allclas, i, j) == true)
-								 {
-									 if (workcheck(finals, allclas, i, j) == true)
-									 {
-										 finals[j][i].take = true;
+								 finals[p][i].take = true;
 
+
+								 for (int j = 1; j < tm; j++)
+								 {
+									 if (classCheck(finals, allclas, i, j) == true)
+									 {
+										 if (workcheck(finals, allclas, i, j) == true)
+										 {
+											 finals[j][i].take = true;
+
+										 }
+										 else
+										 {
+											 finals[j][i].take = false;
+										 }
 									 }
 									 else
 									 {
 										 finals[j][i].take = false;
+
 									 }
 								 }
-								 else
-								 {
-									 finals[j][i].take = false;
-
-								 }
 							 }
-						 }
 
+							 else
+							 {
+								 finals[p][i].take = false;
+							 }
+
+						 }
 						 else
 						 {
 							 finals[p][i].take = false;
 						 }
-
 					 }
-					 else
+				 }
+				 else
+				 {
+					 for (int j = 1; j < tm; j++)
 					 {
-						 finals[p][i].take = false;
+						 if (classCheck(finals, allclas, 0, j) == true)
+						 {
+							 if (workcheck(finals, allclas, 0, j) == true)
+							 {
+								 finals[j][0].take = true;
+
+							 }
+							 else
+							 {
+								 finals[j][0].take = false;
+							 }
+						 }
+						 else
+						 {
+							 finals[j][0].take = false;
+
+						 }
 					 }
 				 }
 
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 Check to see if there is any conflicting classes in
-			 the 'work' array, which gets called in 'sort3()'
-			 method
-
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 vector <c> allclass - vector<c> Classesarray
-			 int j - place hold for finals[j][]
-			 int i - place hold for finals[][i]
-
-			 returns:
-			 true - if no classes in 'work' conflict
-			 false - if a class in 'work' conflict or
-			 if 'work' is empty
-			 ======================================================
-			 */
-
 			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, int i, int j)
 			 {
 
@@ -895,30 +910,12 @@ namespace GroupProject {
 				 }
 				 return true;
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 Check to see if the 2D vector and the work array
-			 with is has all the classes the user has selected
-			 which gets called in 'sort3()' method
-
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 vector <c> allclass - vector<c> Classesarray
-			 int j - place holder for vector<vector<c>> finals
-			 int i - place holder for vector<vector<c>> finals
-
-			 returns:
-			 true - if finals[i][j] and the finals.work[]
-			 has all the classes the user selcted
-
-			 false - if finals[i][j] and the finals.work[]
-			 DOES NOT have all the classes the user
-			 selected
-			 ======================================================
-			 */
+			 // i	   p
 			 bool classCheck(vector<vector<c>> & finals, vector <c> allclass, int j, int i)
 			 {
+				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
 				 int com = 0;
 				 int k = 0;
 				 string u = finals[i][j].name;
@@ -984,24 +981,8 @@ namespace GroupProject {
 					 return false;
 				 }
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 loops through the 'work' array and
-			 counts all the "real" values. every time the value
-			 IS NOT "NULL" then the count goes up, which is then
-			 used for the constraint of the while loop in
-			 'classCheck' method
 
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 int i - place hold for the 2D vector
-			 int j- place hold for the 2D vector
 
-			 returns: int
-			 number of real values in 'work' array
-			 ======================================================
-			 */
 			 int worksCounter(vector<vector<c>> & finals, int i, int j)
 			 {
 
@@ -1024,23 +1005,12 @@ namespace GroupProject {
 
 				 return count;
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 Counts the number of the classes on mwf but not the
-			 number of sections for that class, which is passed
-			 back to the classCheck method to test if the
-			 classes work array has all the classes
-
-			 parameters:
-			 vector<c> allclass - vector<c> Classesarray
-
-			 returns: int
-			 ======================================================
-			 */
 
 			 int mCount(vector<c> allclass)
 			 {
+				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
 				 int c1 = 0; int c2 = 0;
 				 int c3 = 0; int c4 = 0;
 				 int c5 = 0; int c6 = 0;
@@ -1087,23 +1057,12 @@ namespace GroupProject {
 
 				 return count;
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 Counts the number of the classes on tth but not the
-			 number of sections for that class, which is passed
-			 back to the classCheck method to test if the
-			 classes work array has all the classes
-
-			 parameters:
-			 vector<c> allclass - vector<c> Classesarray
-
-			 returns: int
-			 ======================================================
-			 */
 
 			 int tCount(vector<c> allclass)
 			 {
+				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
 				 int c1 = 0; int c2 = 0;
 				 int c3 = 0; int c4 = 0;
 				 int c5 = 0; int c6 = 0;
@@ -1150,24 +1109,6 @@ namespace GroupProject {
 
 				 return count;
 			 }
-			 /*
-			 ===========================================================
-			 function:
-			 initializes the 2D vector
-			 all the ttm classes are at
-			 [0][0-number of tth class]
-			 all the mwf classed are at
-			 [1-number of mwf classes][1-number of mwf classes]
-
-			 using the totalm (total mwf vector)
-			 and the totalt (total tth vecotr)
-
-			 parameters:
-			 vector<c> & tm - vector<c> totalm
-			 vector<c> & tt - vector<c> totalt
-			 vector<vector<c>> & finals - vector<vector<c>> finalsched
-			 ============================================================
-			 */
 
 			 void sort2(vector<c> & tm, vector<c> & tt, vector<vector<c>> & finals)
 			 {
@@ -1177,34 +1118,42 @@ namespace GroupProject {
 					 string y = tt[i].name;
 					 finals[0][i] = tt[i];
 				 }
-
-				 for (int j = 0; j < tt.size(); j++)
+				 if (tt.size() != 0)
 				 {
-					 int p = 0;
-					 int k = 1;
-					 while (p < tm.size())
+					 for (int j = 0; j < tt.size(); j++)
 					 {
-						 string h = tm[p].name;
-						 finals[k][j] = tm[p];
-						 p++;
-						 k++;
+						 int p = 0;
+						 int k = 1;
+						 while (p < tm.size())
+						 {
+							 string h = tm[p].name;
+							 finals[k][j] = tm[p];
+							 p++;
+							 k++;
+						 }
 					 }
 				 }
+				 else
+				 {
+					 for (int j = 0; j < 1; j++)
+					 {
+						 int p = 0;
+						 int k = 1;
+						 while (p < tm.size())
+						 {
+							 string h = tm[p].name;
+							 finals[k][j] = tm[p];
+							 p++;
+							 k++;
+						 }
+					 }
 
+				 }
 			 }
 			 /*
-			 =====================================================
-			 function:
-			 Checks to see if the class times overlap or not
-			 and fills the'work' array that holds all the classes
-			 that DO NOT conflict with the test class
-
-			 parameters:
-			 vector<c> & testClass -either vector<c> mwf0-5
-			 or vector<c> tth0-5
-			 vector<c> allClass -either vector<c> MWFarray
-			 or vector<C> TTHarray
-			 ======================================================
+			 Method that checks if times of classes overlap or not
+			 and fills the array that holds all the classes that
+			 DO NOT conflict with the test class
 			 */
 			 void times(vector<c> & testClass, vector<c> allClass)
 			 {
@@ -1260,24 +1209,11 @@ namespace GroupProject {
 
 
 			 /*
-			 =====================================================
-			 function:
-			 Used to take sure it doesn’t store duplicate classes
-			 in the works array.
-			 Checks to see if the class name that is getting test
-			 in "times" is the same as the class it is getting
-			 tested against
-
-			 parameters:
-			 string test - test class name
-			 string all - the name of class that is getting tested
-			 against the test class
-			 returns:
-			 true - if 'test' is different from 'all'
-			 false -if 'test' and 'all' are the same
-			 ======================================================
+			 Checks to see if the
+			 class name is the same or not
+			 and returns false if the class
+			 name is the same
 			 */
-
 			 bool sort1(string test, string all)
 			 {
 				 test.resize(5);
@@ -1290,14 +1226,8 @@ namespace GroupProject {
 				 return true;
 			 }
 			 /*
-			 =====================================================
-			 function:
-			 Counts the total number of lines in the text file
-
-			 returns: int
-			 ======================================================
+			 Counts number of lines  int the file
 			 */
-
 			 int lineCount()
 			 {
 				 ifstream in("InputFile.txt");
@@ -1315,23 +1245,12 @@ namespace GroupProject {
 				 return numlines;
 			 }
 
-			 /*
-			 =====================================================
-			 function:
-			 Counts the total number of class and sections the
-			 user has selected, which is used for the
-			 Classesarray vector resize
-
-			 parameters:
-			 vector<c> & a - vector<c> Classesarray
-
-			 returns: int
-			 actual size of the Classesarray vector
-			 ======================================================
-			 */
-
 			 int userlineCount(vector<c> & a)
 			 {
+				 /*String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
+
 				 int count = 0;
 				 for (int i = 0; i < a.size(); i++)
 				 {
@@ -1347,21 +1266,9 @@ namespace GroupProject {
 				 }
 				 return count;
 			 }
-
-
 			 /*
-			 =====================================================
-			 function
-			 initializes each class vector. Using the name of the
-			 class and the MWFarray or the TTHarray, based in the
-			 name of the class
-
-			 parameters:
-			 vector<c> & allclass
-			 vector<c> & classnum - the class vector either
-			 vector<c> tth0-5 or vector<c> mwf0-6
-			 string & j - name of that class
-			 ======================================================
+			 initilizes each class
+			 vector with the class
 			 */
 			 void init(vector<c> & allclass, vector<c> & classnum, string & j)
 			 {
@@ -1381,17 +1288,10 @@ namespace GroupProject {
 			 }
 
 			 /*
-			 =====================================================
-			 function:
-			 Reads in the text file of classes and initializes
-			 the Classes vector, that then gets displayed to
-			 TextBox1 for the user to select classes
-
-			 parameters:
-			 vector<c> & classes - vector<c> Classes
-			 ======================================================
+			 Reads in the text file of classes
+			 assigns all the classes to the array
+			 of all the Classes
 			 */
-
 			 void readFile(vector<c> & classes)
 			 {
 				 ifstream in("InputFile.txt");
@@ -1436,22 +1336,9 @@ namespace GroupProject {
 			 }
 
 			 /*
-			 =====================================================
-			 function:
-			 Counts of sections offered for a class
-			 which is used to initializes the size of the individual
-			 class vector
-
-			 parameters:
-			 vector<c> & classVec - either vector<c> MWFarray
-			 or vector<c> TTHarray
-			 string className - Class name
-
-			 returns: int
-			 number of the Class sections
-			 ======================================================
+			 Returns the count of sections offered for a class
+			 which is used to initlize that class vector
 			 */
-
 			 int classCount(vector<c> & classVec, string className)
 			 {
 				 int count = 0;
@@ -1470,20 +1357,10 @@ namespace GroupProject {
 
 
 			 /*
-			 =====================================================
-			 function:
-			 Counts the number of classes on MWF that
-			 user selected. Which is used for the size of the
-			 MWFarray
-
-			 parameters:
-			 vector<c> &ac - vector<c> MWFarray
-
-			 returns: int
-			 number of MWF classes has selected
-			 ======================================================
+			 returns the counts the number of all the
+			 class on Monday, Wednesday, and Friday
+			 for the size of the mmwf vector
 			 */
-
 			 int MWFcount(vector<c> ac)
 			 {
 				 int count = 0;
@@ -1501,20 +1378,10 @@ namespace GroupProject {
 			 }
 
 			 /*
-			 =====================================================
-			 function:
-			 Counts the number of classes on TTH that
-			 user selected. Which is used for the size of the
-			 TTHarray
-
-			 parameters:
-			 vector<c> &ac - vector<c> TTHarray
-
-			 returns: int
-			 number of TTH classes that user has selected
-			 ======================================================
+			 returns the counts the number of all the
+			 class on Tuesday and Thursday
+			 for the size of the tth vector
 			 */
-
 			 int TThcount(vector<c> & ac)
 			 {
 				 int count = 0;
@@ -1531,18 +1398,8 @@ namespace GroupProject {
 			 }
 
 			 /*
-			 =====================================================
-			 function:
-			 count the number of each class section
-			 on MWF and TTH. Used in the while loop for the
-			 switch statements constraint.
-
-			 parameters:
-			 vector<c> & qw -either vector<c> MWFarray
-			 or vector<c> TTHarray
-			 returns: int
-			 number of classes on TTH or MWF
-			 ======================================================
+			 to count the number of each
+			 type of classes on MWF and TTH
 			 */
 			 int numofnames(vector<c> & qw)
 			 {
@@ -1572,45 +1429,24 @@ namespace GroupProject {
 
 
 			 /*
-			 =====================================================
-			 function:
-			 Draws the first Schedule takes in the
-			 2D vector for classes that work, the int place holders
-			 for the 2D vector and the vectors for all the classes
-			 that gets passed the "finalSort" method.
-
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 int s  - place holder for the y 2D vector [][y]
-			 int v - place holder for the x 2D vector [x][]
-			 vector<c> & classesArray - vector<c> classesArray
-			 ======================================================
+			 Draws the Schedule
+			 takes in the vector of the final
+			 schedule and the size of the vector
 			 */
-			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, vector<c> & classesArray) {
+			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
 
 
 
-				 vector<c> fnsched = finalSort(finals, s, v, classesArray);
+				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
-				 textBox8->Text = textBox8->Text + "Class" + "Day" + "Time" + "\r\n";
 				 for (int g = 0; g < fnsched.size(); g++)
 				 {
-					 int start = fnsched[g].stime;
-					 int end = fnsched[g].etime;
-					 string n = fnsched[g].name;  String^ name = gcnew String(n.c_str());
-					 string d = fnsched[g].day; String^ day = gcnew String(d.c_str());
-					 //Prints out scheduale just need spaces, ":" , and AM/PM
-					 if (fnsched[g].stime >= 1300)
-					 {
-						 start = fnsched[g].stime - 1200;
-					 }
-					 if (fnsched[g].etime >= 1300)
-					 {
-						 end = fnsched[g].etime - 1200;
-					 }
-					 textBox8->Text = textBox8->Text + name + day + start + "-" + end + "\r\n";
+					 string s = fnsched[g].name;
+
+					 String^ hola = gcnew String(s.c_str());
+					 textBox8->Text = textBox8->Text + hola + "\r\n";
 				 }
 
 				 int y;
@@ -1645,262 +1481,244 @@ namespace GroupProject {
 				 }
 
 			 }
-			 /*
-			 =========================================================
-			 function:
-			 ---------Final Sort of the Schedule---------
-			 To take out the duplicate classes and returns a vector
-			 back to "DrawSchedule" that is used to draw the schedule
-			 takes in the 2D vector that has the classes that
-			 a. have all the classes the user has selected
-			 b. none of the classes conflict with each other
-			 also takes in the place holder in the 2D and the
-			 vector off all the classes the user has selected to
-			 the vector being returned.
 
-			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 int & l - place holder for the y 2D vector [][y]
-			 int & k - place holder for the x 2D vector [x][]
-
-			 returns: vector<c>
-			 vector<c> lastSched -- with final schedule
-			 =========================================================
-			 */
-			 vector<c> finalSort(vector<vector<c>> & finals, int & l, int & k, vector<c> & classesArray)
+			 vector<c> finalSort(vector<vector<c>> & finals, int & s, int & v, int tt, int tm, vector<c> & classesArray)
 			 {
+				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
 				 vector<string> pass(amountofclass);
-				 string c0 = finals[0][l].name;
-				 c0.resize(5);
+
 				 string n = "NULL";
 				 int y = 0;	 int c1 = 0;
 				 int c2 = 0; int c3 = 0;
 				 int c4 = 0; int c5 = 0;
 				 int i = 0;	 int c6 = 0;
-				 String^ s = gcnew String(c0.c_str());
-				 int jk = l;
 
-
-				 //----------Checks the TTH Classes in the finals[][] vector-------------\\
-
-				 while (finals[0][l].work[i] != n)
+				 int jk = s;
+				 if (tt != 0)
 				 {
-					 string k = finals[0][l].work[i];
-					 i++;
-				 }
-
-				 for (int p = 0; p < 1; p++)
-				 {
-					 if (s == class1 && c1 < 1)
+					 string c0 = finals[0][s].name;
+					 c0.resize(5);
+					 String^ k = gcnew String(c0.c_str());
+					 while (finals[0][s].work[i] != n)
 					 {
-						 pass[y] = finals[0][l].name;
-						 c1++;
-						 y++;
-					 }
-					 else if (s == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c2++;
-						 y++;
-
-					 }
-					 else if (s == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c3++;
-						 y++;
-					 }
-					 else if (s == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c4++;
-						 y++;
-					 }
-					 else if (s == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c5++;
-						 y++;
-					 }
-					 else if (s == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c6++;
-						 y++;
+						 string k = finals[0][s].work[i];
+						 i++;
 					 }
 
-				 }
-
-				 int e = 0;
-
-
-				 for (int z = 0; z < i; z++)
-				 {
-					 string w = finals[0][l].work[e];
-					 w.resize(5);
-					 String^ t = gcnew String(w.c_str());
-
-					 if (t == class1 && c1 < 1)
+					 for (int p = 0; p < 1; p++)
 					 {
-						 pass[y] = finals[0][l].work[e];
-						 c1++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c2++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c3++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c4++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c5++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c6++;
-						 e++;
-						 y++;
-					 }
+						 if (k == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c1++;
+							 y++;
+						 }
+						 else if (k == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c2++;
+							 y++;
 
-				 }
-
-
-				 //----------Checks the MWF Classes in the finals[][] vector-------------\\
-
-				 string cu = finals[k][l].name;
-				 cu.resize(5);
-
-				 String^ s1 = gcnew String(cu.c_str());
-				 int i1 = 0;
-				 while (finals[k][l].work[i1] != n)
-				 {
-					 string io = finals[k][l].work[i1];
-					 i1++;
-				 }
-				 for (int p1 = 0; p1 < 1; p1++)
-				 {
-					 if (s1 == class1 && c1 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c1++;
-						 y++;
-					 }
-					 else if (s1 == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c2++;
-						 y++;
+						 }
+						 else if (k == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c3++;
+							 y++;
+						 }
+						 else if (k == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c4++;
+							 y++;
+						 }
+						 else if (k == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c5++;
+							 y++;
+						 }
+						 else if (k == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c6++;
+							 y++;
+						 }
 
 					 }
-					 else if (s1 == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c3++;
-						 y++;
-					 }
-					 else if (s1 == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c4++;
-						 y++;
-					 }
-					 else if (s1 == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c5++;
-						 y++;
-					 }
-					 else if (s1 == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c6++;
-						 y++;
-					 }
-				 }
 
-				 int d = 0;
-
-				 for (int x = 0; x < i1; x++)
-				 {
-
-					 string w = finals[k][l].work[d];
-					 w.resize(5);
-					 String^ t = gcnew String(w.c_str());
-
-					 if (t == class1 && c1 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c1++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c2++;
-						 d++;
-						 y++;
-
-					 }
-					 else if (t == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c3++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c4++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c5++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c6++;
-						 d++;
-						 y++;
-					 }
-					 else
-					 {
-						 d++;
-					 }
+					 int e = 0;
 
 
+					 for (int z = 0; z < i; z++)
+					 {
+						 string w = finals[0][s].work[e];
+						 w.resize(5);
+						 String^ t = gcnew String(w.c_str());
+
+						 if (t == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c1++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c2++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c3++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c4++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c5++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c6++;
+							 e++;
+							 y++;
+						 }
+
+					 }
 
 				 }
+				 if (tm != 1)
+				 {
+					 int ewr = v;
+					 //FOR MWF
+					 string cu = finals[v][s].name;
+					 cu.resize(5);
 
-				 //------------initializes the lastSched vector that is being returned-----------\\
+					 String^ s1 = gcnew String(cu.c_str());
+					 int i1 = 0;
+					 while (finals[v][s].work[i1] != n)
+					 {
+						 string io = finals[v][s].work[i1];
+						 i1++;
+					 }
+					 for (int p1 = 0; p1 < 1; p1++)
+					 {
+						 if (s1 == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c1++;
+							 y++;
+						 }
+						 else if (s1 == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c2++;
+							 y++;
+
+						 }
+						 else if (s1 == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c3++;
+							 y++;
+						 }
+						 else if (s1 == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c4++;
+							 y++;
+						 }
+						 else if (s1 == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c5++;
+							 y++;
+						 }
+						 else if (s1 == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c6++;
+							 y++;
+						 }
+					 }
+
+					 int d = 0;
+
+					 for (int x = 0; x < i1; x++)
+					 {
+
+						 string w = finals[v][s].work[d];
+						 w.resize(5);
+						 String^ t = gcnew String(w.c_str());
+
+						 if (t == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c1++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c2++;
+							 d++;
+							 y++;
+
+						 }
+						 else if (t == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c3++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c4++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c6++;
+							 d++;
+							 y++;
+						 }
+						 else
+						 {
+							 d++;
+						 }
+					 }
+
+
+				 }
 
 				 vector<c> lastSched(pass.size());
 				 int b = 0;
@@ -1935,17 +1753,6 @@ namespace GroupProject {
 
 			 }
 
-			 /*
-			 =====================================================
-			 function:
-			 Takes in all the classes in the text file
-			 and displays for the user to select classes in
-			 TextBox1
-
-			 parameters:
-			 vector<c> Classes - vector<c> all
-			 ======================================================
-			 */
 
 			 void displayClasses(vector<c> all)
 			 {
@@ -1981,19 +1788,13 @@ namespace GroupProject {
 					 }
 				 }
 			 }
-			 /*
-			 =====================================================
-			 function:
-			 Reads text file of all the classes offered (again)
-			 initializes the "ClassesArray' vecotr to just the
-			 the classes the user has selected
 
-			 parameters:
-			 vector<c> allc - vector<c> ClassesArray
-			 ======================================================
-			 */
 			 void readFile2(vector<c> & allc)
 			 {
+				 /* String^ class1 = textBox2->Text; String^ class2 = textBox3->Text;
+				 String^ class3 = textBox4->Text; String^ class4 = textBox5->Text;
+				 String^ class5 = textBox6->Text; String^ class6 = textBox7->Text;*/
+
 				 int place = 0;
 				 ifstream in("InputFile.txt");
 
@@ -2053,17 +1854,7 @@ namespace GroupProject {
 
 			 }
 
-			 /*
-			 =====================================================
-			 function:
-			 Takes in the Individual class vector
-			 initializes the struct array 'work' to "NULL"
 
-			 parameter:
-			 vector<c> & clas - either vector<c> tth0-5
-			 or vector<c> mwf0-6
-			 ======================================================
-			 */
 			 void workDefault(vector<c> & clas)
 			 {
 
@@ -2082,19 +1873,11 @@ namespace GroupProject {
 
 			 }
 
+
 			 /*
-			 =====================================================
-			 function:
-			 initializes MWF and TTH vectors
-			 with classes on respective days
-
-			 parameters:
-			 vector<c> & MWFarray - vector<c> MWFarray
-			 vector<c> & TTHarray - vector<c> TTHarray
-			 vector<c> Classesarray - vector<c> Classesarray
-			 ======================================================
+			 Fills M,W,F and T,TH
+			 vectors with classes on respective days
 			 */
-
 			 void fillVectors(vector<c> &  MWFarray, vector<c> & TTHarray, vector<c> Classesarray)
 			 {
 				 int j = 0, h = 0;
@@ -2120,7 +1903,7 @@ namespace GroupProject {
 
 
 			 //-------------------------------------Notes----------------------------------------------\\
-			 			 	
+			 			 			 			 	
 /*	Thing to do
 ------------Display CLass doesnt display the last calss-----------
 
@@ -2200,5 +1983,8 @@ textBox1->Text = hola;
 
 
 
+	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
 	};
 }
+
