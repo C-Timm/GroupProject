@@ -1903,7 +1903,7 @@ namespace GroupProject {
 
 
 			 //-------------------------------------Notes----------------------------------------------\\
-			 			 			 	
+			 			 			 			 	
 /*	Thing to do
 ------------Display CLass doesnt display the last calss-----------
 
