@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+#include "Class.h"
+#include "Text.h"
 
 
 
@@ -22,16 +24,16 @@ namespace GroupProject {
 
 
 
-	struct c
+	/*struct c
 	{
-		std::string name;
-		std::string day;
-		int stime;
-		int etime;
-		int problems;
-		std::string work[50];
-		bool take;
-	};
+	std::string name;
+	std::string day;
+	int stime;
+	int etime;
+	int problems;
+	std::string work[50];
+	bool take;
+	};*/
 
 	/// <summary>
 	/// Summary for MyForm
@@ -144,6 +146,7 @@ namespace GroupProject {
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(211, 27);
 			this->textBox2->TabIndex = 2;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -226,7 +229,7 @@ namespace GroupProject {
 			this->pictureBox4->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.BackgroundImage")));
 			this->pictureBox4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBox4->Location = System::Drawing::Point(1013, 216);
+			this->pictureBox4->Location = System::Drawing::Point(1024, 216);
 			this->pictureBox4->Name = L"pictureBox4";
 			this->pictureBox4->Size = System::Drawing::Size(259, 549);
 			this->pictureBox4->TabIndex = 12;
@@ -295,6 +298,9 @@ namespace GroupProject {
 		String^ class4;
 		String^ class5;
 		String^ class6;
+
+
+
 		int amountofclass = 0;
 
 
@@ -393,7 +399,7 @@ namespace GroupProject {
 		int tthnon = numofnames(TTHarray);
 
 		//----------initializes the mwf0-5 vector and the totalm vector-----------\\
-										// while goes for however many mwf classes and only initializes
+												// while goes for however many mwf classes and only initializes
 // mwf0-5 to the number of mwf classes
 
 /*
@@ -518,7 +524,7 @@ namespace GroupProject {
 
 		}
 		//------initializes the tt0-5 vector and the totalm vector--------\\
-								// while goes for however many tth classes and only initializes
+										// while goes for however many tth classes and only initializes
 // mwf0-5 to the number of tth classes
 
 
@@ -646,14 +652,34 @@ namespace GroupProject {
 		int mwf = mwfvecSize + 1;
 		int tth = tthvecSize;
 
-		vector<vector<c>> finalsched(mwf, vector<c>(tth));
+		if (tth == 0)
+		{
+			int Extra = 1;
 
-		sort2(totalm, totalt, finalsched);
+			vector<vector<c>> finalsched(mwf, vector<c>(Extra));
+
+			int asd = totalm.size();
+
+			sort2(totalm, totalt, finalsched);
 
 
-		sort3(finalsched, Classesarray, tth, mwf);
-		passtoDraw(finalsched, tth, mwf, Classesarray);
+			sort3(finalsched, Classesarray, tth, mwf);
+			passtoDraw(finalsched, tth, mwf, Classesarray);
+		}
+		else
+		{
+			vector<vector<c>> finalsched(mwf, vector<c>(tth));
 
+
+
+
+			sort2(totalm, totalt, finalsched);
+
+
+			sort3(finalsched, Classesarray, tth, mwf);
+			passtoDraw(finalsched, tth, mwf, Classesarray);
+
+		}
 	}
 
 			 /*
@@ -687,26 +713,16 @@ namespace GroupProject {
 				 int s = tt;
 				 int v = tm;
 
-
-				 for (int s = 0; s < tt; s++)
+				 if (tm == 1)
 				 {
-					 /*if (tm == 1)
-					 {
-					 if (finals[0][s].take == true)
-					 {
-					 DrawSchedule(finals, s, v, classesArray);
-					 }
-					 }*/
-					 for (int v = 1; v < tm; v++)
-					 {
 
-
-
-						 if (finals[0][s].take == true && finals[v][s].take == true)
+					 for (s = 0; s < tt; s++)
+					 {
+						 if (finals[0][s].take == true)
 						 {
 							 if (u == 1)
 							 {
-								 DrawSchedule(finals, s, v, classesArray);
+								 DrawSchedule(finals, s, v, tt, tm, classesArray);
 
 								 u++;
 
@@ -725,16 +741,87 @@ namespace GroupProject {
 
 								 u++;
 							 }
-
-
-						 }
-						 else
-						 {
-							 v++;
 						 }
 					 }
-					 /*}*/
 				 }
+				 else if (tt == 0)
+				 {
+					 s = 0;
+
+					 bool ewrq = finals[0][0].take;
+					 for (v = 1; v < tm; v++)
+					 {
+						 if (finals[v][s].take == true)
+						 {
+							 if (u == 1)
+							 {
+								 DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+								 u++;
+
+							 }
+							 else if (u == 2)
+							 {
+								 // DrawSchedule2(finals, i, j, classesArray);
+
+
+								 u++;
+							 }
+							 else if (u == 3)
+							 {
+								 // DrawSchedule3(finals, i, j, classesArray);
+
+
+								 u++;
+							 }
+						 }
+					 }
+				 }
+				 else
+				 {
+					 for (int s = 0; s < tt; s++)
+					 {
+
+						 for (int v = 1; v < tm; v++)
+						 {
+
+
+
+							 if (finals[0][s].take == true && finals[v][s].take == true)
+							 {
+								 if (u == 1)
+								 {
+									 DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+									 u++;
+
+								 }
+								 else if (u == 2)
+								 {
+									 // DrawSchedule2(finals, i, j, classesArray);
+
+
+									 u++;
+								 }
+								 else if (u == 3)
+								 {
+									 // DrawSchedule3(finals, i, j, classesArray);
+
+
+									 u++;
+								 }
+
+
+							 }
+							 else
+							 {
+								 v++;
+							 }
+						 }
+						 /*}*/
+					 }
+				 }
+
 
 			 }
 			 /*
@@ -749,6 +836,9 @@ namespace GroupProject {
 			 come back false set that class
 			 (finals[p][i] or finals[j][i]) to false
 
+
+			 {
+			 if (tt != 0)
 			 parameters:
 			 vector<vector<c>> & finals - vector<vector<c>> finals
 			 vector <c> allclas - vector<c> Classesarray
@@ -764,49 +854,75 @@ namespace GroupProject {
 			 void sort3(vector<vector<c>> & finals, vector <c> allclas, int tt, int tm)
 			 {
 
-				 for (int i = 0; i < tt; i++)
+				 if (tt != 0)
 				 {
-					 int p = 0;
-
-
-					 if (classCheck(finals, allclas, i, p) == true)
+					 for (int i = 0; i < tt; i++)
 					 {
-						 if (workcheck(finals, allclas, i, p) == true)
+						 int p = 0;
+
+
+						 if (classCheck(finals, allclas, i, p) == true)
 						 {
-							 finals[p][i].take = true;
-
-
-							 for (int j = 1; j < tm; j++)
+							 if (workcheck(finals, allclas, i, p) == true)
 							 {
-								 if (classCheck(finals, allclas, i, j) == true)
-								 {
-									 if (workcheck(finals, allclas, i, j) == true)
-									 {
-										 finals[j][i].take = true;
+								 finals[p][i].take = true;
 
+
+								 for (int j = 1; j < tm; j++)
+								 {
+									 if (classCheck(finals, allclas, i, j) == true)
+									 {
+										 if (workcheck(finals, allclas, i, j) == true)
+										 {
+											 finals[j][i].take = true;
+
+										 }
+										 else
+										 {
+											 finals[j][i].take = false;
+										 }
 									 }
 									 else
 									 {
 										 finals[j][i].take = false;
+
 									 }
 								 }
-								 else
-								 {
-									 finals[j][i].take = false;
-
-								 }
 							 }
-						 }
 
+							 else
+							 {
+								 finals[p][i].take = false;
+							 }
+
+						 }
 						 else
 						 {
 							 finals[p][i].take = false;
 						 }
-
 					 }
-					 else
+				 }
+				 else
+				 {
+					 for (int j = 1; j < tm; j++)
 					 {
-						 finals[p][i].take = false;
+						 if (classCheck(finals, allclas, 0, j) == true)
+						 {
+							 if (workcheck(finals, allclas, 0, j) == true)
+							 {
+								 finals[j][0].take = true;
+
+							 }
+							 else
+							 {
+								 finals[j][0].take = false;
+							 }
+						 }
+						 else
+						 {
+							 finals[j][0].take = false;
+
+						 }
 					 }
 				 }
 
@@ -1177,20 +1293,37 @@ namespace GroupProject {
 					 string y = tt[i].name;
 					 finals[0][i] = tt[i];
 				 }
-
-				 for (int j = 0; j < tt.size(); j++)
+				 if (tt.size() != 0)
 				 {
-					 int p = 0;
-					 int k = 1;
-					 while (p < tm.size())
+					 for (int j = 0; j < tt.size(); j++)
 					 {
-						 string h = tm[p].name;
-						 finals[k][j] = tm[p];
-						 p++;
-						 k++;
+						 int p = 0;
+						 int k = 1;
+						 while (p < tm.size())
+						 {
+							 string h = tm[p].name;
+							 finals[k][j] = tm[p];
+							 p++;
+							 k++;
+						 }
 					 }
 				 }
+				 else
+				 {
+					 for (int j = 0; j < 1; j++)
+					 {
+						 int p = 0;
+						 int k = 1;
+						 while (p < tm.size())
+						 {
+							 string h = tm[p].name;
+							 finals[k][j] = tm[p];
+							 p++;
+							 k++;
+						 }
+					 }
 
+				 }
 			 }
 			 /*
 			 =====================================================
@@ -1586,11 +1719,11 @@ namespace GroupProject {
 			 vector<c> & classesArray - vector<c> classesArray
 			 ======================================================
 			 */
-			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, vector<c> & classesArray) {
+			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
 
 
 
-				 vector<c> fnsched = finalSort(finals, s, v, classesArray);
+				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
@@ -1663,239 +1796,242 @@ namespace GroupProject {
 			 int & l - place holder for the y 2D vector [][y]
 			 int & k - place holder for the x 2D vector [x][]
 
+
 			 returns: vector<c>
 			 vector<c> lastSched -- with final schedule
 			 =========================================================
 			 */
-			 vector<c> finalSort(vector<vector<c>> & finals, int & l, int & k, vector<c> & classesArray)
+			 vector<c> finalSort(vector<vector<c>> & finals, int & s, int & v, int tt, int tm, vector<c> & classesArray)
 			 {
 				 vector<string> pass(amountofclass);
-				 string c0 = finals[0][l].name;
-				 c0.resize(5);
+
 				 string n = "NULL";
 				 int y = 0;	 int c1 = 0;
 				 int c2 = 0; int c3 = 0;
 				 int c4 = 0; int c5 = 0;
 				 int i = 0;	 int c6 = 0;
-				 String^ s = gcnew String(c0.c_str());
-				 int jk = l;
 
-
-				 //----------Checks the TTH Classes in the finals[][] vector-------------\\
-
-				 while (finals[0][l].work[i] != n)
+				 int jk = s;
+				 if (tt != 0)
 				 {
-					 string k = finals[0][l].work[i];
-					 i++;
+					 string c0 = finals[0][s].name;
+					 c0.resize(5);
+					 String^ k = gcnew String(c0.c_str());
+					 while (finals[0][s].work[i] != n)
+					 {
+						 string k = finals[0][s].work[i];
+						 i++;
+					 }
+
+					 for (int p = 0; p < 1; p++)
+					 {
+						 if (k == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c1++;
+							 y++;
+						 }
+						 else if (k == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c2++;
+							 y++;
+
+						 }
+						 else if (k == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c3++;
+							 y++;
+						 }
+						 else if (k == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c4++;
+							 y++;
+						 }
+						 else if (k == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c5++;
+							 y++;
+						 }
+						 else if (k == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c6++;
+							 y++;
+						 }
+
+					 }
+
+					 int e = 0;
+
+
+					 for (int z = 0; z < i; z++)
+					 {
+						 string w = finals[0][s].work[e];
+						 w.resize(5);
+						 String^ t = gcnew String(w.c_str());
+
+						 if (t == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c1++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c2++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c3++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c4++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c5++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c6++;
+							 e++;
+							 y++;
+						 }
+
+					 }
+
 				 }
-
-				 for (int p = 0; p < 1; p++)
+				 if (tm != 1)
 				 {
-					 if (s == class1 && c1 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c1++;
-						 y++;
-					 }
-					 else if (s == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c2++;
-						 y++;
+					 int ewr = v;
+					 //FOR MWF
+					 string cu = finals[v][s].name;
+					 cu.resize(5);
 
-					 }
-					 else if (s == class3 && c3 < 1)
+					 String^ s1 = gcnew String(cu.c_str());
+					 int i1 = 0;
+					 while (finals[v][s].work[i1] != n)
 					 {
-						 pass[y] = finals[0][l].name;
-						 c3++;
-						 y++;
+						 string io = finals[v][s].work[i1];
+						 i1++;
 					 }
-					 else if (s == class4 && c4 < 1)
+					 for (int p1 = 0; p1 < 1; p1++)
 					 {
-						 pass[y] = finals[0][l].name;
-						 c4++;
-						 y++;
-					 }
-					 else if (s == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c5++;
-						 y++;
-					 }
-					 else if (s == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[0][l].name;
-						 c6++;
-						 y++;
-					 }
+						 if (s1 == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c1++;
+							 y++;
+						 }
+						 else if (s1 == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c2++;
+							 y++;
 
-				 }
-
-				 int e = 0;
-
-
-				 for (int z = 0; z < i; z++)
-				 {
-					 string w = finals[0][l].work[e];
-					 w.resize(5);
-					 String^ t = gcnew String(w.c_str());
-
-					 if (t == class1 && c1 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c1++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c2++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c3++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c4++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c5++;
-						 e++;
-						 y++;
-					 }
-					 else if (t == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[0][l].work[e];
-						 c6++;
-						 e++;
-						 y++;
+						 }
+						 else if (s1 == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c3++;
+							 y++;
+						 }
+						 else if (s1 == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c4++;
+							 y++;
+						 }
+						 else if (s1 == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c5++;
+							 y++;
+						 }
+						 else if (s1 == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c6++;
+							 y++;
+						 }
 					 }
 
-				 }
+					 int d = 0;
 
+					 for (int x = 0; x < i1; x++)
+					 {
 
-				 //----------Checks the MWF Classes in the finals[][] vector-------------\\
+						 string w = finals[v][s].work[d];
+						 w.resize(5);
+						 String^ t = gcnew String(w.c_str());
 
-				 string cu = finals[k][l].name;
-				 cu.resize(5);
+						 if (t == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c1++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c2++;
+							 d++;
+							 y++;
 
-				 String^ s1 = gcnew String(cu.c_str());
-				 int i1 = 0;
-				 while (finals[k][l].work[i1] != n)
-				 {
-					 string io = finals[k][l].work[i1];
-					 i1++;
-				 }
-				 for (int p1 = 0; p1 < 1; p1++)
-				 {
-					 if (s1 == class1 && c1 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c1++;
-						 y++;
+						 }
+						 else if (t == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c3++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c4++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c6++;
+							 d++;
+							 y++;
+						 }
+						 else
+						 {
+							 d++;
+						 }
 					 }
-					 else if (s1 == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c2++;
-						 y++;
-
-					 }
-					 else if (s1 == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c3++;
-						 y++;
-					 }
-					 else if (s1 == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c4++;
-						 y++;
-					 }
-					 else if (s1 == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c5++;
-						 y++;
-					 }
-					 else if (s1 == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[k][l].name;
-						 c6++;
-						 y++;
-					 }
-				 }
-
-				 int d = 0;
-
-				 for (int x = 0; x < i1; x++)
-				 {
-
-					 string w = finals[k][l].work[d];
-					 w.resize(5);
-					 String^ t = gcnew String(w.c_str());
-
-					 if (t == class1 && c1 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c1++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class2 && c2 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c2++;
-						 d++;
-						 y++;
-
-					 }
-					 else if (t == class3 && c3 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c3++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class4 && c4 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c4++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class5 && c5 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c5++;
-						 d++;
-						 y++;
-					 }
-					 else if (t == class6 && c6 < 1)
-					 {
-						 pass[y] = finals[k][l].work[d];
-						 c6++;
-						 d++;
-						 y++;
-					 }
-					 else
-					 {
-						 d++;
-					 }
-
 
 
 				 }
@@ -2120,7 +2256,7 @@ namespace GroupProject {
 
 
 			 //-------------------------------------Notes----------------------------------------------\\
-			 			 			 			 	
+			 			 	
 /*	Thing to do
 ------------Display CLass doesnt display the last calss-----------
 
@@ -2200,5 +2336,8 @@ textBox1->Text = hola;
 
 
 
+	private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	}
 	};
 }
+
