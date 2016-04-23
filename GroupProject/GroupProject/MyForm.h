@@ -742,7 +742,12 @@ namespace GroupProject {
 								 u++;
 							 }
 						 }
+						 
 					 }
+					 if (u == 1)
+						 {
+							 MessageBox::Show("There are scheduling conflicts");
+						 }
 				 }
 				 else if (tt == 0)
 				 {
@@ -775,6 +780,10 @@ namespace GroupProject {
 								 u++;
 							 }
 						 }
+					 }
+					 if (u == 1)
+					 {
+						 MessageBox::Show("There are scheduling conflicts");
 					 }
 				 }
 				 else
@@ -819,6 +828,10 @@ namespace GroupProject {
 							 }
 						 }
 						 /*}*/
+					 }
+					 if (u == 1)
+					 {
+						 MessageBox::Show("There are scheduling conflicts");
 					 }
 				 }
 
