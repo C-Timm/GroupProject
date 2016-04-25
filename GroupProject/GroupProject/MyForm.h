@@ -215,7 +215,7 @@ namespace GroupProject {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(159, 48);
 			this->button2->TabIndex = 16;
-			this->button2->Text = L"Show Schedule One";
+			this->button2->Text = L"Show Schedule";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
@@ -235,17 +235,17 @@ namespace GroupProject {
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(159, 48);
 			this->button4->TabIndex = 18;
-			this->button4->Text = L"Show Schedule Two ";
+			this->button4->Text = L"Show Schedule";
 			this->button4->UseVisualStyleBackColor = true;
 			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
 			// 
 			// button5
 			// 
-			this->button5->Location = System::Drawing::Point(773, 744);
+			this->button5->Location = System::Drawing::Point(758, 744);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(159, 48);
 			this->button5->TabIndex = 19;
-			this->button5->Text = L"Show Schedule Three";
+			this->button5->Text = L"Show Schedule";
 			this->button5->UseVisualStyleBackColor = true;
 			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
 			// 
@@ -260,7 +260,7 @@ namespace GroupProject {
 			// 
 			// textBox4
 			// 
-			this->textBox4->Location = System::Drawing::Point(724, 668);
+			this->textBox4->Location = System::Drawing::Point(741, 668);
 			this->textBox4->Multiline = true;
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(193, 70);
@@ -344,7 +344,7 @@ namespace GroupProject {
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
 		g4 = pictureBox4->CreateGraphics();
-		/*vector<String^> classes;*/
+		
 		// vector of all the classes in the text file
 		vector<c> Classarray(totalclassCount);
 		//inilizes the vector of all the classes
@@ -359,7 +359,7 @@ namespace GroupProject {
 	//amountlist limits max number of items user can send over to 6
 	private: System::Void listBox1_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 
-		if (amountlist < 6)
+		if (amountlist <= 6)
 			{
 				this->listBox2->Items->Add(this->listBox1->SelectedItem);
 				amountlist++;
@@ -454,12 +454,6 @@ namespace GroupProject {
 			amountofclass++;
 		}
 	
-	
-
-
-
-		/*g4->DrawImage(bmp, 0, 0);*/
-
 
 		//Vector for each MWF class and TTH class
 		vector<c> mwf0;	vector<c> tth0;
@@ -471,6 +465,7 @@ namespace GroupProject {
 
 		//Vector for each MWF class and TTH class
 		vector<c> Classesarray(totalclassCount);
+
 		// initializes the classesarray 
 		readFile2(Classesarray);
 
@@ -891,6 +886,8 @@ namespace GroupProject {
 						{
 							if (u == 1)
 							{
+
+								//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
 								DrawSchedule(finals, s, v, tt, tm, classesArray);
 
 								u++;
@@ -1458,8 +1455,7 @@ namespace GroupProject {
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
 				 printSched1(fnsched);
-				
-
+				 
 				 int y;
 				 int b, h;
 				 int x1, x2, x3;
@@ -1493,6 +1489,7 @@ namespace GroupProject {
 
 			 }
 
+
 			 /*
 			 =========================================================
 			 function:
@@ -1507,11 +1504,18 @@ namespace GroupProject {
 			 */
 			 void printSched1(vector<c> fnsched)
 			 {
-				 int i;
-
-				 textBox8->Text = textBox8->Text + " Class         " + "  Day          " + "  Time" + "\r\n";
+				 int i = 0, count = 0;
+				 for (int j = 0; j < fnsched.size(); j++)
+				 {
+					 if (fnsched[j].name != "")
+					 {
+						 count++;
+					 }
+				 }
+				 textBox8->Text = textBox8->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
 				 textBox8->Text = textBox8->Text + "----------------------------------------------""\r\n";
-				 do {
+				 while (i < count )
+				 {
 					 string e; string s;
 					 string st; string et;
 					 int start; int end;
@@ -1584,11 +1588,11 @@ namespace GroupProject {
 					 String ^ startT = gcnew String(st.c_str());
 					 String ^ endT = gcnew String(et.c_str());
 
-					 textBox8->Text = textBox8->Text + name + "         " + day + "         " + startT + "-" + endT + "\r\n";
+					 textBox8->Text = textBox8->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
 
 					 i++;
 
-				 } while (fnsched[i].name != "");
+				 }
 
 
 			 }
@@ -1654,11 +1658,18 @@ namespace GroupProject {
 			 
 			 void printSched2(vector<c> fnsched)
 			 {
-				 int i;
-
-				 textBox2->Text = textBox2->Text + " Class         " + "  Day          " + "  Time" + "\r\n";
+				 int i = 0, count = 0;
+				 for (int j = 0; j < fnsched.size(); j++)
+				 {
+					 if (fnsched[j].name != "")
+					 {
+						 count++;
+					 }
+				 }
+				 textBox2->Text = textBox2->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
 				 textBox2->Text = textBox2->Text + "----------------------------------------------""\r\n";
-				 do {
+				 while (i < count)
+				 {
 					 string e; string s;
 					 string st; string et;
 					 int start; int end;
@@ -1733,10 +1744,10 @@ namespace GroupProject {
 					 String ^ startT = gcnew String(st.c_str());
 					 String ^ endT = gcnew String(et.c_str());
 
-					 textBox2->Text = textBox2->Text + name + "         " + day + "         " + startT + "-" + endT + "\r\n";
+					 textBox2->Text = textBox2->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
 
 					 i++;
-				 } while (fnsched[i].name != "");
+				 }
 
 
 			 }
@@ -1803,11 +1814,19 @@ namespace GroupProject {
 			 
 			 void printSched3(vector<c> fnsched)
 			 {
-			 int i;
+				 int i = 0, count = 0;
+				 for (int j = 0; j < fnsched.size(); j++)
+				 {
+					 if (fnsched[j].name != "")
+					 {
+						 count++;
+					 }
+				 }
+				 textBox4->Text = textBox4->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
+				 textBox4->Text = textBox4->Text + "----------------------------------------------""\r\n";
+				 while (i < count)
+			 {
 
-			 textBox4->Text = textBox4->Text + " Class         " + "  Day          " + "  Time" + "\r\n";
-			 textBox4->Text = textBox4->Text + "----------------------------------------------""\r\n";
-			 do {
 			 string e; string s;
 			 string st; string et;
 			 int start; int end;
@@ -1817,11 +1836,11 @@ namespace GroupProject {
 			 string d;
 			 if (fnsched[i].day == "MWF")
 			 {
-			 d = "M,W,F";
+				 d = "M,W,F";
 			 }
 			 else
 			 {
-			 d = "T,TH";
+				d = "T,TH";
 			 }
 
 			 String^ day = gcnew String(d.c_str());
@@ -1831,61 +1850,61 @@ namespace GroupProject {
 			 //Convertion from military time to stadard time and addes am/pm
 			 if (fnsched[i].stime >= 1300)
 			 {
-			 start = fnsched[i].stime - 1200;
-			 s = std::to_string(start) + "pm";
+				 start = fnsched[i].stime - 1200;
+				 s = std::to_string(start) + "pm";
 			 }
 			 else
 			 {
-			 start = fnsched[i].stime;
-			 s = std::to_string(start) + "am";
+				 start = fnsched[i].stime;
+				 s = std::to_string(start) + "am";
 			 }
 			 if (fnsched[i].etime >= 1300)
 			 {
-			 end = fnsched[i].etime - 1200;
-			 e = std::to_string(end) + "pm";
+				 end = fnsched[i].etime - 1200;
+				 e = std::to_string(end) + "pm";
 
 			 }
 			 else
 			 {
-			 end = fnsched[i].etime;
-			 e = std::to_string(end) + "am";
+				end = fnsched[i].etime;
+				e = std::to_string(end) + "am";
 			 }
 
 			 //Convers the times from ints to strings and adds ":" in the time
 			 if (s.length() == 5)
 			 {
-			 string b = s.substr(0, 1);
-			 string f = s.substr(1, 4);
-			 st = b + ":" + f;
+				string b = s.substr(0, 1);
+				string f = s.substr(1, 4);
+				st = b + ":" + f;
 			 }
 			 else
 			 {
-			 string be = s.substr(0, 2);
-			 string fi = s.substr(2, 6);
-			 st = be + ":" + fi;
+				string be = s.substr(0, 2);
+				string fi = s.substr(2, 6);
+				st = be + ":" + fi;
 			 }
 
 			 if (e.length() == 5)
 			 {
-			 string b = e.substr(0, 1);
-			 string f = e.substr(1, 4);
-			 et = b + ":" + f;
+				string b = e.substr(0, 1);
+				string f = e.substr(1, 4);
+				 et = b + ":" + f;
 			 }
 			 else
 			 {
-			 string be = e.substr(0, 2);
-			 string fi = e.substr(2, 6);
-			 et = be + ":" + fi;
+				string be = e.substr(0, 2);
+				string fi = e.substr(2, 6);
+				et = be + ":" + fi;
 			 }
 
 
-			 String ^ startT = gcnew String(st.c_str());
-			 String ^ endT = gcnew String(et.c_str());
+				String ^ startT = gcnew String(st.c_str());
+				String ^ endT = gcnew String(et.c_str());
 
-			 textBox4->Text = textBox4->Text + name + "         " + day + "         " + startT + "-" + endT + "\r\n";
+				 textBox4->Text = textBox4->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
 
-			 i++;
-			 } while (fnsched[i].name != "");
+				i++;
+			 } 
 
 
 			 }
@@ -1906,13 +1925,13 @@ namespace GroupProject {
 			 void displayClasses(vector<c> all)
 			 {
 				 int j = 0, i = 0;
-
+				 int a = all.size();
 				 for (int cl = 0; cl < all.size(); cl++)
 				 {
 					 for (int cl1 = 0; cl1 < all.size(); cl1++)
 					 {
 
-						 int u = all.size();
+						 
 						 string r = all[cl].name;
 						 string r1 = all[cl1].name;
 						 r.resize(5);
@@ -2028,7 +2047,7 @@ namespace GroupProject {
 					 return false;
 				 }
 			 }	 
-		/*
+			/*
 			 =====================================================
 			 function:
 			  Check to see if there is any conflicting classes in
@@ -2047,7 +2066,6 @@ namespace GroupProject {
 							if 'work' is empty
 			 ======================================================
 			 */
-
 			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, int i, int j)
 			 {
 
@@ -2784,120 +2802,126 @@ namespace GroupProject {
 
 
 
-			 //-------------------------------------Notes----------------------------------------------\\
-			 			 	
-			/*	Thing to do
+			 
 
-				*/
-
-			//========================================================================================\\
-
-			//-------------------------------------Graveyard------------------------------------------\\	
-				/*
-				//Method that assigned each class a Period
-				void periodInti(vector<c> & dayArray)
-				{
-				for (int j = 0; j < dayArray.size(); j++)
-				{
-				if (dayArray[j].stime < period2)
-				{
-				dayArray[j].period = 1;
-				}
-				else if (dayArray[j].stime < period3)
-				{
-				dayArray[j].period = 2;
-				}
-				else
-				dayArray[j].period = 3;
-				}
-				}
-				//From Init Method that assigned the peroids to the classes
-				for (int j = 0; j < classnum.size(); j++)
-				{
-				if (classnum[j].stime < period2)
-				{
-				classnum[j].period = 1;
-				}
-				else if (classnum[j].stime < period3)
-				{
-				classnum[j].period = 2;
-				}
-				else
-				classnum[j].period = 3;
-				}
-				//Periods
-				const int period1 = 800;
-				const int period2 = 1100;
-				const int period3 = 1400;
-				//I was just trying to see if I could get it to display the name in a textbox
-				//Because I have not found an easy way to do it with a variable
-				//It kinda works
-				//Passes in the vector of al the classes on either TTh or MWF "k"
-				//and the vector of the test class "classnum" and te place holder "j"
-				void Try(vector<c> k, vector<c> & classnum, int j)
-				{
-				int q = 1;
-				for (int qw = 0; qw < j; qw++)
-				{
-				if (q == 1)
-				{
-				//ignore the hola i copied it from online
-				String^ hola = gcnew String(k[qw].name.c_str());
-				textBox1->Text = hola;
-				}
-				}
-				}
-				*/
-				/*struct c
-				{
-				std::string name;
-				std::string day;
-				int stime;
-				int etime;
-				int problems;
-				std::string work[50];
-				bool take;
-				};*/
-
-
-			//========================================================================================\\
-
-
-
-
-
-
-
-
-
-			
+		
 	
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 	//Schedule 1
-	MessageBox::Show(textBox8->Text);
+	MessageBox::Show(textBox8->Text, "Schedule One");
 }
 
 
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	//Schedule 2
-	MessageBox::Show(textBox2->Text);
+	MessageBox::Show(textBox2->Text, "Schedule Two");
 }
 
  private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
 	 //Schedule 3
-	 MessageBox::Show(textBox4->Text);
+	 MessageBox::Show(textBox4->Text,"Schedule Three");
  }
 
  private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 	
 	 Application::Restart();
  }
-private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-			
-	Application::Exit();
+		
+private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) 
+{	   //Exit 
+
+	   //Makes Sure the user whats to exit
+	if (MessageBox::Show("Exit application?", "Exit",
+		MessageBoxButtons::YesNo,MessageBoxIcon::Question)
+		== System::Windows::Forms::DialogResult::Yes)
+
+		Application::Exit();
+	
+	else
+	{	 //restarts if they dont
+		Application::Restart();
+	}
+	
 }
 
+ //-------------------------------------Notes----------------------------------------------\\
+		 			 			 	
+			/*	Thing to do
+
+			*/
+
+//========================================================================================\\
+
+//-------------------------------------Graveyard------------------------------------------\\	
+		/*
+		//Method that assigned each class a Period
+		void periodInti(vector<c> & dayArray)
+		{
+		for (int j = 0; j < dayArray.size(); j++)
+		{
+		if (dayArray[j].stime < period2)
+		{
+		dayArray[j].period = 1;
+		}
+		else if (dayArray[j].stime < period3)
+		{
+		dayArray[j].period = 2;
+		}
+		else
+		dayArray[j].period = 3;
+		}
+		}
+		//From Init Method that assigned the peroids to the classes
+		for (int j = 0; j < classnum.size(); j++)
+		{
+		if (classnum[j].stime < period2)
+		{
+		classnum[j].period = 1;
+		}
+		else if (classnum[j].stime < period3)
+		{
+		classnum[j].period = 2;
+		}
+		else
+		classnum[j].period = 3;
+		}
+		//Periods
+		const int period1 = 800;
+		const int period2 = 1100;
+		const int period3 = 1400;
+		//I was just trying to see if I could get it to display the name in a textbox
+		//Because I have not found an easy way to do it with a variable
+		//It kinda works
+		//Passes in the vector of al the classes on either TTh or MWF "k"
+		//and the vector of the test class "classnum" and te place holder "j"
+		void Try(vector<c> k, vector<c> & classnum, int j)
+		{
+		int q = 1;
+		for (int qw = 0; qw < j; qw++)
+		{
+		if (q == 1)
+		{
+		//ignore the hola i copied it from online
+		String^ hola = gcnew String(k[qw].name.c_str());
+		textBox1->Text = hola;
+		}
+		}
+		}
+		*/
+		/*struct c
+		{
+		std::string name;
+		std::string day;
+		int stime;
+		int etime;
+		int problems;
+		std::string work[50];
+		bool take;
+		};*/
+
+
+//========================================================================================\\
 
 
 
