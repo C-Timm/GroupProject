@@ -6,7 +6,7 @@ public:
 	std::string day;
 	int stime;
 	int etime;
-	int problems;
+	int works;
 	std::string work[50];
 	bool take;
 }Class;

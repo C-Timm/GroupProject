@@ -211,41 +211,45 @@ namespace GroupProject {
 			// 
 			// button2
 			// 
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->button2->Location = System::Drawing::Point(116, 744);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(159, 48);
 			this->button2->TabIndex = 16;
-			this->button2->Text = L"Show Schedule";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
 			// button3
 			// 
+			this->button3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.BackgroundImage")));
+			this->button3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->button3->Location = System::Drawing::Point(1121, 771);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(113, 39);
 			this->button3->TabIndex = 17;
-			this->button3->Text = L"Exit";
 			this->button3->UseVisualStyleBackColor = true;
 			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
 			// button4
 			// 
+			this->button4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button4.BackgroundImage")));
+			this->button4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->button4->Location = System::Drawing::Point(454, 744);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(159, 48);
 			this->button4->TabIndex = 18;
-			this->button4->Text = L"Show Schedule";
 			this->button4->UseVisualStyleBackColor = true;
 			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
 			// 
 			// button5
 			// 
+			this->button5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button5.BackgroundImage")));
+			this->button5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->button5->Location = System::Drawing::Point(758, 744);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(159, 48);
 			this->button5->TabIndex = 19;
-			this->button5->Text = L"Show Schedule";
 			this->button5->UseVisualStyleBackColor = true;
 			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
 			// 
@@ -269,11 +273,12 @@ namespace GroupProject {
 			// 
 			// button6
 			// 
+			this->button6->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button6.BackgroundImage")));
+			this->button6->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->button6->Location = System::Drawing::Point(724, 132);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(94, 79);
 			this->button6->TabIndex = 23;
-			this->button6->Text = L"Reset";
 			this->button6->UseVisualStyleBackColor = true;
 			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
 			// 
@@ -300,6 +305,7 @@ namespace GroupProject {
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->button1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Fixed3D;
 			this->Name = L"MyForm";
 			this->Text = L"AdvisoTron";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -804,26 +810,29 @@ namespace GroupProject {
 				{
 					if (finals[0][s].take == true)
 					{
-						if (u == 1)
-						{
-							DrawSchedule(finals, s, v, tt, tm, classesArray);
-							
-							u++;
+						
+							if (u == 1)
+							{
+								DrawSchedule(finals, s, v, tt, tm, classesArray);
 
-						}
-						else if (u == 2)
-						{
-							DrawSchedule2(finals, s, v, tt, tm, classesArray);
-							
-							u++;
-						}
-						else if (u == 3)
-						{
-							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+								finals[0][s].works--;
+								u++;
 
-
-							u++;
-						}
+							}
+							else if (u == 2)
+							{
+								DrawSchedule2(finals, s, v, tt, tm, classesArray);
+								finals[0][s].works--;
+								u++;
+							}
+							else if (u == 3)
+							{
+								DrawSchedule3(finals, s, v, tt, tm, classesArray);
+								
+								finals[0][s].works--;
+								u++;
+							}
+						
 					}
 
 				}
@@ -841,28 +850,30 @@ namespace GroupProject {
 				{
 					if (finals[v][s].take == true)
 					{
-						if (u == 1)
-						{
-							DrawSchedule(finals, s, v, tt, tm, classesArray);
-							
-							
-							u++;
+						
+							if (u == 1)
+							{
+								DrawSchedule(finals, s, v, tt, tm, classesArray);
 
-						}
-						else if (u == 2)
-						{
-							DrawSchedule2(finals, s, v, tt, tm, classesArray);
-							
-							
-							u++;
-						}
-						else if (u == 3)
-						{
-							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+								finals[v][s].works--;
+								u++;
 
+							}
+							else if (u == 2)
+							{
+								DrawSchedule2(finals, s, v, tt, tm, classesArray);
 
-							u++;
-						}
+								finals[v][s].works--;
+								u++;
+							}
+							else if (u == 3)
+							{
+								DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+								finals[v][s].works--;
+								u++;
+							}
+						
 					}
 				}
 				if (u == 1)
@@ -882,29 +893,31 @@ namespace GroupProject {
 
 						if (finals[0][s].take == true && finals[v][s].take == true)
 						{
-							if (u == 1)
-							{
+							
+								if (u == 1)
+								{
 
-								//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
-								DrawSchedule(finals, s, v, tt, tm, classesArray);
+									//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
+									DrawSchedule(finals, s, v, tt, tm, classesArray);
 
-								u++;
+									u++;
 
-							}
-							else if (u == 2)
-							{
-								DrawSchedule2(finals, s, v, tt, tm, classesArray);
-
-
-								u++;
-							}
-							else if (u == 3)
-							{
-								DrawSchedule3(finals, s, v, tt, tm, classesArray);
+								}
+								else if (u == 2)
+								{
+									DrawSchedule2(finals, s, v, tt, tm, classesArray);
 
 
-								u++;
-							}
+									u++;
+								}
+								else if (u == 3)
+								{
+									DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+
+									u++;
+								}
+							
 
 
 						}
@@ -1058,31 +1071,35 @@ namespace GroupProject {
 
 				 for (int change1 = 0; change1 < tt; change1++)
 				 {
-					
+
 
 					 if (tt > 0)
 					 {
-					string o = finals[0][0].name;
-					o.resize(5);
-					string o1 = finals[0][change1].name;
-					 o1.resize(5);
+						 string o = finals[0][0].name;
+						 o.resize(5);
+						 string o1 = finals[0][change1].name;
+						 o1.resize(5);
 						 if (o == o1)
 						 {
 							 firsttot1++;
 						 }
 					 }
-					 if (tm > 1)
+					}
+					 for (int change1 = 0; change1 < tm; change1++)
 					 {
-						 string p = finals[1][0].name;
-						 p.resize(5);
-						 string p1 = finals[0][change1].name;
-						 p1.resize(5);
-						 if (p == p1)
+						 if (tm > 1)
 						 {
-							 firsttot2++;
+							 string p = finals[1][0].name;
+							 p.resize(5);
+							 string p1 = finals[change1][0].name;
+							 p1.resize(5);
+							 if (p == p1)
+							 {
+								 firsttot2++;
+							 }
 						 }
 					 }
-				 }
+				 
 
 
 
@@ -1099,29 +1116,6 @@ namespace GroupProject {
 							 {
 								 finals[p][i].take = true;
 
-
-								/* for (int j = 1; j < tm; j++)
-								 {
-									 string fun = finals[j][i].name;
-									 if (classCheck(finals, allclas, i, j) == true)
-									 {
-										 if (workcheck(finals, allclas, totalm, i, j) == true)
-										 {
-
-											 finals[j][i].take = true;
-
-										 }
-										 else
-										 {
-											 finals[j][i].take = false;
-										 }
-									 }
-									 else
-									 {
-										 finals[j][i].take = false;
-
-									 }
-								 }*/
 							 }
 
 							 else
@@ -1135,10 +1129,32 @@ namespace GroupProject {
 							 finals[p][i].take = false;
 						 }
 					 }
+					 {
+						 for (int j = 0; j <= firsttot2; j++)
+						 {
+							 if (classCheck(finals, allclas, 0, j) == true)
+							 {
+								 if (workcheck(finals, allclas, totalm, 0, j) == true)
+								 {
+									 finals[j][0].take = true;
+
+								 }
+								 else
+								 {
+									 finals[j][0].take = false;
+								 }
+							 }
+							 else
+							 {
+								 finals[j][0].take = false;
+
+							 }
+						 }
+					 }
 				 }
 				 else
 				 {
-					 for (int j = 1; j < firsttot2; j++)
+					 for (int j = 0; j <= firsttot2; j++)
 					 {
 						 if (classCheck(finals, allclas, 0, j) == true)
 						 {
@@ -1488,7 +1504,7 @@ namespace GroupProject {
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
-				 printSched1(fnsched);
+				 printSched(fnsched, textBox8);
 				 
 				 int y;
 				 int b, h;
@@ -1536,7 +1552,7 @@ namespace GroupProject {
 
 			 =========================================================
 			 */
-			 void printSched1(vector<c> fnsched)
+			 void printSched(vector<c> fnsched,TextBox^ textBox)
 			 {
 				 int i = 0, count = 0;
 				 for (int j = 0; j < fnsched.size(); j++)
@@ -1546,8 +1562,8 @@ namespace GroupProject {
 						 count++;
 					 }
 				 }
-				 textBox8->Text = textBox8->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
-				 textBox8->Text = textBox8->Text + "----------------------------------------------""\r\n";
+				 textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
+				 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
 				 while (i < count )
 				 {
 					 string e; string s;
@@ -1622,7 +1638,7 @@ namespace GroupProject {
 					 String ^ startT = gcnew String(st.c_str());
 					 String ^ endT = gcnew String(et.c_str());
 
-					 textBox8->Text = textBox8->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
+					 textBox->Text = textBox->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
 
 					 i++;
 
@@ -1640,7 +1656,7 @@ namespace GroupProject {
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
-				 printSched2(fnsched);
+				 printSched(fnsched,textBox2);
 				
 
 				 int y;
@@ -1675,115 +1691,6 @@ namespace GroupProject {
 				 }
 			 }
 
-
-
-			 /*
-			 =========================================================
-			 function:
-			 Displays the second schedule in a message box for the
-			 user to see.
-			 passing in the schedule from 'DrawSchedule2'
-
-			 parameters:
-			 vector<c> fnsched - vector<c> fnsched
-
-			 =========================================================
-			 */
-			 
-			 void printSched2(vector<c> fnsched)
-			 {
-				 int i = 0, count = 0;
-				 for (int j = 0; j < fnsched.size(); j++)
-				 {
-					 if (fnsched[j].name != "")
-					 {
-						 count++;
-					 }
-				 }
-				 textBox2->Text = textBox2->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
-				 textBox2->Text = textBox2->Text + "----------------------------------------------""\r\n";
-				 while (i < count)
-				 {
-					 string e; string s;
-					 string st; string et;
-					 int start; int end;
-
-					 string n = fnsched[i].name;  String^ name = gcnew String(n.c_str());
-
-					 string d;
-					 if (fnsched[i].day == "MWF")
-					 {
-						 d = "M,W,F";
-					 }
-					 else
-					 {
-						 d = "T,TH";
-					 }
-					 String^ day = gcnew String(d.c_str());
-
-					 System::Convert::ToString(fnsched[i].stime);
-					 //Convertion from military time to stadard time and addes am/pm
-					 if (fnsched[i].stime >= 1300)
-					 {
-						 start = fnsched[i].stime - 1200;
-						 s = std::to_string(start) + "pm";
-					 }
-					 else
-					 {
-						 start = fnsched[i].stime;
-						 s = std::to_string(start) + "am";
-					 }
-					 if (fnsched[i].etime >= 1300)
-					 {
-						 end = fnsched[i].etime - 1200;
-						 e = std::to_string(end) + "pm";
-
-					 }
-					 else
-					 {
-						 end = fnsched[i].etime;
-						 e = std::to_string(end) + "am";
-					 }
-
-					 //Convers the times from ints to strings and adds ":" in the time
-					 if (s.length() == 5)
-					 {
-						 string b = s.substr(0, 1);
-						 string f = s.substr(1, 4);
-						 st = b + ":" + f;
-					 }
-					 else
-					 {
-						 string be = s.substr(0, 2);
-						 string fi = s.substr(2, 6);
-						 st = be + ":" + fi;
-					 }
-
-					 if (e.length() == 5)
-					 {
-						 string b = e.substr(0, 1);
-						 string f = e.substr(1, 4);
-						 et = b + ":" + f;
-					 }
-					 else
-					 {
-						 string be = e.substr(0, 2);
-						 string fi = e.substr(2, 6);
-						 et = be + ":" + fi;
-					 }
-
-
-					 String ^ startT = gcnew String(st.c_str());
-					 String ^ endT = gcnew String(et.c_str());
-
-					 textBox2->Text = textBox2->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
-
-					 i++;
-
-				 }
-
-
-			 }
 			
 
 			 void DrawSchedule3(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
@@ -1795,7 +1702,7 @@ namespace GroupProject {
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
-				 printSched3(fnsched);
+				 printSched(fnsched,textBox4);
 				 
 
 				 int y;
@@ -1832,116 +1739,7 @@ namespace GroupProject {
 
 			 }
 
-			 /*
-			 =========================================================
-			 function:
-			 Displays the Third schedule in a message box for the
-			 user to see.
-			 passing in the schedule from 'DrawSchedule3'
-
-			 parameters:
-			 vector<c> fnsched - vector<c> fnsched
-
-			 =========================================================
-			 */
-			 
-			 void printSched3(vector<c> fnsched)
-			 {
-				 int i = 0, count = 0;
-				 for (int j = 0; j < fnsched.size(); j++)
-				 {
-					 if (fnsched[j].name != "")
-					 {
-						 count++;
-					 }
-				 }
-				 textBox4->Text = textBox4->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
-				 textBox4->Text = textBox4->Text + "----------------------------------------------""\r\n";
-				 while (i < count)
-			 {
-
-			 string e; string s;
-			 string st; string et;
-			 int start; int end;
-
-			 string n = fnsched[i].name;  String^ name = gcnew String(n.c_str());
-
-			 string d;
-			 if (fnsched[i].day == "MWF")
-			 {
-				 d = "M,W,F";
-			 }
-			 else
-			 {
-				d = "T,TH";
-			 }
-
-			 String^ day = gcnew String(d.c_str());
-
-
-			 System::Convert::ToString(fnsched[i].stime);
-			 //Convertion from military time to stadard time and addes am/pm
-			 if (fnsched[i].stime >= 1300)
-			 {
-				 start = fnsched[i].stime - 1200;
-				 s = std::to_string(start) + "pm";
-			 }
-			 else
-			 {
-				 start = fnsched[i].stime;
-				 s = std::to_string(start) + "am";
-			 }
-			 if (fnsched[i].etime >= 1300)
-			 {
-				 end = fnsched[i].etime - 1200;
-				 e = std::to_string(end) + "pm";
-
-			 }
-			 else
-			 {
-				end = fnsched[i].etime;
-				e = std::to_string(end) + "am";
-			 }
-
-			 //Convers the times from ints to strings and adds ":" in the time
-			 if (s.length() == 5)
-			 {
-				string b = s.substr(0, 1);
-				string f = s.substr(1, 4);
-				st = b + ":" + f;
-			 }
-			 else
-			 {
-				string be = s.substr(0, 2);
-				string fi = s.substr(2, 6);
-				st = be + ":" + fi;
-			 }
-
-			 if (e.length() == 5)
-			 {
-				string b = e.substr(0, 1);
-				string f = e.substr(1, 4);
-				 et = b + ":" + f;
-			 }
-			 else
-			 {
-				string be = e.substr(0, 2);
-				string fi = e.substr(2, 6);
-				et = be + ":" + fi;
-			 }
-
-
-				String ^ startT = gcnew String(st.c_str());
-				String ^ endT = gcnew String(et.c_str());
-
-				 textBox4->Text = textBox4->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
-
-				i++;
-			 } 
-
-
-			 }
-			 
+			
 
 			   /*
 			 =====================================================
@@ -2106,10 +1904,14 @@ namespace GroupProject {
 
 				 int num = numofnames(total) + 1;
 				 int place = 0;
+				 int workcount = 0;
+				 int coo = 0;
 
 				 vector<c> classnames(num);
+				 vector<c> pass(num);
 
-
+				 pass[coo] = finals[j][i];
+				 coo++;
 
 				 int s = 0;
 				 for (int t = 0; t < 25; t++)
@@ -2139,7 +1941,12 @@ namespace GroupProject {
 				 }
 				 Classesnames(check, classnames);
 
-				 
+				 int checkiwqw = num - 1 ;
+
+				 if (check.size() == 0 && num - 1 >= 1)
+				 {
+					 return false;
+				 }
 
 				 if (num - 1 > 1)
 				 {
@@ -2153,6 +1960,7 @@ namespace GroupProject {
 					 string test = check[q].name;
 					 test.resize(5);
 					 string check1;
+					 
 
 					 /* do
 					 {*/
@@ -2162,20 +1970,23 @@ namespace GroupProject {
 
 					 string check2 = check[q].name;
 					 check2.resize(5);
-
+					 
 
 					 for (int q = 0; q < check.size(); q++)
-					 {
+					 {	
+						 coo = 1;
 						 string check2 = check[q].name;
 						 check2.resize(5);
 						 if (check2 == classnames[0].name)
 						 {
+							 pass[coo] = check[q];
+							coo++;
 
 							 for (int q1 = 0; q1 < check.size(); q1++)
 							 {
 								 string check2 = check[q1].name;
 								 check2.resize(5);
-								 if (check2 != classnames[0].name)
+								 if (check2 == classnames[1].name)
 								 {
 									 if (check[q].stime >= check[q1].stime
 										 && check[q].stime <= check[q1].etime)
@@ -2190,24 +2001,28 @@ namespace GroupProject {
 
 									 }
 									 else if (check[q].stime == check[q1].stime
-										 || check[q].stime == check[q1].etime
-										 || check[q1].stime == check[q].stime
-										 || check[q1].stime == check[q1].etime)
+										 || check[q].etime == check[q1].etime
+										 || check[q].etime == check[q1].stime
+										 || check[q].stime == check[q1].etime)
 									 {
 
 									 }
 
 									 else
 									 {
+										 pass[coo] = check[q1];
+										 
+
 										 if (num - 1 > 2)
 										 {
 											 for (int q = 0; q < check.size(); q++)
 											 {
+												 coo = 3;
 												 string check2 = check[q].name;
 												 check2.resize(5);
 												 if (check2 == classnames[1].name)
 												 {
-
+													 
 
 													 for (int q1 = 0; q1 < check.size(); q1++)
 													 {
@@ -2215,7 +2030,7 @@ namespace GroupProject {
 														 check2.resize(5);
 
 
-														 if (check2 != classnames[0].name && check2 != classnames[1].name)
+														 if (check2 == classnames[2].name)
 														 {
 															 if (check[q].stime >= check[q1].stime
 																 && check[q].stime <= check[q1].etime)
@@ -2230,29 +2045,33 @@ namespace GroupProject {
 
 															 }
 															 else if (check[q].stime == check[q1].stime
-																 || check[q].stime == check[q1].etime
-																 || check[q1].stime == check[q].stime
-																 || check[q1].stime == check[q1].etime)
+																 || check[q].etime == check[q1].etime
+																 || check[q].etime == check[q1].stime
+																 || check[q].stime == check[q1].etime)
 															 {
 
 															 }
 
 															 else
 															 {
+																 pass[coo] = check[q1];
+																
 																 if (num - 1 > 3)
 																 {
 																	 for (int q = 0; q < check.size(); q++)
 																	 {
+																		 coo = 4;
 																		 string check2 = check[q].name;
 																		 check2.resize(5);
 																		 if (check2 == classnames[2].name)
 																		 {
+																			 
 																			 for (int q1 = 0; q1 < check.size(); q1++)
 																			 {
 																				 string check2 = check[q].name;
 																				 check2.resize(5);
 
-																				 if (check2 != classnames[0].name || check2 != classnames[1].name || check2 != classnames[1].name)
+																				 if (check2 == classnames[3].name )
 																				 {
 																					 if (check[q].stime >= check[q1].stime
 																						 && check[q].stime <= check[q1].etime)
@@ -2267,26 +2086,32 @@ namespace GroupProject {
 
 																					 }
 																					 else if (check[q].stime == check[q1].stime
-																						 || check[q].stime == check[q1].etime
-																						 || check[q1].stime == check[q].stime
-																						 || check[q1].stime == check[q1].etime)
+																						 || check[q].etime == check[q1].etime
+																						 || check[q].etime == check[q1].stime
+																						 || check[q].stime == check[q1].etime)
 																					 {
 
 																					 }
 
 																					 else
 																					 {
+																						 pass[coo] = check[q1];
+																						
 																						 if (num - 1 > 4)
 																						 {
 																							 for (int q = 0; q < check.size(); q++)
 																							 {
+																								 coo = 5;
+																								 string check2 = check[q].name;
+																								 check2.resize(5);
+																								 if (check2 == classnames[3].name)
+																								 {
 																								 for (int q1 = 0; q1 < check.size(); q1++)
 																								 {
 																									 string check2 = check[q].name;
 																									 check2.resize(5);
-																									 while (check2 == classnames[4].name)
-																									 {
-																										 if (check1 != check2)
+																									 
+																										 if (check2 == classnames[4].name )
 																										 {
 																											 if (check[q].stime >= check[q1].stime
 																												 && check[q].stime <= check[q1].etime)
@@ -2301,52 +2126,60 @@ namespace GroupProject {
 
 																											 }
 																											 else if (check[q].stime == check[q1].stime
-																												 || check[q].stime == check[q1].etime
-																												 || check[q1].stime == check[q].stime
-																												 || check[q1].stime == check[q1].etime)
+																												 || check[q].etime == check[q1].etime
+																												 || check[q].etime == check[q1].stime
+																												 || check[q].stime == check[q1].etime)
 																											 {
 
 																											 }
 
 																											 else
 																											 {
+																												 pass[coo] = check[q1];
+																												
 																												 if (num - 1 > 5)
 																												 {
 																													 for (int q = 0; q < check.size(); q++)
 																													 {
-																														 for (int q1 = 0; q1 < check.size(); q1++)
+																														 coo = 6;
+																														 string check2 = check[q].name;
+																														 check2.resize(5);
+																														 if (check2 == classnames[4].name)
 																														 {
-																															 string check2 = check[q].name;
-																															 check2.resize(5);
-																															 while (check2 == classnames[5].name)
+																															 for (int q1 = 0; q1 < check.size(); q1++)
 																															 {
-																																 if (check1 != check2)
-																																 {
-																																	 if (check[q].stime >= check[q1].stime
-																																		 && check[q].stime <= check[q1].etime)
+																																 string check2 = check[q].name;
+																																 check2.resize(5);
+																																 
+																																	 if (check2 == classnames[5].name )
 																																	 {
+																																		 if (check[q].stime >= check[q1].stime
+																																			 && check[q].stime <= check[q1].etime)
+																																		 {
 
 
+																																		 }
+																																		 else if (check[q1].stime >= check[q].stime
+																																			 && check[q1].stime <= check[q].etime)
+																																		 {
+
+
+																																		 }
+																																		 else if (check[q].stime == check[q1].stime
+																																			 || check[q].etime == check[q1].etime
+																																			 || check[q].etime == check[q1].stime
+																																			 || check[q].stime == check[q1].etime)
+																																		 {
+
+																																		 }
+
+																																		 else
+																																		 {
+																																			
+																																			 return true;
+																																		 }
 																																	 }
-																																	 else if (check[q1].stime >= check[q].stime
-																																		 && check[q1].stime <= check[q].etime)
-																																	 {
-
-
-																																	 }
-																																	 else if (check[q].stime == check[q1].stime
-																																		 || check[q].stime == check[q1].etime
-																																		 || check[q1].stime == check[q].stime
-																																		 || check[q1].stime == check[q1].etime)
-																																	 {
-
-																																	 }
-
-																																	 else
-																																	 {
-																																		 return true;
-																																	 }
-																																 }
+																																 
 																															 }
 																														 }
 																													 }
@@ -2354,18 +2187,22 @@ namespace GroupProject {
 																												 }
 																												 else
 																												 {
+																													 
 																													 return true;
 																												 }
 																											 }
 																										 }
-																									 }
+																									 
 																								 }
+																							 }
 																							 }
 																							 return false;
 																						 }
 																						 else
 																						 {
-																							 return true;
+																							 
+																							 workcount++;
+																							 /*return true;*/
 																						 }
 																					 }
 																				 }
@@ -2377,7 +2214,9 @@ namespace GroupProject {
 																 }
 																 else
 																 {
-																	 return true;
+																	 
+																	 workcount++;
+																	 /*return true;*/
 																 }
 															 }
 														 }
@@ -2389,7 +2228,9 @@ namespace GroupProject {
 										 }
 										 else
 										 {
-											 return true;
+											 
+											 workcount++;
+											 /*return true;*/
 										 }
 									 }
 								 }
@@ -2407,7 +2248,30 @@ namespace GroupProject {
 				 }
 				 else
 				 {
+					 if (num - 1 == 0)
+					 {
+						finals[j][i].works = workcount++;
+						return true;
+					 }
+					 if (num - 1 == 1)
+					 {
+						 finals[j][i].works = check.size();
+						 return true;
+					 }
+
+
+					 
 					 return true;
+				 }
+
+				 if (workcount > 0)
+				 {
+					 finals[j][i].works = workcount;
+					 return true;
+				 }
+				 else
+				 {
+					 return false;
 				 }
 				 return false;
 
@@ -2435,7 +2299,7 @@ namespace GroupProject {
 						 r.resize(5);
 						 r1.resize(5);
 
-						 if (r != r1 || cl1 == 0)
+						 if (r != r1 || cl1 == 0 && ( r1 != "" || r != ""))
 						 {
 							 test[q].name = r1;
 
@@ -2493,13 +2357,13 @@ namespace GroupProject {
 						 if (testClass[j].stime >= allClass[i].stime
 							 && testClass[j].stime <= allClass[i].etime)
 						 {
-							 testClass[j].problems++;
+							 
 
 						 }
 						 else if (allClass[i].stime >= testClass[j].stime
 							 && allClass[i].stime <= testClass[j].etime)
 						 {
-							 testClass[j].problems++;
+							
 
 						 }
 						 else if (testClass[j].stime == allClass[i].stime
@@ -2507,7 +2371,7 @@ namespace GroupProject {
 							 || allClass[i].stime == testClass[j].stime
 							 || allClass[i].stime == testClass[j].etime)
 						 {
-							 testClass[j].problems++;
+							 
 						 }
 						 else
 						 {
@@ -2668,7 +2532,7 @@ namespace GroupProject {
 							 classes[index].etime = stoi(line);
 							 in >> line;
 
-							 classes[index].problems = 0;
+							 classes[index].works = 0;
 
 							 index++;
 						 }
@@ -2730,7 +2594,7 @@ namespace GroupProject {
 								 allc[place].etime = stoi(line);
 								 in >> line;
 
-								 allc[place].problems = 0;
+								 allc[place].works = 0;
 
 								 place++;
 							 }
