@@ -752,14 +752,14 @@ namespace GroupProject {
 			int Extra = 1;
 			vector<vector<c>> finalsched(mwf, vector<c>(Extra));
 			sort2(totalm, totalt, finalsched);
-			sort3(finalsched, Classesarray, tth, mwf);
+			sort3(finalsched, Classesarray, totalm, totalt, tth, mwf);
 			passtoDraw(finalsched, tth, mwf, Classesarray);
 		}
 		else
 		{
 			vector<vector<c>> finalsched(mwf, vector<c>(tth));
 			sort2(totalm, totalt, finalsched);
-			sort3(finalsched, Classesarray, tth, mwf);
+			sort3(finalsched, Classesarray, totalm, totalt, tth, mwf);
 			passtoDraw(finalsched, tth, mwf, Classesarray);
 
 		}
@@ -807,16 +807,14 @@ namespace GroupProject {
 						if (u == 1)
 						{
 							DrawSchedule(finals, s, v, tt, tm, classesArray);
-							s = rand() % tt + 0;
-							v = rand() % tm + 1;
+							
 							u++;
 
 						}
 						else if (u == 2)
 						{
 							DrawSchedule2(finals, s, v, tt, tm, classesArray);
-							s++;
-							v++;
+							
 							u++;
 						}
 						else if (u == 3)
@@ -838,7 +836,7 @@ namespace GroupProject {
 			{
 				s = 0;
 
-				bool ewrq = finals[0][0].take;
+				string ewrq = finals[2][0].name;
 				for (v = 1; v < tm; v++)
 				{
 					if (finals[v][s].take == true)
@@ -846,16 +844,16 @@ namespace GroupProject {
 						if (u == 1)
 						{
 							DrawSchedule(finals, s, v, tt, tm, classesArray);
-							s++;
-							v++;
+							
+							
 							u++;
 
 						}
 						else if (u == 2)
 						{
 							DrawSchedule2(finals, s, v, tt, tm, classesArray);
-							s++;
-							v++;
+							
+							
 							u++;
 						}
 						else if (u == 3)
@@ -1051,29 +1049,65 @@ namespace GroupProject {
 			  finals[j][i] - mwf classes
 			 ======================================================
 			 */
-			 void sort3(vector<vector<c>> & finals, vector <c> allclas, int tt, int tm)
+			 void sort3(vector<vector<c>> & finals, vector <c> allclas, vector <c> totalm, vector <c> totalt, int tt, int tm)
 			 {
+				 int firsttot1 = 0;
+				 int firsttot2 = 0;
+				 
+				 
+
+				 for (int change1 = 0; change1 < tt; change1++)
+				 {
+					
+
+					 if (tt > 0)
+					 {
+					string o = finals[0][0].name;
+					o.resize(5);
+					string o1 = finals[0][change1].name;
+					 o1.resize(5);
+						 if (o == o1)
+						 {
+							 firsttot1++;
+						 }
+					 }
+					 if (tm > 1)
+					 {
+						 string p = finals[1][0].name;
+						 p.resize(5);
+						 string p1 = finals[0][change1].name;
+						 p1.resize(5);
+						 if (p == p1)
+						 {
+							 firsttot2++;
+						 }
+					 }
+				 }
+
+
 
 				 if (tt != 0)
 				 {
-					 for (int i = 0; i < tt; i++)
+					 for (int i = 0; i < firsttot1; i++)
 					 {
 						 int p = 0;
-
+						 string fun1 = finals[p][i].name;
 
 						 if (classCheck(finals, allclas, i, p) == true)
 						 {
-							 if (workcheck(finals, allclas, i, p) == true)
+							 if (workcheck(finals, allclas, totalt, i, p) == true)
 							 {
 								 finals[p][i].take = true;
 
 
-								 for (int j = 1; j < tm; j++)
+								/* for (int j = 1; j < tm; j++)
 								 {
+									 string fun = finals[j][i].name;
 									 if (classCheck(finals, allclas, i, j) == true)
 									 {
-										 if (workcheck(finals, allclas, i, j) == true)
+										 if (workcheck(finals, allclas, totalm, i, j) == true)
 										 {
+
 											 finals[j][i].take = true;
 
 										 }
@@ -1087,7 +1121,7 @@ namespace GroupProject {
 										 finals[j][i].take = false;
 
 									 }
-								 }
+								 }*/
 							 }
 
 							 else
@@ -1104,11 +1138,11 @@ namespace GroupProject {
 				 }
 				 else
 				 {
-					 for (int j = 1; j < tm; j++)
+					 for (int j = 1; j < firsttot2; j++)
 					 {
 						 if (classCheck(finals, allclas, 0, j) == true)
 						 {
-							 if (workcheck(finals, allclas, 0, j) == true)
+							 if (workcheck(finals, allclas, totalm, 0, j) == true)
 							 {
 								 finals[j][0].take = true;
 
@@ -1685,12 +1719,10 @@ namespace GroupProject {
 					 {
 						 d = "T,TH";
 					 }
-
 					 String^ day = gcnew String(d.c_str());
 
-					 //Convertion from military time to stadard time and addes am/pm
 					 System::Convert::ToString(fnsched[i].stime);
-
+					 //Convertion from military time to stadard time and addes am/pm
 					 if (fnsched[i].stime >= 1300)
 					 {
 						 start = fnsched[i].stime - 1200;
@@ -1747,6 +1779,7 @@ namespace GroupProject {
 					 textBox2->Text = textBox2->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
 
 					 i++;
+
 				 }
 
 
@@ -2066,15 +2099,22 @@ namespace GroupProject {
 							if 'work' is empty
 			 ======================================================
 			 */
-			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, int i, int j)
+			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, vector <c> total, int i, int j)
 			 {
 
+
+
+				 int num = numofnames(total) + 1;
 				 int place = 0;
 
+				 vector<c> classnames(num);
+
+
+
 				 int s = 0;
-				 for (int t = 0; t < 50; t++)
+				 for (int t = 0; t < 25; t++)
 				 {
-					 string uio = finals[0][0].work[t];
+					 string uio = finals[j][i].work[t];
 					 if (finals[j][i].work[t] != "NULL")
 					 {
 						 s++;
@@ -2085,50 +2125,331 @@ namespace GroupProject {
 				 for (int q = 0; q < s; q++)
 				 {
 
-					 for (int y = 0; y < allclass.size(); y++)
+					 for (int y = 0; y < total.size(); y++)
 					 {
-						 if (finals[j][i].work[q] == allclass[y].name)
+						 if (finals[j][i].work[q] == total[y].name)
 						 {
-							 check[place] = allclass[y];
+							 check[place] = total[y];
+							 string ewrfs = total[y].work[0];
+
 							 place++;
 						 }
 					 }
 
 				 }
-				 for (int j = 0; j < check.size(); j++)
+				 Classesnames(check, classnames);
+
+				 
+
+				 if (num - 1 > 1)
 				 {
-					 int q = 0;
-					 for (int i = 0; i < check.size(); i++)
+				if (check.size() == 0 )
+				 {
+					 return false;
+				 }
+					 int total = 0;
+					 string check3 = "";
+					 int q = 0, u = 0;
+					 string test = check[q].name;
+					 test.resize(5);
+					 string check1;
+
+					 /* do
+					 {*/
+
+					 int count = 0;
+
+
+					 string check2 = check[q].name;
+					 check2.resize(5);
+
+
+					 for (int q = 0; q < check.size(); q++)
 					 {
-						 if (i != j && check[i].day == check[j].day)
+						 string check2 = check[q].name;
+						 check2.resize(5);
+						 if (check2 == classnames[0].name)
 						 {
 
-							 if (check[j].stime >= check[i].stime
-								 && check[j].stime <= check[i].etime)
+							 for (int q1 = 0; q1 < check.size(); q1++)
 							 {
-								 return false;
+								 string check2 = check[q1].name;
+								 check2.resize(5);
+								 if (check2 != classnames[0].name)
+								 {
+									 if (check[q].stime >= check[q1].stime
+										 && check[q].stime <= check[q1].etime)
+									 {
 
-							 }
-							 else if (check[i].stime >= check[j].stime
-								 && check[i].stime <= check[j].etime)
-							 {
 
-								 return false;
-							 }
-							 else if (check[j].stime == check[i].stime
-								 || check[j].stime == check[i].etime
-								 || check[i].stime == check[j].stime
-								 || check[i].stime == check[j].etime)
-							 {
-								 return false;
+									 }
+									 else if (check[q1].stime >= check[q].stime
+										 && check[q1].stime <= check[q].etime)
+									 {
+
+
+									 }
+									 else if (check[q].stime == check[q1].stime
+										 || check[q].stime == check[q1].etime
+										 || check[q1].stime == check[q].stime
+										 || check[q1].stime == check[q1].etime)
+									 {
+
+									 }
+
+									 else
+									 {
+										 if (num - 1 > 2)
+										 {
+											 for (int q = 0; q < check.size(); q++)
+											 {
+												 string check2 = check[q].name;
+												 check2.resize(5);
+												 if (check2 == classnames[1].name)
+												 {
+
+
+													 for (int q1 = 0; q1 < check.size(); q1++)
+													 {
+														 string check2 = check[q1].name;
+														 check2.resize(5);
+
+
+														 if (check2 != classnames[0].name && check2 != classnames[1].name)
+														 {
+															 if (check[q].stime >= check[q1].stime
+																 && check[q].stime <= check[q1].etime)
+															 {
+
+
+															 }
+															 else if (check[q1].stime >= check[q].stime
+																 && check[q1].stime <= check[q].etime)
+															 {
+
+
+															 }
+															 else if (check[q].stime == check[q1].stime
+																 || check[q].stime == check[q1].etime
+																 || check[q1].stime == check[q].stime
+																 || check[q1].stime == check[q1].etime)
+															 {
+
+															 }
+
+															 else
+															 {
+																 if (num - 1 > 3)
+																 {
+																	 for (int q = 0; q < check.size(); q++)
+																	 {
+																		 string check2 = check[q].name;
+																		 check2.resize(5);
+																		 if (check2 == classnames[2].name)
+																		 {
+																			 for (int q1 = 0; q1 < check.size(); q1++)
+																			 {
+																				 string check2 = check[q].name;
+																				 check2.resize(5);
+
+																				 if (check2 != classnames[0].name || check2 != classnames[1].name || check2 != classnames[1].name)
+																				 {
+																					 if (check[q].stime >= check[q1].stime
+																						 && check[q].stime <= check[q1].etime)
+																					 {
+
+
+																					 }
+																					 else if (check[q1].stime >= check[q].stime
+																						 && check[q1].stime <= check[q].etime)
+																					 {
+
+
+																					 }
+																					 else if (check[q].stime == check[q1].stime
+																						 || check[q].stime == check[q1].etime
+																						 || check[q1].stime == check[q].stime
+																						 || check[q1].stime == check[q1].etime)
+																					 {
+
+																					 }
+
+																					 else
+																					 {
+																						 if (num - 1 > 4)
+																						 {
+																							 for (int q = 0; q < check.size(); q++)
+																							 {
+																								 for (int q1 = 0; q1 < check.size(); q1++)
+																								 {
+																									 string check2 = check[q].name;
+																									 check2.resize(5);
+																									 while (check2 == classnames[4].name)
+																									 {
+																										 if (check1 != check2)
+																										 {
+																											 if (check[q].stime >= check[q1].stime
+																												 && check[q].stime <= check[q1].etime)
+																											 {
+
+
+																											 }
+																											 else if (check[q1].stime >= check[q].stime
+																												 && check[q1].stime <= check[q].etime)
+																											 {
+
+
+																											 }
+																											 else if (check[q].stime == check[q1].stime
+																												 || check[q].stime == check[q1].etime
+																												 || check[q1].stime == check[q].stime
+																												 || check[q1].stime == check[q1].etime)
+																											 {
+
+																											 }
+
+																											 else
+																											 {
+																												 if (num - 1 > 5)
+																												 {
+																													 for (int q = 0; q < check.size(); q++)
+																													 {
+																														 for (int q1 = 0; q1 < check.size(); q1++)
+																														 {
+																															 string check2 = check[q].name;
+																															 check2.resize(5);
+																															 while (check2 == classnames[5].name)
+																															 {
+																																 if (check1 != check2)
+																																 {
+																																	 if (check[q].stime >= check[q1].stime
+																																		 && check[q].stime <= check[q1].etime)
+																																	 {
+
+
+																																	 }
+																																	 else if (check[q1].stime >= check[q].stime
+																																		 && check[q1].stime <= check[q].etime)
+																																	 {
+
+
+																																	 }
+																																	 else if (check[q].stime == check[q1].stime
+																																		 || check[q].stime == check[q1].etime
+																																		 || check[q1].stime == check[q].stime
+																																		 || check[q1].stime == check[q1].etime)
+																																	 {
+
+																																	 }
+
+																																	 else
+																																	 {
+																																		 return true;
+																																	 }
+																																 }
+																															 }
+																														 }
+																													 }
+																													 return false;
+																												 }
+																												 else
+																												 {
+																													 return true;
+																												 }
+																											 }
+																										 }
+																									 }
+																								 }
+																							 }
+																							 return false;
+																						 }
+																						 else
+																						 {
+																							 return true;
+																						 }
+																					 }
+																				 }
+
+																			 }
+																		 }
+																	 }
+																	 return false;
+																 }
+																 else
+																 {
+																	 return true;
+																 }
+															 }
+														 }
+
+													 }
+												 }
+											 }
+											 return false;
+										 }
+										 else
+										 {
+											 return true;
+										 }
+									 }
+								 }
 							 }
 
 						 }
 
 					 }
 
+					 u++;
+					 /*} while (check1 == classnames[0].name);*/
+
+
+
 				 }
-				 return true;
+				 else
+				 {
+					 return true;
+				 }
+				 return false;
+
+			 }
+
+
+
+			 void Classesnames(vector<c> all, vector<c> & test)
+			 {
+
+
+
+				 int j = 0, i = 0;
+				 int q = 0;
+
+				 for (int cl = 0; cl < 1; cl++)
+				 {
+					 for (int cl1 = 0; cl1 < all.size(); cl1++)
+					 {
+
+						 int u = all.size();
+
+						 string r = all[cl].name;
+						 string r1 = all[cl1].name;
+						 r.resize(5);
+						 r1.resize(5);
+
+						 if (r != r1 || cl1 == 0)
+						 {
+							 test[q].name = r1;
+
+							 string qweasd = test[q].name;
+
+							 q++;
+						 }
+						 else
+						 {
+
+							 j++;
+						 }
+					 }
+				 }
 			 }
 
 
