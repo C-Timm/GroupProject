@@ -440,7 +440,7 @@ namespace GroupProject {
 		int tthnon = numofnames(TTHarray);
 
 		//----------initializes the mwf0-5 vector and the totalm vector-----------\\
-																// while goes for however many mwf classes and only initializes
+																		// while goes for however many mwf classes and only initializes
 // mwf0-5 to the number of mwf classes
 
 /*
@@ -565,7 +565,7 @@ namespace GroupProject {
 
 		}
 		//------initializes the tt0-5 vector and the totalm vector--------\\
-														// while goes for however many tth classes and only initializes
+																// while goes for however many tth classes and only initializes
 // mwf0-5 to the number of tth classes
 
 
@@ -1045,7 +1045,10 @@ namespace GroupProject {
 				 }
 				 Classesnames(check, classnames);
 
-
+				 if (check.size() == 0)
+				 {
+					 return false;
+				 }
 
 				 if (num - 1 > 1)
 				 {
@@ -2601,7 +2604,7 @@ namespace GroupProject {
 
 
 			 //-------------------------------------Notes----------------------------------------------\\
-			 			 			 			 	
+			 			 			 			 			 	
 /*	Thing to do
 ------------Display CLass doesnt display the last calss-----------
 
