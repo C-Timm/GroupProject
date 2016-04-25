@@ -51,7 +51,7 @@ namespace GroupProject {
 			}
 		}
 	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::TextBox^  textBox1;
+
 
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::PictureBox^  pictureBox2;
@@ -95,7 +95,6 @@ namespace GroupProject {
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
@@ -128,19 +127,6 @@ namespace GroupProject {
 			this->button1->TabIndex = 0;
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
-			// 
-			// textBox1
-			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Calibri", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textBox1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(41)), static_cast<System::Int32>(static_cast<System::Byte>(62)),
-				static_cast<System::Int32>(static_cast<System::Byte>(70)));
-			this->textBox1->Location = System::Drawing::Point(41, 47);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(186, 200);
-			this->textBox1->TabIndex = 1;
 			// 
 			// pictureBox1
 			// 
@@ -206,9 +192,9 @@ namespace GroupProject {
 				static_cast<System::Byte>(0)));
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 26;
-			this->listBox1->Location = System::Drawing::Point(233, 47);
+			this->listBox1->Location = System::Drawing::Point(40, 47);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(193, 186);
+			this->listBox1->Size = System::Drawing::Size(386, 186);
 			this->listBox1->TabIndex = 14;
 			this->listBox1->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::listBox1_MouseDoubleClick);
 			// 
@@ -313,7 +299,6 @@ namespace GroupProject {
 			this->Controls->Add(this->pictureBox3);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->pictureBox1);
-			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
 			this->Name = L"MyForm";
 			this->Text = L"AdvisoTron";
@@ -802,144 +787,147 @@ namespace GroupProject {
 			  vector<c> & classesArray - vector<c> Classesarray
 			 ========================================================
 			 */
-			 void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
-			 {
-				 srand(time(NULL));
+	void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
+	{
+		srand(time(NULL));
 
-				 int u = 1;
+		int u = 1;
 
-				 /*while (u <= 3)
-				 {*/
-				 /*int s = rand() % tt + 0;
-				 int v = rand() % tm + 1;*/
+		/*while (u <= 3)
+		{*/
+		/*int s = rand() % tt + 0;
+		int v = rand() % tm + 1;*/
 
-				 int s = tt;
-				 int v = tm;
+		int s = tt;
+		int v = tm;
+		for (u; u < 4; u++)
+		{
+			if (tm == 1)
+			{
 
-				 if (tm == 1)
-				 {
+				for (s = 0; s < tt; s++)
+				{
+					if (finals[0][s].take == true)
+					{
+						if (u == 1)
+						{
+							DrawSchedule(finals, s, v, tt, tm, classesArray);
+							s = rand() % tt + 0;
+							v = rand() % tm + 1;
+							u++;
 
-					 for (s = 0; s < tt; s++)
-					 {
-						 if (finals[0][s].take == true)
-						 {
-							 if (u == 1)
-							 {
-								 DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-								 u++;
-
-							 }
-							 else if (u == 2)
-							 {
-								 // DrawSchedule2(finals, i, j, classesArray);
-
-
-								 u++;
-							 }
-							 else if (u == 3)
-							 {
-								 // DrawSchedule3(finals, i, j, classesArray);
-
-
-								 u++;
-							 }
-						 }
-						 
-					 }
-					 if (u == 1)
-						 {
-							 MessageBox::Show("There are scheduling conflicts");
-						 }
-				 }
-				 else if (tt == 0)
-				 {
-					 s = 0;
-
-					 bool ewrq = finals[0][0].take;
-					 for (v = 1; v < tm; v++)
-					 {
-						 if (finals[v][s].take == true)
-						 {
-							 if (u == 1)
-							 {
-								 DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-								 u++;
-
-							 }
-							 else if (u == 2)
-							 {
-								 // DrawSchedule2(finals, i, j, classesArray);
+						}
+						else if (u == 2)
+						{
+							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+							s++;
+							v++;
+							u++;
+						}
+						else if (u == 3)
+						{
+							DrawSchedule3(finals, s, v, tt, tm, classesArray);
 
 
-								 u++;
-							 }
-							 else if (u == 3)
-							 {
-								 // DrawSchedule3(finals, i, j, classesArray);
+							u++;
+						}
+					}
+
+				}
+				if (u == 1)
+				{
+					MessageBox::Show("There are scheduling conflicts");
+				}
+			}
+			else if (tt == 0)
+			{
+				s = 0;
+
+				bool ewrq = finals[0][0].take;
+				for (v = 1; v < tm; v++)
+				{
+					if (finals[v][s].take == true)
+					{
+						if (u == 1)
+						{
+							DrawSchedule(finals, s, v, tt, tm, classesArray);
+							s++;
+							v++;
+							u++;
+
+						}
+						else if (u == 2)
+						{
+							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+							s++;
+							v++;
+							u++;
+						}
+						else if (u == 3)
+						{
+							DrawSchedule3(finals, s, v, tt, tm, classesArray);
 
 
-								 u++;
-							 }
-						 }
-					 }
-					 if (u == 1)
-					 {
-						 MessageBox::Show("There are scheduling conflicts");
-					 }
-				 }
-				 else
-				 {
-					 for (int s = 0; s < tt; s++)
-					 {
+							u++;
+						}
+					}
+				}
+				if (u == 1)
+				{
+					MessageBox::Show("There are scheduling conflicts");
+				}
+			}
+			else
+			{
+				for (int s = 0; s < tt; s++)
+				{
 
-						 for (int v = 1; v < tm; v++)
-						 {
-
-
-
-							 if (finals[0][s].take == true && finals[v][s].take == true)
-							 {
-								 if (u == 1)
-								 {
-									 DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-									 u++;
-
-								 }
-								 else if (u == 2)
-								 {
-									 // DrawSchedule2(finals, i, j, classesArray);
+					for (int v = 1; v < tm; v++)
+					{
 
 
-									 u++;
-								 }
-								 else if (u == 3)
-								 {
-									 // DrawSchedule3(finals, i, j, classesArray);
+
+						if (finals[0][s].take == true && finals[v][s].take == true)
+						{
+							if (u == 1)
+							{
+								DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+								u++;
+
+							}
+							else if (u == 2)
+							{
+								DrawSchedule2(finals, s, v, tt, tm, classesArray);
 
 
-									 u++;
-								 }
+								u++;
+							}
+							else if (u == 3)
+							{
+								DrawSchedule3(finals, s, v, tt, tm, classesArray);
 
 
-							 }
-							 else
-							 {
-								 v++;
-							 }
-						 }
-						 /*}*/
-					 }
-					 if (u == 1)
-					 {
-						 MessageBox::Show("There are scheduling conflicts");
-					 }
-				 }
+								u++;
+							}
 
 
-			 }
+						}
+						else
+						{
+							v++;
+						}
+					}
+					/*}*/
+				}
+				if (u == 1)
+				{
+					MessageBox::Show("There are scheduling conflicts");
+				}
+			}
+
+		}
+	}
 
 
 
@@ -966,10 +954,9 @@ namespace GroupProject {
 			  against the test class
 			 returns:
 				 true - if 'test' is different from 'all'
-				false -if 'test' and 'all' are the same
+				 false -if 'test' and 'all' are the same
 			 ======================================================
 			 */
-
 			 bool sort1(string test, string all)
 			 {
 				 test.resize(5);
@@ -1461,13 +1448,17 @@ namespace GroupProject {
 			  vector<c> & classesArray - vector<c> classesArray
 			 ======================================================
 			 */
-			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray)
-			 {
+			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
+
+
+
+				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
-				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 				 printSched1(fnsched);
+				
 
 				 int y;
 				 int b, h;
@@ -1476,7 +1467,7 @@ namespace GroupProject {
 				 {
 					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
 					 b = 130;
-					 y = (fnsched[i].stime - 500) / 3;
+					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -40;
@@ -1501,6 +1492,7 @@ namespace GroupProject {
 				 }
 
 			 }
+
 			 /*
 			 =========================================================
 			 function:
@@ -1601,7 +1593,52 @@ namespace GroupProject {
 
 			 }
 
-			
+			 void DrawSchedule2(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
+
+
+
+				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+
+				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
+				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+
+				 printSched2(fnsched);
+				
+
+				 int y;
+				 int b, h;
+				 int x1, x2, x3;
+				 for (int i = 0; i < fnsched.size(); i++)
+				 {
+					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
+					 b = 130;
+					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 if (fnsched[i].day == "MWF")
+					 {
+						 x1 = -40;
+						 x2 = 70;
+						 x3 = 180;
+						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
+						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
+						 g2->DrawIcon(clas, gridRect1);
+						 g2->DrawIcon(clas, gridRect2);
+						 g2->DrawIcon(clas, gridRect3);
+					 }
+					 else
+					 {
+						 x1 = 15;
+						 x2 = 125;
+						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
+						 g2->DrawIcon(clas, gridRect4);
+						 g2->DrawIcon(clas, gridRect5);
+					 }
+				 }
+			 }
+
+
+
 			 /*
 			 =========================================================
 			 function:
@@ -1614,7 +1651,7 @@ namespace GroupProject {
 
 			 =========================================================
 			 */
-			 /*
+			 
 			 void printSched2(vector<c> fnsched)
 			 {
 				 int i;
@@ -1640,7 +1677,7 @@ namespace GroupProject {
 
 					 String^ day = gcnew String(d.c_str());
 
-
+					 //Convertion from military time to stadard time and addes am/pm
 					 System::Convert::ToString(fnsched[i].stime);
 
 					 if (fnsched[i].stime >= 1300)
@@ -1665,7 +1702,7 @@ namespace GroupProject {
 						 e = std::to_string(end) + "am";
 					 }
 
-
+					 //Convers the times from ints to strings and adds ":" in the time
 					 if (s.length() == 5)
 					 {
 						 string b = s.substr(0, 1);
@@ -1703,8 +1740,53 @@ namespace GroupProject {
 
 
 			 }
-			 */
+			
 
+			 void DrawSchedule3(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
+
+
+
+				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+
+				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
+				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+
+				 printSched3(fnsched);
+				 
+
+				 int y;
+				 int b, h;
+				 int x1, x2, x3;
+				 for (int i = 0; i < fnsched.size(); i++)
+				 {
+					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
+					 b = 130;
+					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 if (fnsched[i].day == "MWF")
+					 {
+						 x1 = -40;
+						 x2 = 70;
+						 x3 = 180;
+						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
+						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
+						 g3->DrawIcon(clas, gridRect1);
+						 g3->DrawIcon(clas, gridRect2);
+						 g3->DrawIcon(clas, gridRect3);
+					 }
+					 else
+					 {
+						 x1 = 15;
+						 x2 = 125;
+						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
+						 g3->DrawIcon(clas, gridRect4);
+						 g3->DrawIcon(clas, gridRect5);
+					 }
+				 }
+
+
+			 }
 
 			 /*
 			 =========================================================
@@ -1718,7 +1800,7 @@ namespace GroupProject {
 
 			 =========================================================
 			 */
-			 /*
+			 
 			 void printSched3(vector<c> fnsched)
 			 {
 			 int i;
@@ -1746,7 +1828,7 @@ namespace GroupProject {
 
 
 			 System::Convert::ToString(fnsched[i].stime);
-
+			 //Convertion from military time to stadard time and addes am/pm
 			 if (fnsched[i].stime >= 1300)
 			 {
 			 start = fnsched[i].stime - 1200;
@@ -1769,7 +1851,7 @@ namespace GroupProject {
 			 e = std::to_string(end) + "am";
 			 }
 
-
+			 //Convers the times from ints to strings and adds ":" in the time
 			 if (s.length() == 5)
 			 {
 			 string b = s.substr(0, 1);
@@ -1807,10 +1889,7 @@ namespace GroupProject {
 
 
 			 }
-			 */
-
-
-
+			 
 
 			   /*
 			 =====================================================
@@ -1843,8 +1922,7 @@ namespace GroupProject {
 						 {
 
 							 String^ hola = gcnew String(r1.c_str());
-							 listBox1->Items->Add(hola);
-							 textBox1->Text = textBox1->Text + hola + "\r\n";
+							 listBox1->Items->Add(hola);				
 							 cl = cl1;
 
 						 }
