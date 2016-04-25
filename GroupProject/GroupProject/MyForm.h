@@ -24,17 +24,7 @@ namespace GroupProject {
 
 
 
-	/*struct c
-	{
-	std::string name;
-	std::string day;
-	int stime;
-	int etime;
-	int problems;
-	std::string work[50];
-	bool take;
-	};*/
-
+	
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
@@ -83,6 +73,7 @@ namespace GroupProject {
 	private: System::Windows::Forms::TextBox^  textBox2;
 
 	private: System::Windows::Forms::TextBox^  textBox4;
+	private: System::Windows::Forms::Button^  button6;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -119,6 +110,7 @@ namespace GroupProject {
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -289,6 +281,16 @@ namespace GroupProject {
 			this->textBox4->TabIndex = 22;
 			this->textBox4->Visible = false;
 			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(724, 132);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(94, 79);
+			this->button6->TabIndex = 23;
+			this->button6->Text = L"Reset";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -296,6 +298,7 @@ namespace GroupProject {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1284, 838);
+			this->Controls->Add(this->button6);
 			this->Controls->Add(this->textBox4);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->button5);
@@ -313,7 +316,7 @@ namespace GroupProject {
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"AdvisoTron";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
@@ -511,19 +514,19 @@ namespace GroupProject {
 		int tthnon = numofnames(TTHarray);
 
 		//----------initializes the mwf0-5 vector and the totalm vector-----------\\
-												// while goes for however many mwf classes and only initializes
-// mwf0-5 to the number of mwf classes
+		// while goes for however many mwf classes and only initializes
+		// mwf0-5 to the number of mwf classes
 
 /*
 //----------------------------------Switch statement run walk through-----------------------------------------\\
-1. gets class name
-2. gets number of section of that class
-3. sets the class vector size
-4. initializes class the vector
-5. sets the 'work' struct array to default aka "NULL"
-6. Checks the times and fill 'work' with non conflicting classes
-7. loops through the class vector and puts its values in the totalm (total mwf class vector)
-8. adds the size of that classes vector to the count so that the next case can grab the next class name
+		1. gets class name
+		2. gets number of section of that class
+		3. sets the class vector size
+		4. initializes class the vector
+		5. sets the 'work' struct array to default aka "NULL"
+		6. Checks the times and fill 'work' with non conflicting classes
+		7. loops through the class vector and puts its values in the totalm (total mwf class vector)
+		8. adds the size of that classes vector to the count so that the next case can grab the next class name
 */
 
 
@@ -635,21 +638,21 @@ namespace GroupProject {
 			}
 
 		}
-		//------initializes the tt0-5 vector and the totalm vector--------\\
-										// while goes for however many tth classes and only initializes
-// mwf0-5 to the number of tth classes
+		//----------initializes the tt0-5 vector and the totalm vector------------\\
+		// while goes for however many tth classes and only initializes
+		// mwf0-5 to the number of tth classes
 
 
 /*
 //----------------------------------Switch statement run walk through-----------------------------------------\\
-1. gets class name
-2. gets number of section of that class
-3. sets the class vector size
-4. initializes class the vector
-5. sets the 'work' struct array to default aka "NULL" for each section
-6. checks the times and fills 'work' class names with non-conflicting class
-7. loops through the class vector and puts its values in the totalm (total tth class vector)
-8. adds the size of that classes vector to the count so that the next case can grab the next class name
+		1. gets class name
+		2. gets number of section of that class
+		3. sets the class vector size
+		4. initializes class the vector
+		5. sets the 'work' struct array to default aka "NULL" for each section
+		6. checks the times and fills 'work' class names with non-conflicting class
+		7. loops through the class vector and puts its values in the totalm (total tth class vector)
+		8. adds the size of that classes vector to the count so that the next case can grab the next class name
 */
 
 		int u = 0, count1 = 0, count3 = 0;
@@ -775,7 +778,6 @@ namespace GroupProject {
 		else
 		{
 			vector<vector<c>> finalsched(mwf, vector<c>(tth));
-
 			sort2(totalm, totalt, finalsched);
 			sort3(finalsched, Classesarray, tth, mwf);
 			passtoDraw(finalsched, tth, mwf, Classesarray);
@@ -938,6 +940,109 @@ namespace GroupProject {
 
 
 			 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//																																		    //
+//---------------------------------------Sorting Methods-------------------------------------------------------------------------------------//
+//																																			//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+			 
+			 /*
+			 =====================================================
+			 function:
+			  Used to take sure it doesnt store duplicate classes
+			  in the works array.
+			  Checks to see if the class name that is getting test
+			  in "times" is the same as the class it is getting
+			  tested against
+
+			 parameters:
+			  string test - test class name
+			  string all - the name of class that is getting tested
+			  against the test class
+			 returns:
+				 true - if 'test' is different from 'all'
+				false -if 'test' and 'all' are the same
+			 ======================================================
+			 */
+
+			 bool sort1(string test, string all)
+			 {
+				 test.resize(5);
+				 all.resize(5);
+				 if (test == all)
+				 {
+					 return false;
+				 }
+
+				 return true;
+			 }
+
+			 /*
+			 ===========================================================
+			 function:
+			  initializes the 2D vector
+			  all the ttm classes are at
+			  [0][0-number of tth class]
+			  all the mwf classed are at
+			  [1-number of mwf classes][1-number of mwf classes]
+
+			  using the totalm (total mwf vector)
+			  and the totalt (total tth vecotr)
+			  
+			 parameters:
+			  vector<c> & tm - vector<c> totalm
+			  vector<c> & tt - vector<c> totalt
+			  vector<vector<c>> & finals - vector<vector<c>> finalsched
+			 ============================================================
+			 */
+
+			 void sort2(vector<c> & tm, vector<c> & tt, vector<vector<c>> & finals)
+			 {
+
+				 for (int i = 0; i < tt.size(); i++)
+				 {
+					 string y = tt[i].name;
+					 finals[0][i] = tt[i];
+				 }
+				 if (tt.size() != 0)
+				 {
+					 for (int j = 0; j < tt.size(); j++)
+					 {
+						 int p = 0;
+						 int k = 1;
+						 while (p < tm.size())
+						 {
+							 string h = tm[p].name;
+							 finals[k][j] = tm[p];
+							 p++;
+							 k++;
+						 }
+					 }
+				 }
+				 else
+				 {
+					 for (int j = 0; j < 1; j++)
+					 {
+						 int p = 0;
+						 int k = 1;
+						 while (p < tm.size())
+						 {
+							 string h = tm[p].name;
+							 finals[k][j] = tm[p];
+							 p++;
+							 k++;
+						 }
+					 }
+
+				 }
+			 }
+
+
 			 /*
 			 =====================================================
 			 function:
@@ -1039,265 +1144,6 @@ namespace GroupProject {
 
 			 }
 			
-			
-			 /*
-			 ===========================================================
-			 function:
-			  initializes the 2D vector
-			  all the ttm classes are at
-			  [0][0-number of tth class]
-			  all the mwf classed are at
-			  [1-number of mwf classes][1-number of mwf classes]
-
-			  using the totalm (total mwf vector)
-			  and the totalt (total tth vecotr)
-
-			 parameters:
-			  vector<c> & tm - vector<c> totalm
-			  vector<c> & tt - vector<c> totalt
-			  vector<vector<c>> & finals - vector<vector<c>> finalsched
-			 ============================================================
-			 */
-
-			 void sort2(vector<c> & tm, vector<c> & tt, vector<vector<c>> & finals)
-			 {
-
-				 for (int i = 0; i < tt.size(); i++)
-				 {
-					 string y = tt[i].name;
-					 finals[0][i] = tt[i];
-				 }
-				 if (tt.size() != 0)
-				 {
-					 for (int j = 0; j < tt.size(); j++)
-					 {
-						 int p = 0;
-						 int k = 1;
-						 while (p < tm.size())
-						 {
-							 string h = tm[p].name;
-							 finals[k][j] = tm[p];
-							 p++;
-							 k++;
-						 }
-					 }
-				 }
-				 else
-				 {
-					 for (int j = 0; j < 1; j++)
-					 {
-						 int p = 0;
-						 int k = 1;
-						 while (p < tm.size())
-						 {
-							 string h = tm[p].name;
-							 finals[k][j] = tm[p];
-							 p++;
-							 k++;
-						 }
-					 }
-
-				 }
-			 }
-			 
-
-			 /*
-			 =====================================================
-			 function:
-			  Used to take sure it doesnt store duplicate classes
-			  in the works array.
-			  Checks to see if the class name that is getting test
-			  in "times" is the same as the class it is getting
-			  tested against
-
-			 parameters:
-			  string test - test class name
-			  string all - the name of class that is getting tested
-			  against the test class
-			 returns:
-				 true - if 'test' is different from 'all'
-				false -if 'test' and 'all' are the same
-			 ======================================================
-			 */
-
-			 bool sort1(string test, string all)
-			 {
-				 test.resize(5);
-				 all.resize(5);
-				 if (test == all)
-				 {
-					 return false;
-				 }
-
-				 return true;
-			 }
-			 
-			 
-			
-
-		
-
-
-			 /*
-			 =====================================================
-			 function:
-			  Draws the first Schedule takes in the
-			  2D vector for classes that work, the int place holders
-			  for the 2D vector and the vectors for all the classes
-			  that gets passed the "finalSort" method.
-
-			 parameters:
-			  vector<vector<c>> & finals - vector<vector<c>> finals
-			  int s  - place holder for the y 2D vector [][y]
-			  int v - place holder for the x 2D vector [x][]
-			  vector<c> & classesArray - vector<c> classesArray
-			 ======================================================
-			 */
-			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
-
-
-
-				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
-
-				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
-				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
-
-				 printSched1(fnsched);
-				
-
-				 int y;
-				 int b, h;
-				 int x1, x2, x3;
-				 for (int i = 0; i < fnsched.size(); i++)
-				 {
-					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
-					 b = 130;
-					 y = (fnsched[i].stime - 500) / 3;
-					 if (fnsched[i].day == "MWF")
-					 {
-						 x1 = -40;
-						 x2 = 70;
-						 x3 = 180;
-						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
-						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
-						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
-						 g1->DrawIcon(clas, gridRect1);
-						 g1->DrawIcon(clas, gridRect2);
-						 g1->DrawIcon(clas, gridRect3);
-					 }
-					 else
-					 {
-						 x1 = 15;
-						 x2 = 125;
-						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
-						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
-						 g1->DrawIcon(clas, gridRect4);
-						 g1->DrawIcon(clas, gridRect5);
-					 }
-				 }
-
-			 }
-
-			 /*
-			 =========================================================
-			 function:	
-			  Displays the first schedule in a message box for the 
-			  user to see.
-			  passing in the schedule from 'DrawSchedule1'
-
-			 parameters: 
-			  vector<c> fnsched - vector<c> fnsched
-			 
-			 =========================================================
-			 */
-			 void printSched1(vector<c> fnsched)
-			 {
-				 int i;
-				 
-				 textBox8->Text = textBox8->Text + " Class         " + "  Day          " + "  Time" + "\r\n";
-				 textBox8->Text = textBox8->Text + "----------------------------------------------""\r\n";
-				do{
-					string e; string s;
-					string st; string et;
-					int start; int end;
-					
-					string n = fnsched[i].name;  String^ name = gcnew String(n.c_str());
-					
-					string d;
-					if (fnsched[i].day == "MWF")
-					{
-						d = "M,W,F";
-					}
-					else
-					{
-						d = "T,TH";
-					}
-
-					String^ day = gcnew String(d.c_str());
-					
-
-					System::Convert::ToString(fnsched[i].stime);
-
-					 if (fnsched[i].stime >= 1300)
-					 {
-						 start = fnsched[i].stime - 1200;
-						s = std::to_string(start) + "pm";
-					 }
-					 else
-					 {
-						 start = fnsched[i].stime;
-						  s = std::to_string(start) + "am";
-					 }
-					 if (fnsched[i].etime >= 1300)
-					 {
-						 end = fnsched[i].etime - 1200;
-						 e = std::to_string(end) + "pm";
-						 
-					 }
-					 else
-					 {
-						 end = fnsched[i].etime;
-						  e = std::to_string(end)+ "am";
-					 }
-
-					
-					if (s.length() == 5)
-					{
-						string b = s.substr(0, 1);
-						string f = s.substr(1, 4);
-						st = b + ":" + f;
-					}
-					else
-					{
-						string be = s.substr(0, 2);
-						string fi = s.substr(2, 6);
-						st = be + ":" + fi;
-					}
-					
-					 if (e.length() == 5)
-					 {	 
-						 string b = e.substr(0, 1);
-						 string f = e.substr(1, 4);
-						 et = b + ":" + f;
-					 }
-					 else
-					 {	  
-						 string be = e.substr(0, 2);
-						 string fi = e.substr(2, 6);
-						 et = be + ":" + fi;
-					 } 
-					
-
-					 String ^ startT = gcnew String(st.c_str());
-					 String ^ endT = gcnew String(et.c_str());
-					 
-					 textBox8->Text = textBox8->Text + name+"         " + day + "         " + startT + "-" + endT + "\r\n";
-
-					 i++;
-				} while (fnsched[i].name != "");
-
-				 
-			 }
 			 /*
 			 =========================================================
 			 function:
@@ -1330,6 +1176,7 @@ namespace GroupProject {
 				 int c2 = 0; int c3 = 0;
 				 int c4 = 0; int c5 = 0;
 				 int i = 0;	 int c6 = 0;
+				 //-------------------------------Checks for dublicates in TTH class---------------------\\
 
 				 int jk = s;
 				 if (tt != 0)
@@ -1440,10 +1287,13 @@ namespace GroupProject {
 					 }
 
 				 }
+
+	//-------------------------------Checks for dublicates in MWF class---------------------\\
+
 				 if (tm != 1)
 				 {
 					 int ewr = v;
-					 //FOR MWF
+				
 					 string cu = finals[v][s].name;
 					 cu.resize(5);
 
@@ -1590,54 +1440,168 @@ namespace GroupProject {
 				 return lastSched;
 
 			 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//																																		    //
+//---------------------------------------Display and Drawing Methods-------------------------------------------------------------------------------------//
+//																																			//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			 /*
 			 =====================================================
 			 function:
-			  Takes in all the classes in the text file
-			  and displays for the user to select classes in
-			  TextBox1
+			  Draws the first Schedule takes in the
+			  2D vector for classes that work, the int place holders
+			  for the 2D vector and the vectors for all the classes
+			  that gets passed the "finalSort" method.
 
 			 parameters:
-			  vector<c> Classes - vector<c> all
+			  vector<vector<c>> & finals - vector<vector<c>> finals
+			  int s  - place holder for the y 2D vector [][y]
+			  int v - place holder for the x 2D vector [x][]
+			  vector<c> & classesArray - vector<c> classesArray
 			 ======================================================
 			 */
-
-			 void displayClasses(vector<c> all)
+			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray)
 			 {
+				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
+				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
 
+				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+				 printSched1(fnsched);
 
-
-				 int j = 0, i = 0;
-
-				 for (int cl = 0; cl < all.size(); cl++)
+				 int y;
+				 int b, h;
+				 int x1, x2, x3;
+				 for (int i = 0; i < fnsched.size(); i++)
 				 {
-					 for (int cl1 = 0; cl1 < all.size(); cl1++)
+					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
+					 b = 130;
+					 y = (fnsched[i].stime - 500) / 3;
+					 if (fnsched[i].day == "MWF")
 					 {
-
-						 int u = all.size();
-						 string r = all[cl].name;
-						 string r1 = all[cl1].name;
-						 r.resize(5);
-						 r1.resize(5);
-
-						 if (r != r1 || cl1 == 0)
-						 {
-
-							 String^ hola = gcnew String(r1.c_str());
-							 listBox1->Items->Add(hola);
-							 textBox1->Text = textBox1->Text + hola + "\r\n";
-							 cl = cl1;
-
-						 }
-						 else
-						 {
-
-							 j++;
-						 }
+						 x1 = -40;
+						 x2 = 70;
+						 x3 = 180;
+						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
+						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
+						 g1->DrawIcon(clas, gridRect1);
+						 g1->DrawIcon(clas, gridRect2);
+						 g1->DrawIcon(clas, gridRect3);
+					 }
+					 else
+					 {
+						 x1 = 15;
+						 x2 = 125;
+						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
+						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
+						 g1->DrawIcon(clas, gridRect4);
+						 g1->DrawIcon(clas, gridRect5);
 					 }
 				 }
+
 			 }
+			 /*
+			 =========================================================
+			 function:
+			 Displays the first schedule in a message box for the
+			 user to see.
+			 passing in the schedule from 'DrawSchedule1'
+
+			 parameters:
+			 vector<c> fnsched - vector<c> fnsched
+
+			 =========================================================
+			 */
+			 void printSched1(vector<c> fnsched)
+			 {
+				 int i;
+
+				 textBox8->Text = textBox8->Text + " Class         " + "  Day          " + "  Time" + "\r\n";
+				 textBox8->Text = textBox8->Text + "----------------------------------------------""\r\n";
+				 do {
+					 string e; string s;
+					 string st; string et;
+					 int start; int end;
+
+					 string n = fnsched[i].name;  String^ name = gcnew String(n.c_str());
+
+					 string d;
+					 if (fnsched[i].day == "MWF")
+					 {
+						 d = "M,W,F";
+					 }
+					 else
+					 {
+						 d = "T,TH";
+					 }
+					 String^ day = gcnew String(d.c_str());
+
+					 System::Convert::ToString(fnsched[i].stime);
+					//Convertion from military time to stadard time and addes am/pm
+					 if (fnsched[i].stime >= 1300)
+					 {
+						 start = fnsched[i].stime - 1200;
+						 s = std::to_string(start) + "pm";
+					 }
+					 else
+					 {
+						 start = fnsched[i].stime;
+						 s = std::to_string(start) + "am";
+					 }
+					 if (fnsched[i].etime >= 1300)
+					 {
+						 end = fnsched[i].etime - 1200;
+						 e = std::to_string(end) + "pm";
+
+					 }
+					 else
+					 {
+						 end = fnsched[i].etime;
+						 e = std::to_string(end) + "am";
+					 }
+
+					 //Convers the times from ints to strings and adds ":" in the time
+					 if (s.length() == 5)
+					 {
+						 string b = s.substr(0, 1);
+						 string f = s.substr(1, 4);
+						 st = b + ":" + f;
+					 }
+					 else
+					 {
+						 string be = s.substr(0, 2);
+						 string fi = s.substr(2, 6);
+						 st = be + ":" + fi;
+					 }
+
+					 if (e.length() == 5)
+					 {
+						 string b = e.substr(0, 1);
+						 string f = e.substr(1, 4);
+						 et = b + ":" + f;
+					 }
+					 else
+					 {
+						 string be = e.substr(0, 2);
+						 string fi = e.substr(2, 6);
+						 et = be + ":" + fi;
+					 }
+
+
+					 String ^ startT = gcnew String(st.c_str());
+					 String ^ endT = gcnew String(et.c_str());
+
+					 textBox8->Text = textBox8->Text + name + "         " + day + "         " + startT + "-" + endT + "\r\n";
+
+					 i++;
+
+				 } while (fnsched[i].name != "");
+
+
+			 }
+
+			
 			 /*
 			 =========================================================
 			 function:
@@ -1740,10 +1704,12 @@ namespace GroupProject {
 
 			 }
 			 */
+
+
 			 /*
 			 =========================================================
 			 function:
-			 Displays the second schedule in a message box for the
+			 Displays the Third schedule in a message box for the
 			 user to see.
 			 passing in the schedule from 'DrawSchedule3'
 
@@ -1842,6 +1808,55 @@ namespace GroupProject {
 
 			 }
 			 */
+
+
+
+
+			   /*
+			 =====================================================
+			 function:
+			  Takes in all the classes in the text file
+			  and displays for the user to select classes in
+			  TextBox1
+
+			 parameters:
+			  vector<c> Classes - vector<c> all
+			 ======================================================
+			 */
+
+			 void displayClasses(vector<c> all)
+			 {
+				 int j = 0, i = 0;
+
+				 for (int cl = 0; cl < all.size(); cl++)
+				 {
+					 for (int cl1 = 0; cl1 < all.size(); cl1++)
+					 {
+
+						 int u = all.size();
+						 string r = all[cl].name;
+						 string r1 = all[cl1].name;
+						 r.resize(5);
+						 r1.resize(5);
+
+						 if (r != r1 || cl1 == 0)
+						 {
+
+							 String^ hola = gcnew String(r1.c_str());
+							 listBox1->Items->Add(hola);
+							 textBox1->Text = textBox1->Text + hola + "\r\n";
+							 cl = cl1;
+
+						 }
+						 else
+						 {
+
+							 j++;
+						 }
+					 }
+				 }
+			 }
+
 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																		    //
@@ -2100,15 +2115,15 @@ namespace GroupProject {
 		/*
 		=====================================================
 		function
-		initializes each class vector. Using the name of the
-		class and the MWFarray or the TTHarray, based in the
-		name of the class
+		 initializes each class vector. Using the name of the
+		 class and the MWFarray or the TTHarray, based in the
+		 name of the class
 
 		parameters:
-		vector<c> & allclass
-		vector<c> & classnum - the class vector either
-		vector<c> tth0-5 or vector<c> mwf0-6
-		string & j - name of that class
+		 vector<c> & allclass
+		 vector<c> & classnum - the class vector either
+		 vector<c> tth0-5 or vector<c> mwf0-6
+		 string & j - name of that class
 		======================================================
 		*/
 		void init(vector<c> & allclass, vector<c> & classnum, string & j)
@@ -2198,12 +2213,12 @@ namespace GroupProject {
 			/*
 			 =====================================================
 			 function:
-			 Reads in the text file of classes and initializes
-			 the Classes vector, that then gets displayed to
-			 TextBox1 for the user to select classes
+			  Reads in the text file of classes and initializes
+			  the Classes vector, that then gets displayed to
+			  TextBox1 for the user to select classes
 
 			 parameters:
-			 vector<c> & classes - vector<c> Classes
+			  vector<c> & classes - vector<c> Classes
 			 ======================================================
 			 */
 
@@ -2254,12 +2269,12 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Reads text file of all the classes offered (again)
-			 initializes the "ClassesArray' vecotr to just the
-			 the classes the user has selected
+			  Reads text file of all the classes offered (again)
+			  initializes the "ClassesArray' vecotr to just the
+			  the classes the user has selected
 
 			 parameters:
-			 vector<c> allc - vector<c> ClassesArray
+			  vector<c> allc - vector<c> ClassesArray
 			 ======================================================
 			 */
 			 void readFile2(vector<c> & allc)
@@ -2326,7 +2341,7 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts the total number of lines in the text file
+			  Counts the total number of lines in the text file
 
 			 returns: int
 			 ======================================================
@@ -2356,19 +2371,19 @@ namespace GroupProject {
 			/*
 			 =====================================================
 			 function:
-			 loops through the 'work' array and
-			 counts all the "real" values. every time the value
-			 IS NOT "NULL" then the count goes up, which is then
-			 used for the constraint of the while loop in
-			 'classCheck' method
+			  loops through the 'work' array and
+			  counts all the "real" values. every time the value
+			  IS NOT "NULL" then the count goes up, which is then
+			  used for the constraint of the while loop in
+			  'classCheck' method
 
 			 parameters:
-			 vector<vector<c>> & finals - vector<vector<c>> finals
-			 int i - place hold for the 2D vector
-			 int j- place hold for the 2D vector
+			  vector<vector<c>> & finals - vector<vector<c>> finals
+			  int i - place hold for the 2D vector
+			  int j- place hold for the 2D vector
 
 			 returns: int
-			 number of real values in 'work' array
+					 number of real values in 'work' array
 			 ======================================================
 			 */
 			 int worksCounter(vector<vector<c>> & finals, int i, int j)
@@ -2398,13 +2413,13 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts the number of the classes on mwf but not the
-			 number of sections for that class, which is passed
-			 back to the classCheck method to test if the
-			 classes work array has all the classes
+			  Counts the number of the classes on mwf but not the
+			  number of sections for that class, which is passed
+			  back to the classCheck method to test if the
+			  classes work array has all the classes
 
 			 parameters:
-			 vector<c> allclass - vector<c> Classesarray
+			  vector<c> allclass - vector<c> Classesarray
 
 			 returns: int
 			 ======================================================
@@ -2461,13 +2476,13 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts the number of the classes on tth but not the
-			 number of sections for that class, which is passed
-			 back to the classCheck method to test if the
-			 classes work array has all the classes
+			  Counts the number of the classes on tth but not the
+			  number of sections for that class, which is passed
+			  back to the classCheck method to test if the
+			  classes work array has all the classes
 
 			 parameters:
-			 vector<c> allclass - vector<c> Classesarray
+			  vector<c> allclass - vector<c> Classesarray
 
 			 returns: int
 			 ======================================================
@@ -2525,15 +2540,15 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts the total number of class and sections the
-			 user has selected, which is used for the
-			 Classesarray vector resize
+			  Counts the total number of class and sections the
+			  user has selected, which is used for the
+			  Classesarray vector resize
 
 			 parameters:
-			 vector<c> & a - vector<c> Classesarray
+			  vector<c> & a - vector<c> Classesarray
 
 			 returns: int
-			 actual size of the Classesarray vector
+				actual size of the Classesarray vector
 			 ======================================================
 			 */
 			 int userlineCount(vector<c> & a)
@@ -2557,17 +2572,17 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts of sections offered for a class
-			 which is used to initializes the size of the individual
-			 class vector
+			  Counts of sections offered for a class
+			  which is used to initializes the size of the individual
+			  class vector
 
 			 parameters:
-			 vector<c> & classVec - either vector<c> MWFarray
-			 or vector<c> TTHarray
-			 string className - Class name
+			  vector<c> & classVec - either vector<c> MWFarray
+			  or vector<c> TTHarray
+			  string className - Class name
 
 			 returns: int
-			 number of the Class sections
+					number of the Class sections
 			 ======================================================
 			 */
 			 int classCount(vector<c> & classVec, string className)
@@ -2590,15 +2605,15 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts the number of classes on MWF that
-			 user selected. Which is used for the size of the
-			 MWFarray
+			  Counts the number of classes on MWF that
+			  user selected. Which is used for the size of the
+			  MWFarray
 
 			 parameters:
-			 vector<c> &ac - vector<c> MWFarray
+			  vector<c> &ac - vector<c> MWFarray
 
 			 returns: int
-			 number of MWF classes has selected
+					number of MWF classes has selected
 			 ======================================================
 			 */
 
@@ -2621,15 +2636,15 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 Counts the number of classes on TTH that
-			 user selected. Which is used for the size of the
-			 TTHarray
+			  Counts the number of classes on TTH that
+			  user selected. Which is used for the size of the
+			  TTHarray
 
 			 parameters:
-			 vector<c> &ac - vector<c> TTHarray
+			  vector<c> &ac - vector<c> TTHarray
 
 			 returns: int
-			 number of TTH classes that user has selected
+					number of TTH classes that user has selected
 			 ======================================================
 			 */
 
@@ -2651,14 +2666,14 @@ namespace GroupProject {
 			 /*
 			 =====================================================
 			 function:
-			 count the number of each class section
-			 on MWF and TTH. Used in the while loop for the
-			 switch statements constraint.
+			  counts the number of each class section
+			  on MWF and TTH. Used in the while loop for the
+			  switch statements constraint.
 
 			 parameters:
-			 vector<c> & qw -either vector<c> MWFarray
-			 or vector<c> TTHarray
-			 returns: int
+			  vector<c> & qw -either vector<c> MWFarray
+			  or vector<c> TTHarray
+			  returns: int
 			 number of classes on TTH or MWF
 			 ======================================================
 			 */
@@ -2693,76 +2708,81 @@ namespace GroupProject {
 
 			 //-------------------------------------Notes----------------------------------------------\\
 			 			 	
-/*	Thing to do
-------------Display CLass doesnt display the last calss-----------
+			/*	Thing to do
 
-1.Start making the fails safe
-2.Make DrawSchedule2 and DrawSchedule3
-3.Finsh user imput
-4.implyment updated graphics
-5. add comments
-*/
+				*/
 
-//========================================================================================\\
+			//========================================================================================\\
 
-//-------------------------------------Graveyard------------------------------------------\\	
-/*
-//Method that assigned each class a Period
-void periodInti(vector<c> & dayArray)
-{
-for (int j = 0; j < dayArray.size(); j++)
-{
-if (dayArray[j].stime < period2)
-{
-dayArray[j].period = 1;
-}
-else if (dayArray[j].stime < period3)
-{
-dayArray[j].period = 2;
-}
-else
-dayArray[j].period = 3;
-}
-}
-//From Init Method that assigned the peroids to the classes
-for (int j = 0; j < classnum.size(); j++)
-{
-if (classnum[j].stime < period2)
-{
-classnum[j].period = 1;
-}
-else if (classnum[j].stime < period3)
-{
-classnum[j].period = 2;
-}
-else
-classnum[j].period = 3;
-}
-//Periods
-const int period1 = 800;
-const int period2 = 1100;
-const int period3 = 1400;
-//I was just trying to see if I could get it to display the name in a textbox
-//Because I have not found an easy way to do it with a variable
-//It kinda works
-//Passes in the vector of al the classes on either TTh or MWF "k"
-//and the vector of the test class "classnum" and te place holder "j"
-void Try(vector<c> k, vector<c> & classnum, int j)
-{
-int q = 1;
-for (int qw = 0; qw < j; qw++)
-{
-if (q == 1)
-{
-//ignore the hola i copied it from online
-String^ hola = gcnew String(k[qw].name.c_str());
-textBox1->Text = hola;
-}
-}
-}
-*/
+			//-------------------------------------Graveyard------------------------------------------\\	
+				/*
+				//Method that assigned each class a Period
+				void periodInti(vector<c> & dayArray)
+				{
+				for (int j = 0; j < dayArray.size(); j++)
+				{
+				if (dayArray[j].stime < period2)
+				{
+				dayArray[j].period = 1;
+				}
+				else if (dayArray[j].stime < period3)
+				{
+				dayArray[j].period = 2;
+				}
+				else
+				dayArray[j].period = 3;
+				}
+				}
+				//From Init Method that assigned the peroids to the classes
+				for (int j = 0; j < classnum.size(); j++)
+				{
+				if (classnum[j].stime < period2)
+				{
+				classnum[j].period = 1;
+				}
+				else if (classnum[j].stime < period3)
+				{
+				classnum[j].period = 2;
+				}
+				else
+				classnum[j].period = 3;
+				}
+				//Periods
+				const int period1 = 800;
+				const int period2 = 1100;
+				const int period3 = 1400;
+				//I was just trying to see if I could get it to display the name in a textbox
+				//Because I have not found an easy way to do it with a variable
+				//It kinda works
+				//Passes in the vector of al the classes on either TTh or MWF "k"
+				//and the vector of the test class "classnum" and te place holder "j"
+				void Try(vector<c> k, vector<c> & classnum, int j)
+				{
+				int q = 1;
+				for (int qw = 0; qw < j; qw++)
+				{
+				if (q == 1)
+				{
+				//ignore the hola i copied it from online
+				String^ hola = gcnew String(k[qw].name.c_str());
+				textBox1->Text = hola;
+				}
+				}
+				}
+				*/
+				/*struct c
+				{
+				std::string name;
+				std::string day;
+				int stime;
+				int etime;
+				int problems;
+				std::string work[50];
+				bool take;
+				};*/
 
-//========================================================================================\\
+
+			//========================================================================================\\
 
 
 
@@ -2791,11 +2811,15 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 	 MessageBox::Show(textBox4->Text);
  }
 
-
+ private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+	
+	 Application::Restart();
+ }
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
 			
 	Application::Exit();
 }
+
 
 
 
