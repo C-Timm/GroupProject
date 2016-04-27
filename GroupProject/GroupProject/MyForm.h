@@ -708,7 +708,7 @@ namespace GroupProject {
 					for (int i = 0; i < tth3Size; i++)
 					{
 						totalt[count3] = tth3[i];
-						count2++;
+						count3++;
 					}
 					count1 += tth3Size;
 				}
@@ -724,7 +724,7 @@ namespace GroupProject {
 					for (int i = 0; i < tth4Size; i++)
 					{
 						totalt[count3] = tth4[i];
-						count2++;
+						count3++;
 					}
 					count1 += tth4Size;
 				}
@@ -740,7 +740,7 @@ namespace GroupProject {
 					for (int i = 0; i < tth5Size; i++)
 					{
 						totalt[count3] = tth5[i];
-						count2++;
+						count3++;
 					}
 					count1 += tth5Size;
 				}
@@ -759,14 +759,14 @@ namespace GroupProject {
 			vector<vector<c>> finalsched(mwf, vector<c>(Extra));
 			sort2(totalm, totalt, finalsched);
 			sort3(finalsched, Classesarray, totalm, totalt, tth, mwf);
-			passtoDraw(finalsched, tth, mwf, Classesarray);
+			/*passtoDraw(finalsched, tth, mwf, Classesarray);*/
 		}
 		else
 		{
 			vector<vector<c>> finalsched(mwf, vector<c>(tth));
 			sort2(totalm, totalt, finalsched);
 			sort3(finalsched, Classesarray, totalm, totalt, tth, mwf);
-			passtoDraw(finalsched, tth, mwf, Classesarray);
+			/*passtoDraw(finalsched, tth, mwf, Classesarray);*/
 
 		}
 	}
@@ -788,154 +788,154 @@ namespace GroupProject {
 			  vector<c> & classesArray - vector<c> Classesarray
 			 ========================================================
 			 */
-	void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
-	{
-		srand(time(NULL));
+	//void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
+	//{
+	//	srand(time(NULL));
 
-		int u = 1;
+	//	int u = 1;
 
-		/*while (u <= 3)
-		{*/
-		/*int s = rand() % tt + 0;
-		int v = rand() % tm + 1;*/
+	//	/*while (u <= 3)
+	//	{*/
+	//	/*int s = rand() % tt + 0;
+	//	int v = rand() % tm + 1;*/
 
-		int s = tt;
-		int v = tm;
-		for (u; u < 4; u++)
-		{
-			if (tm == 1)
-			{
+	//	int s = tt;
+	//	int v = tm;
+	//	for (u; u < 4; u++)
+	//	{
+	//		if (tm == 1)
+	//		{
 
-				for (s = 0; s < tt; s++)
-				{
-					if (finals[0][s].take == true)
-					{
-						
-							if (u == 1)
-							{
-								DrawSchedule(finals, s, v, tt, tm, classesArray);
+	//			for (s = 0; s < tt; s++)
+	//			{
+	//				if (finals[0][s].take == true)
+	//				{
+	//					
+	//						if (u == 1)
+	//						{
+	//							DrawSchedule(finals, s, v, tt, tm, classesArray);
 
-								finals[0][s].works--;
-								u++;
+	//							finals[0][s].works--;
+	//							u++;
 
-							}
-							else if (u == 2)
-							{
-								DrawSchedule2(finals, s, v, tt, tm, classesArray);
-								finals[0][s].works--;
-								u++;
-							}
-							else if (u == 3)
-							{
-								DrawSchedule3(finals, s, v, tt, tm, classesArray);
-								
-								finals[0][s].works--;
-								u++;
-							}
-						
-					}
+	//						}
+	//						else if (u == 2)
+	//						{
+	//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+	//							finals[0][s].works--;
+	//							u++;
+	//						}
+	//						else if (u == 3)
+	//						{
+	//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+	//							
+	//							finals[0][s].works--;
+	//							u++;
+	//						}
+	//					
+	//				}
 
-				}
-				if (u == 1)
-				{
-					MessageBox::Show("There are scheduling conflicts");
-				}
-			}
-			else if (tt == 0)
-			{
-				s = 0;
+	//			}
+	//			if (u == 1)
+	//			{
+	//				MessageBox::Show("There are scheduling conflicts");
+	//			}
+	//		}
+	//		else if (tt == 0)
+	//		{
+	//			s = 0;
 
-				string ewrq = finals[2][0].name;
-				for (v = 1; v < tm; v++)
-				{
-					if (finals[v][s].take == true)
-					{
-						
-							if (u == 1)
-							{
-								DrawSchedule(finals, s, v, tt, tm, classesArray);
+	//			string ewrq = finals[2][0].name;
+	//			for (v = 1; v < tm; v++)
+	//			{
+	//				if (finals[v][s].take == true)
+	//				{
+	//					
+	//						if (u == 1)
+	//						{
+	//							DrawSchedule(finals, s, v, tt, tm, classesArray);
 
-								finals[v][s].works--;
-								u++;
+	//							finals[v][s].works--;
+	//							u++;
 
-							}
-							else if (u == 2)
-							{
-								DrawSchedule2(finals, s, v, tt, tm, classesArray);
+	//						}
+	//						else if (u == 2)
+	//						{
+	//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
 
-								finals[v][s].works--;
-								u++;
-							}
-							else if (u == 3)
-							{
-								DrawSchedule3(finals, s, v, tt, tm, classesArray);
+	//							finals[v][s].works--;
+	//							u++;
+	//						}
+	//						else if (u == 3)
+	//						{
+	//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
 
-								finals[v][s].works--;
-								u++;
-							}
-						
-					}
-				}
-				if (u == 1)
-				{
-					MessageBox::Show("There are scheduling conflicts");
-				}
-			}
-			else
-			{
-				for (int s = 0; s < tt; s++)
-				{
+	//							finals[v][s].works--;
+	//							u++;
+	//						}
+	//					
+	//				}
+	//			}
+	//			if (u == 1)
+	//			{
+	//				MessageBox::Show("There are scheduling conflicts");
+	//			}
+	//		}
+	//		else
+	//		{
+	//			for (int s = 0; s < tt; s++)
+	//			{
 
-					for (int v = 1; v < tm; v++)
-					{
-
-
-
-						if (finals[0][s].take == true && finals[v][s].take == true)
-						{
-							
-								if (u == 1)
-								{
-
-									//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
-									DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-									u++;
-
-								}
-								else if (u == 2)
-								{
-									DrawSchedule2(finals, s, v, tt, tm, classesArray);
+	//				for (int v = 1; v < tm; v++)
+	//				{
 
 
-									u++;
-								}
-								else if (u == 3)
-								{
-									DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+	//					if (finals[0][s].take == true && finals[v][s].take == true)
+	//					{
+	//						
+	//							if (u == 1)
+	//							{
+
+	//								//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
+	//								DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+	//								u++;
+
+	//							}
+	//							else if (u == 2)
+	//							{
+	//								DrawSchedule2(finals, s, v, tt, tm, classesArray);
 
 
-									u++;
-								}
-							
+	//								u++;
+	//							}
+	//							else if (u == 3)
+	//							{
+	//								DrawSchedule3(finals, s, v, tt, tm, classesArray);
 
 
-						}
-						else
-						{
-							v++;
-						}
-					}
-					/*}*/
-				}
-				if (u == 1)
-				{
-					MessageBox::Show("There are scheduling conflicts");
-				}
-			}
+	//								u++;
+	//							}
+	//						
 
-		}
-	}
+
+	//					}
+	//					else
+	//					{
+	//						v++;
+	//					}
+	//				}
+	//				/*}*/
+	//			}
+	//			if (u == 1)
+	//			{
+	//				MessageBox::Show("There are scheduling conflicts");
+	//			}
+	//		}
+
+	//	}
+	//}
 
 
 
@@ -1066,6 +1066,7 @@ namespace GroupProject {
 			 {
 				 int firsttot1 = 0;
 				 int firsttot2 = 0;
+				 int displynum =0;
 				 
 				 
 
@@ -1109,32 +1110,70 @@ namespace GroupProject {
 					 {
 						 int p = 0;
 						 string fun1 = finals[p][i].name;
-
-						 if (classCheck(finals, allclas, i, p) == true)
+						 if (displynum < 3)
 						 {
-							 if (workcheck(finals, allclas, totalt, i, p) == true)
+							 int yu = totalt.size();
+							 if (classCheck(finals, allclas, i, p) == true)
 							 {
-								 finals[p][i].take = true;
+								 if (workcheck(finals, allclas, totalt, i, p, displynum) == true)
+								 {
+									 finals[p][i].take = true;
+
+								 }
+
+								 else
+								 {
+									 finals[p][i].take = false;
+								 }
 
 							 }
-
 							 else
 							 {
 								 finals[p][i].take = false;
 							 }
-
 						 }
-						 else
+						 }
 						 {
-							 finals[p][i].take = false;
+							 if (tm != 1)
+							 {
+								 int moncheck = displynum;
+								 displynum = 0;
+								 for (int j = 1; j <= firsttot2; j++)
+								 {
+									 if (classCheck(finals, allclas, 0, j) == true)
+									 {
+										 if (displynum < moncheck)
+										 {
+											 if (workcheck(finals, allclas, totalm, 0, j, displynum) == true)
+											 {
+												 finals[j][0].take = true;
+
+											 }
+											 else
+											 {
+												 finals[j][0].take = false;
+											 }
+										 }
+										 else
+										 {
+											 finals[j][0].take = false;
+
+										 }
+									 }
+								 }
+							 }
 						 }
-					 }
+					 
+				 }
+				 else
+				 {
+					 if (displynum < 3)
 					 {
-						 for (int j = 0; j <= firsttot2; j++)
+						 for (int j = 1; j <= firsttot2; j++)
 						 {
 							 if (classCheck(finals, allclas, 0, j) == true)
 							 {
-								 if (workcheck(finals, allclas, totalm, 0, j) == true)
+								 if (workcheck(finals, allclas, totalm, 0, j, displynum) == true)
 								 {
 									 finals[j][0].take = true;
 
@@ -1149,29 +1188,6 @@ namespace GroupProject {
 								 finals[j][0].take = false;
 
 							 }
-						 }
-					 }
-				 }
-				 else
-				 {
-					 for (int j = 0; j <= firsttot2; j++)
-					 {
-						 if (classCheck(finals, allclas, 0, j) == true)
-						 {
-							 if (workcheck(finals, allclas, totalm, 0, j) == true)
-							 {
-								 finals[j][0].take = true;
-
-							 }
-							 else
-							 {
-								 finals[j][0].take = false;
-							 }
-						 }
-						 else
-						 {
-							 finals[j][0].take = false;
-
 						 }
 					 }
 				 }
@@ -1495,11 +1511,11 @@ namespace GroupProject {
 			  vector<c> & classesArray - vector<c> classesArray
 			 ======================================================
 			 */
-			 void DrawSchedule(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
+			 void DrawSchedule(vector<c> & fnsched) {
 
 
 
-				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
@@ -1647,11 +1663,11 @@ namespace GroupProject {
 
 			 }
 
-			 void DrawSchedule2(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
+			 void DrawSchedule2(vector<c> & fnsched) {
 
 
 
-				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
@@ -1693,11 +1709,11 @@ namespace GroupProject {
 
 			
 
-			 void DrawSchedule3(vector<vector<c>> & finals, int s, int v, int tt, int tm, vector<c> & classesArray) {
+			 void DrawSchedule3(vector<c> & fnsched) {
 
 
 
-				 vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
@@ -1897,19 +1913,19 @@ namespace GroupProject {
 							if 'work' is empty
 			 ======================================================
 			 */
-			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, vector <c> total, int i, int j)
+			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, vector <c> total, int i, int j, int & displayclassnum)
 			 {
 
+				 int sij = total.size();
 
-
-				 int num = numofnames(total) + 1;
+				 int num = numofindinames(total) ;
 				 int place = 0;
 				 int workcount = 0;
-				 int coo = 0;
+				 int coo = 0 ;
 
 				 vector<c> classnames(num);
 				 vector<c> pass(num);
-
+				 string sdf = finals[j][i].name;
 				 pass[coo] = finals[j][i];
 				 coo++;
 
@@ -1919,6 +1935,7 @@ namespace GroupProject {
 					 string uio = finals[j][i].work[t];
 					 if (finals[j][i].work[t] != "NULL")
 					 {
+						 string sadio = finals[j][i].work[t];
 						 s++;
 					 }
 				 }
@@ -1929,10 +1946,11 @@ namespace GroupProject {
 
 					 for (int y = 0; y < total.size(); y++)
 					 {
+						 string huh = total[y].name;
 						 if (finals[j][i].work[q] == total[y].name)
 						 {
 							 check[place] = total[y];
-							 string ewrfs = total[y].work[0];
+							 string ewrfs = check[place].name;
 
 							 place++;
 						 }
@@ -1940,6 +1958,11 @@ namespace GroupProject {
 
 				 }
 				 Classesnames(check, classnames);
+
+				 for (int wxcf = 0; wxcf < classnames.size(); wxcf++)
+				 {
+					 string fsndofij = classnames[wxcf].name;
+				 }
 
 				 int checkiwqw = num - 1 ;
 
@@ -1960,6 +1983,7 @@ namespace GroupProject {
 					 string test = check[q].name;
 					 test.resize(5);
 					 string check1;
+					 bool checking = false;
 					 
 
 					 /* do
@@ -2018,219 +2042,333 @@ namespace GroupProject {
 											 for (int q = 0; q < check.size(); q++)
 											 {
 												 coo = 3;
+												 string dsfjosjd = check[q].name;
 												 string check2 = check[q].name;
-												 check2.resize(5);
-												 if (check2 == classnames[1].name)
-												 {
-													 
-
-													 for (int q1 = 0; q1 < check.size(); q1++)
-													 {
-														 string check2 = check[q1].name;
 														 check2.resize(5);
-
-
-														 if (check2 == classnames[2].name)
+												if (check2 == classnames[2].name)
 														 {
-															 if (check[q].stime >= check[q1].stime
-																 && check[q].stime <= check[q1].etime)
-															 {
+													 for (int q1 = 1; q1 < pass.size(); q1++)
+													 {
+														 
 
+
+														 
+															 if (check[q].stime >= pass[q1].stime
+																 && check[q].stime <= pass[q1].etime)
+															 {
+																 checking = false;
+																 break;
 
 															 }
-															 else if (check[q1].stime >= check[q].stime
-																 && check[q1].stime <= check[q].etime)
+															 else if (pass[q1].stime >= check[q].stime
+																 && pass[q1].stime <= check[q].etime)
 															 {
-
+																 checking = false;
+																 break;
 
 															 }
-															 else if (check[q].stime == check[q1].stime
-																 || check[q].etime == check[q1].etime
-																 || check[q].etime == check[q1].stime
-																 || check[q].stime == check[q1].etime)
+															 else if (check[q].stime == pass[q1].stime
+																 || check[q].etime == pass[q1].etime
+																 || check[q].etime == pass[q1].stime
+																 || check[q].stime == pass[q1].etime)
 															 {
-
+																 checking = false;
+																 break;
 															 }
-
 															 else
 															 {
-																 pass[coo] = check[q1];
+																 checking = true;
+															 }
+														 }
+														 }
+															 if (checking == false)
+															 {
+
+															 }
+															 else
+															 {
+																 pass[coo] = check[q];
 																
 																 if (num - 1 > 3)
 																 {
 																	 for (int q = 0; q < check.size(); q++)
 																	 {
 																		 coo = 4;
-																		 string check2 = check[q].name;
-																		 check2.resize(5);
-																		 if (check2 == classnames[2].name)
+																		 string dsfjosjd = check[q].name;
+																		 
+																		 for (int q1 = 1; q1 < 3; q1++)
 																		 {
-																			 
-																			 for (int q1 = 0; q1 < check.size(); q1++)
+																			 string check2 = check[q].name;
+																			 check2.resize(5);
+
+																			 if (check2 == classnames[3].name)
 																			 {
-																				 string check2 = check[q].name;
-																				 check2.resize(5);
-
-																				 if (check2 == classnames[3].name )
+																				 if (check[q].stime >= pass[q1].stime
+																					 && check[q].stime <= pass[q1].etime)
 																				 {
-																					 if (check[q].stime >= check[q1].stime
-																						 && check[q].stime <= check[q1].etime)
+																					 checking = false;
+																					 break;
+
+																				 }
+																				 else if (pass[q1].stime >= check[q].stime
+																					 && pass[q1].stime <= check[q].etime)
+																				 {
+																					 checking = false;
+																					 break;
+
+																				 }
+																				 else if (check[q].stime == pass[q1].stime
+																					 || check[q].etime == pass[q1].etime
+																					 || check[q].etime == pass[q1].stime
+																					 || check[q].stime == pass[q1].etime)
+																				 {
+																					 checking = false;
+																					 break;
+																				 }
+																				 else
+																				 {
+																					 checking = true;
+																				 }
+																			 }
+																		 }
+																					 if (checking == false)
 																					 {
 
-
 																					 }
-																					 else if (check[q1].stime >= check[q].stime
-																						 && check[q1].stime <= check[q].etime)
-																					 {
-
-
-																					 }
-																					 else if (check[q].stime == check[q1].stime
-																						 || check[q].etime == check[q1].etime
-																						 || check[q].etime == check[q1].stime
-																						 || check[q].stime == check[q1].etime)
-																					 {
-
-																					 }
-
 																					 else
 																					 {
-																						 pass[coo] = check[q1];
+																						 pass[coo] = check[q];
 																						
 																						 if (num - 1 > 4)
 																						 {
-																							 for (int q = 0; q < check.size(); q++)
+																							 for (int q = 0; q < 4; q++)
 																							 {
 																								 coo = 5;
-																								 string check2 = check[q].name;
-																								 check2.resize(5);
-																								 if (check2 == classnames[3].name)
-																								 {
-																								 for (int q1 = 0; q1 < check.size(); q1++)
+																								 string dsfjosjd = check[q].name;
+																								 
+																								 for (int q1 = 1; q1 < check.size(); q1++)
 																								 {
 																									 string check2 = check[q].name;
 																									 check2.resize(5);
-																									 
-																										 if (check2 == classnames[4].name )
+
+																									 if (check2 == classnames[4].name)
+																									 {
+																										 if (check[q].stime >= pass[q1].stime
+																											 && check[q].stime <= pass[q1].etime)
 																										 {
-																											 if (check[q].stime >= check[q1].stime
-																												 && check[q].stime <= check[q1].etime)
-																											 {
+																											 checking = false;
+																											 break;
 
+																										 }
+																										 else if (pass[q1].stime >= check[q].stime
+																											 && pass[q1].stime <= check[q].etime)
+																										 {
+																											 checking = false;
+																											 break;
 
-																											 }
-																											 else if (check[q1].stime >= check[q].stime
-																												 && check[q1].stime <= check[q].etime)
-																											 {
+																										 }
+																										 else if (check[q].stime == pass[q1].stime
+																											 || check[q].etime == pass[q1].etime
+																											 || check[q].etime == pass[q1].stime
+																											 || check[q].stime == pass[q1].etime)
+																										 {
+																											 checking = false;
+																											 break;
+																										 }
+																										 else
+																										 {
+																											 checking = true;
+																										 }
+																									 }
+																								 }
+																								 if (checking == false)
+																								 {
 
-
-																											 }
-																											 else if (check[q].stime == check[q1].stime
-																												 || check[q].etime == check[q1].etime
-																												 || check[q].etime == check[q1].stime
-																												 || check[q].stime == check[q1].etime)
-																											 {
-
-																											 }
-
+																								 }
 																											 else
 																											 {
-																												 pass[coo] = check[q1];
+																												 pass[coo] = check[q];
 																												
 																												 if (num - 1 > 5)
 																												 {
-																													 for (int q = 0; q < check.size(); q++)
+																													 for (int q = 1; q < 5; q++)
 																													 {
 																														 coo = 6;
-																														 string check2 = check[q].name;
-																														 check2.resize(5);
-																														 if (check2 == classnames[4].name)
+																														 string dsfjosjd = check[q].name;
+																														 
+																														 for (int q = 0; q < check.size(); q++)
 																														 {
-																															 for (int q1 = 0; q1 < check.size(); q1++)
+																															 string dsfjosjd = check[q].name;
+
+																															 for (int q1 = 1; q1 < 6; q1++)
 																															 {
 																																 string check2 = check[q].name;
 																																 check2.resize(5);
-																																 
-																																	 if (check2 == classnames[5].name )
+
+																																 if (check2 == classnames[5].name)
+																																 {
+																																	 if (check[q].stime >= pass[q1].stime
+																																		 && check[q].stime <= pass[q1].etime)
 																																	 {
-																																		 if (check[q].stime >= check[q1].stime
-																																			 && check[q].stime <= check[q1].etime)
-																																		 {
+																																		 checking = false;
+																																		 break;
 
+																																	 }
+																																	 else if (pass[q1].stime >= check[q].stime
+																																		 && pass[q1].stime <= check[q].etime)
+																																	 {
+																																		 checking = false;
+																																		 break;
 
-																																		 }
-																																		 else if (check[q1].stime >= check[q].stime
-																																			 && check[q1].stime <= check[q].etime)
-																																		 {
+																																	 }
+																																	 else if (check[q].stime == pass[q1].stime
+																																		 || check[q].etime == pass[q1].etime
+																																		 || check[q].etime == pass[q1].stime
+																																		 || check[q].stime == pass[q1].etime)
+																																	 {
+																																		 checking = false;
+																																		 break;
+																																	 }
+																																	 else
+																																	 {
+																																		 checking = true;
+																																	 }
+																																 }
+																															 }
+																															 if (checking == false)
+																															 {
 
-
-																																		 }
-																																		 else if (check[q].stime == check[q1].stime
-																																			 || check[q].etime == check[q1].etime
-																																			 || check[q].etime == check[q1].stime
-																																			 || check[q].stime == check[q1].etime)
-																																		 {
-
-																																		 }
+																															 }
 
 																																		 else
 																																		 {
-																																			
-																																			 return true;
+																																			 pass[coo] = check[q];
+																																			 for (int shdui = 0; shdui < pass.size(); shdui++)
+																																			 {
+																																				 string sdfoijdsf = pass[shdui].name;
+																																			 }
 																																		 }
-																																	 }
+																																	 
 																																 
 																															 }
-																														 }
+																														 
 																													 }
 																													 return false;
 																												 }
 																												 else
 																												 {
-																													 
+																													 if (displayclassnum == 0)
+																													 {
+																														 DrawSchedule(pass);
+																														 displayclassnum++;
+																													 }
+																													 else if (displayclassnum == 1)
+																													 {
+																														 DrawSchedule2(pass);
+																														 displayclassnum++;
+																													 }
+																													 else if (displayclassnum == 2)
+																													 {
+																														 DrawSchedule3(pass);
+																														 displayclassnum++;
+																													 }
+																													 else
+																													 {
+
+																													 }
 																													 return true;
 																												 }
 																											 }
-																										 }
+																										 
 																									 
-																								 }
-																							 }
+																								 
+																							 
 																							 }
 																							 return false;
 																						 }
 																						 else
 																						 {
-																							 
-																							 workcount++;
-																							 /*return true;*/
+																							 if (displayclassnum == 0)
+																							 {
+																								 DrawSchedule(pass);
+																								 displayclassnum++;
+																							 }
+																							 else if (displayclassnum == 1)
+																							 {
+																								 DrawSchedule2(pass);
+																								 displayclassnum++;
+																							 }
+																							 else if (displayclassnum == 2)
+																							 {
+																								 DrawSchedule3(pass);
+																								 displayclassnum++;
+																							 }
+																							 else
+																							 {
+
+																							 }
+																							 return true;
 																						 }
 																					 }
-																				 }
+																				 
 
-																			 }
-																		 }
+																			 
+																		 
 																	 }
 																	 return false;
 																 }
 																 else
 																 {
-																	 
-																	 workcount++;
-																	 /*return true;*/
+																	 if (displayclassnum == 0)
+																	 {
+																		 DrawSchedule(pass);
+																		 displayclassnum++;
+																	 }
+																	 else if (displayclassnum == 1)
+																	 {
+																		 DrawSchedule2(pass);
+																		 displayclassnum++;
+																	 }
+																	 else if (displayclassnum == 2)
+																	 {
+																		 DrawSchedule3(pass);
+																		 displayclassnum++;
+																	 }
+																	 else
+																	 {
+
+																	 }
+																	 return true;
 																 }
 															 }
-														 }
+														 
 
 													 }
-												 }
-											 }
-											 return false;
+												 
+											 
 										 }
 										 else
 										 {
-											 
-											 workcount++;
-											 /*return true;*/
+											 if (displayclassnum == 0)
+											 {
+												 DrawSchedule(pass);
+												 displayclassnum++;
+											 }
+											 else if (displayclassnum == 1)
+											 {
+												 DrawSchedule2(pass);
+												 displayclassnum++;
+											 }
+											 else if (displayclassnum == 2)
+											 {
+												 DrawSchedule3(pass);
+												 displayclassnum++;
+											 }
+											 else
+											 {
+
+											 }
+											 return true;
 										 }
 									 }
 								 }
@@ -2248,14 +2386,57 @@ namespace GroupProject {
 				 }
 				 else
 				 {
+					 string sifjo = pass[0].name;
 					 if (num - 1 == 0)
 					 {
-						finals[j][i].works = workcount++;
+						 if (displayclassnum == 0)
+						 {
+							 DrawSchedule(pass);
+							 displayclassnum++;
+						 }
+						 else if (displayclassnum == 1)
+						 {
+							 DrawSchedule2(pass);
+							 displayclassnum++;
+						 }
+						 else  if (displayclassnum == 2)
+						 {
+							 DrawSchedule3(pass);
+							 displayclassnum++;
+						 }
+
+						 
 						return true;
 					 }
 					 if (num - 1 == 1)
 					 {
-						 finals[j][i].works = check.size();
+						 for (int p = 0; displayclassnum < 3; p++)
+						 {
+							 if (p < check.size() )
+							 {
+								 pass[1] = check[p];
+
+								 if (displayclassnum == 0)
+								 {
+									 DrawSchedule(pass);
+									 displayclassnum++;
+								 }
+								 else if (displayclassnum == 1)
+								 {
+									 DrawSchedule2(pass);
+									 displayclassnum++;
+								 }
+								 else  if (displayclassnum == 2)
+								 {
+									 DrawSchedule3(pass);
+									 displayclassnum++;
+								 }
+							 }
+							 else
+							 {
+								 return true;
+							 }
+						 }
 						 return true;
 					 }
 
@@ -2277,6 +2458,62 @@ namespace GroupProject {
 
 			 }
 
+			 int numofindinames(vector <c> total)
+			 {
+				 vector<c> test(6);
+				 int j = 0, i = 0;
+				 int q = 0;
+				 bool check1;
+
+				 for (int cl = 0; cl < 1; cl++)
+				 {
+					 for (int cl1 = 0; cl1 < total.size(); cl1++)
+					 {
+
+						 int u = total.size();
+
+						 string r = total[cl].name;
+						 string r1 = total[cl1].name;
+						 r.resize(5);
+						 r1.resize(5);
+
+						 if (r != r1 || cl1 == 0 && (r1 != "" || r != ""))
+						 {
+							 for (int CL2 = 0; CL2 < test.size(); CL2++)
+							 {
+								 if (test[CL2].name != r1)
+								 {
+									 check1 = true;
+								 }
+								 else
+								 {
+									 check1 = false;
+									 break;
+								 }
+
+							 }
+
+							 if (check1 == true)
+							 {
+								 test[q].name = r1;
+
+								 string qweasd = test[q].name;
+
+								 q++;
+
+							 }
+
+						 }
+						 else
+						 {
+
+							 j++;
+						 }
+					 }
+				 }
+				 return q;
+
+			 }
 
 
 			 void Classesnames(vector<c> all, vector<c> & test)
@@ -2286,6 +2523,7 @@ namespace GroupProject {
 
 				 int j = 0, i = 0;
 				 int q = 0;
+				 bool check1;
 
 				 for (int cl = 0; cl < 1; cl++)
 				 {
@@ -2299,13 +2537,32 @@ namespace GroupProject {
 						 r.resize(5);
 						 r1.resize(5);
 
-						 if (r != r1 || cl1 == 0 && ( r1 != "" || r != ""))
+						 if (r != r1 || cl1 == 0 && ( r1 != " " || r != " "))
 						 {
-							 test[q].name = r1;
+							 for (int CL2 = 0; CL2 < test.size(); CL2++)
+							 {
+								 if (test[CL2].name != r1)
+								 {
+									 check1 = true;
+								 }
+								 else
+								 {
+									 check1 = false;
+									 break;
+								 }
+
+							 }
+							 
+							 if (check1 == true)
+							 {
+								test[q].name = r1;
 
 							 string qweasd = test[q].name;
 
 							 q++;
+
+							 }
+							 
 						 }
 						 else
 						 {
