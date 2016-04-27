@@ -159,7 +159,7 @@ namespace GroupProject {
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(100, 660);
+			this->textBox8->Location = System::Drawing::Point(267, 732);
 			this->textBox8->Multiline = true;
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->Size = System::Drawing::Size(193, 78);
@@ -331,7 +331,7 @@ namespace GroupProject {
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
 		Drawing::Graphics^ g4;
-	
+		/*Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");*/
 
 		//Strings for each class
 		String^ class1;
@@ -342,6 +342,9 @@ namespace GroupProject {
 		String^ class6;
 		
 		bool draw = true;
+
+
+
 		int amountlist = 0;
 		int amountofclass = 0;
 
@@ -376,14 +379,14 @@ namespace GroupProject {
 	//removes item from chosen class list (listBox2)
 	private: System::Void listBox2_DoubleClick(System::Object^  sender, System::EventArgs^  e) {
 		{
-			this->listBox2->Items->Remove(this->listBox1->SelectedItem);
+			this->listBox2->Items->Remove(this->listBox2->SelectedItem);
 			amountlist--;
 		}
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		
-		
+		  
 		  
 		//switch statement to set items from listBox2 to class names
 		switch (amountlist)
@@ -771,6 +774,171 @@ namespace GroupProject {
 		}
 	}
 
+			 /*
+			 =======================================================
+			 function:
+			  Check to see if the 'take' Boolean of each class
+			  in the 2D vector is true or false using the
+			  the size of the 'totalm' and 'totalt'.
+			  if the mwf class(finals[v][s]) and the tth class
+			  (finals[0][s]) are true it passes them to the
+			  'DrawSchedule()' method
+
+			 parameters:
+			  vector<vector<c>> & finals - vector<vector<c>> finals
+			  int tt - constrainer and the size is finals[][size]
+			  int tm - constrainer and the size is finals[size][]
+			  vector<c> & classesArray - vector<c> Classesarray
+			 ========================================================
+			 */
+	//void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
+	//{
+	//	srand(time(NULL));
+
+	//	int u = 1;
+
+	//	/*while (u <= 3)
+	//	{*/
+	//	/*int s = rand() % tt + 0;
+	//	int v = rand() % tm + 1;*/
+
+	//	int s = tt;
+	//	int v = tm;
+	//	for (u; u < 4; u++)
+	//	{
+	//		if (tm == 1)
+	//		{
+
+	//			for (s = 0; s < tt; s++)
+	//			{
+	//				if (finals[0][s].take == true)
+	//				{
+	//					
+	//						if (u == 1)
+	//						{
+	//							DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+	//							finals[0][s].works--;
+	//							u++;
+
+	//						}
+	//						else if (u == 2)
+	//						{
+	//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+	//							finals[0][s].works--;
+	//							u++;
+	//						}
+	//						else if (u == 3)
+	//						{
+	//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+	//							
+	//							finals[0][s].works--;
+	//							u++;
+	//						}
+	//					
+	//				}
+
+	//			}
+	//			if (u == 1)
+	//			{
+	//				MessageBox::Show("There are scheduling conflicts");
+	//			}
+	//		}
+	//		else if (tt == 0)
+	//		{
+	//			s = 0;
+
+	//			string ewrq = finals[2][0].name;
+	//			for (v = 1; v < tm; v++)
+	//			{
+	//				if (finals[v][s].take == true)
+	//				{
+	//					
+	//						if (u == 1)
+	//						{
+	//							DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+	//							finals[v][s].works--;
+	//							u++;
+
+	//						}
+	//						else if (u == 2)
+	//						{
+	//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+
+	//							finals[v][s].works--;
+	//							u++;
+	//						}
+	//						else if (u == 3)
+	//						{
+	//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+	//							finals[v][s].works--;
+	//							u++;
+	//						}
+	//					
+	//				}
+	//			}
+	//			if (u == 1)
+	//			{
+	//				MessageBox::Show("There are scheduling conflicts");
+	//			}
+	//		}
+	//		else
+	//		{
+	//			for (int s = 0; s < tt; s++)
+	//			{
+
+	//				for (int v = 1; v < tm; v++)
+	//				{
+
+
+
+	//					if (finals[0][s].take == true && finals[v][s].take == true)
+	//					{
+	//						
+	//							if (u == 1)
+	//							{
+
+	//								//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
+	//								DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+	//								u++;
+
+	//							}
+	//							else if (u == 2)
+	//							{
+	//								DrawSchedule2(finals, s, v, tt, tm, classesArray);
+
+
+	//								u++;
+	//							}
+	//							else if (u == 3)
+	//							{
+	//								DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+
+	//								u++;
+	//							}
+	//						
+
+
+	//					}
+	//					else
+	//					{
+	//						v++;
+	//					}
+	//				}
+	//				/*}*/
+	//			}
+	//			if (u == 1)
+	//			{
+	//				MessageBox::Show("There are scheduling conflicts");
+	//			}
+	//		}
+
+	//	}
+	//}
 
 
 
@@ -902,6 +1070,7 @@ namespace GroupProject {
 				 int firsttot1 = 0;
 				 int firsttot2 = 0;
 				 int displynum =0;
+				 int displynum1 = 0;
 				 
 				 
 
@@ -968,20 +1137,22 @@ namespace GroupProject {
 								 finals[p][i].take = false;
 							 }
 						 }
-						 }
+						 
 						 {
 							 if (tm != 1)
 							 {
-								 int moncheck = displynum;
-								 displynum = 0;
+								 if (displynum > displynum1)
+								 {
+
 								 for (int j = 1; j <= firsttot2; j++)
 								 {
+										 if (displynum > displynum1)
+										 {
 									 if (classCheck(finals, allclas, 0, j) == true)
 									 {
-										 if (displynum < moncheck)
+
+												 if (workcheck(finals, allclas, totalm, 0, j, displynum1) == true)
 										 {
-											 if (workcheck(finals, allclas, totalm, 0, j, displynum) == true)
-											 {
 												 finals[j][0].take = true;
 
 											 }
@@ -999,7 +1170,8 @@ namespace GroupProject {
 								 }
 							 }
 						 }
-					 
+				 }
+					 }
 				 }
 				 else
 				 {
@@ -1030,34 +1202,34 @@ namespace GroupProject {
 
 			 }
 			
-			 
+
 
 			 vector<c> timeSort(vector<c> f)
-			 {
+				 {
 				 int r = 0;
 				 vector<c> re(f.size()+1);
 				 vector<int> times(f.size());
 				 for (int i = 0; i < f.size(); i++)
-				 {
+					 {
 					 times[i] = f[i].stime;
-				 }
-				
+					 }
+
 				 sort(times.begin(), times.end(), greater<int>());
 				 for (int y = 0; y < f.size(); y++)
-				 {
+					 {
 					 for (int j = 0; j < f.size(); j++)
-					{
+						 {
 						if (times[y] == f[j].stime && r < f.size())
-						{
+						 {
 							string t = f[j].name;
 							int io = times[y];
 							re[r] = f[j];
 							r++;
-						}
-					}
-				}
+						 }
+						 }
+						 }
 				 return re;
-			 }
+						 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																		    //
 //---------------------------------------Display and Drawing Methods-------------------------------------------------------------------------------------//
@@ -1099,11 +1271,19 @@ namespace GroupProject {
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
+					 int wholeStart = ((fnsched[i].stime - 800) / 100);
+					 double remainderStart = ((fnsched[i].stime - 800) % 100);
+					 double finremainderStart = remainderStart / 60;
+					 double totalStart = (wholeStart + finremainderStart);
+					 int wholeEnd = ((fnsched[i].etime - 800) / 100);
+					 double remainderEnd = ((fnsched[i].etime - 800) % 100);
+					 double finremainderEnd = remainderEnd / 60;
+					 double totalEnd = (wholeEnd + finremainderEnd);
 					 classname[i] = fnsched[i].name;
 					 classname[i].resize(5);
-					 h = ((fnsched[i].etime - fnsched[i].stime)/100) * 40.2;
+					 h = (totalEnd - totalStart) * 40.2;
 					 b = 75;
-					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 y = (totalStart) * 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -10;
@@ -1186,12 +1366,12 @@ namespace GroupProject {
 							 g1->DrawIcon(clas6, gridRect5);
 						 }
 					 }
-				 }
+					 }
 
-			 }
+					 }
 
 
-			 
+
 
 			 void DrawSchedule2(vector<c> & fnsched) {
 
@@ -1209,19 +1389,27 @@ namespace GroupProject {
 				 Drawing::Icon^ clas4 = gcnew System::Drawing::Icon("class4.ico");
 				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
 				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
-				
-			
+
+
 
 				 int y;
 				 int b, h;
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
+					 int wholeStart = ((fnsched[i].stime - 800) / 100);
+					 double remainderStart = ((fnsched[i].stime - 800) % 100);
+					 double finremainderStart = remainderStart / 60;
+					 double totalStart = (wholeStart + finremainderStart);
+					 int wholeEnd = ((fnsched[i].etime - 800) / 100);
+					 double remainderEnd = ((fnsched[i].etime - 800) % 100);
+					 double finremainderEnd = remainderEnd / 60;
+					 double totalEnd = (wholeEnd + finremainderEnd);
 					 classname[i] = fnsched[i].name;
 					 classname[i].resize(5);
-					 h = ((fnsched[i].etime - fnsched[i].stime) / 100) * 40.2;
+					 h = (totalEnd - totalStart) * 40.2;
 					 b = 75;
-					 y = (((fnsched[i].stime - 800) / 100) * 40.2) + 2;
+					 y = ((totalStart)* 40.2) + 2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -8;
@@ -1321,18 +1509,26 @@ namespace GroupProject {
 				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
 				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
 
-				
+				 
 
 				 int y;
 				 int b, h;
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
+					 int wholeStart = ((fnsched[i].stime - 800) / 100);
+					 double remainderStart = ((fnsched[i].stime - 800) % 100);
+					 double finremainderStart = remainderStart / 60;
+					 double totalStart = (wholeStart + finremainderStart);
+					 int wholeEnd = ((fnsched[i].etime - 800) / 100);
+					 double remainderEnd = ((fnsched[i].etime - 800) % 100);
+					 double finremainderEnd = remainderEnd / 60;
+					 double totalEnd = (wholeEnd + finremainderEnd);
 					 classname[i] = fnsched[i].name;
 					 classname[i].resize(5);
-					 h = (((fnsched[i].etime - fnsched[i].stime) / 100) * 40.2) + 3;
+					 h = (totalEnd - totalStart) * 40.2;
 					 b = 75;
-					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 y = (totalStart)* 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -10;
@@ -1425,7 +1621,7 @@ namespace GroupProject {
 			 Displays the first schedule in a message box for the
 			 user to see.
 			 passing in the schedule from 'DrawSchedule1'
-
+			
 			 parameters:
 			 vector<c> fnsched - vector<c> fnsched
 
@@ -3038,13 +3234,13 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 	//Schedule 1
 	if (textBox8->Text != "")
 	{
-		 MessageBox::Show(textBox8->Text, "Schedule One");
-	}
+	MessageBox::Show(textBox8->Text, "Schedule One");
+}
 	else
 	{
 		MessageBox::Show("No schedules possible");
 	}
-	
+
 }
 
 
@@ -3052,8 +3248,8 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 	//Schedule 2
 	if (textBox2->Text != "")
 	{
-		MessageBox::Show(textBox2->Text, "Schedule Two");
-	}
+	MessageBox::Show(textBox2->Text, "Schedule Two");
+}
 	else
 	{
 		MessageBox::Show("Only one schedules is possible");
@@ -3068,12 +3264,12 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 	 if (textBox4->Text != "")
 	 {
 		 MessageBox::Show(textBox4->Text, "Schedule Three");
-	 }
+ }
 	 else
 	 {
 		 MessageBox::Show("Only two schedules are possible");
 	 } 
-	
+
  }
 
  private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
