@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+#include <algorithm>
 #include "Class.h"
 #include "Text.h"
 
@@ -288,7 +289,7 @@ namespace GroupProject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1284, 838);
+			this->ClientSize = System::Drawing::Size(1280, 838);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->textBox4);
 			this->Controls->Add(this->textBox2);
@@ -338,7 +339,7 @@ namespace GroupProject {
 		String^ class5;
 		String^ class6;
 		
-
+		bool draw = true;
 
 		int amountlist = 0;
 		int amountofclass = 0;
@@ -365,7 +366,7 @@ namespace GroupProject {
 	//amountlist limits max number of items user can send over to 6
 	private: System::Void listBox1_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 
-		if (amountlist <= 6)
+		if (amountlist < 6)
 			{
 				this->listBox2->Items->Add(this->listBox1->SelectedItem);
 				amountlist++;
@@ -1519,7 +1520,35 @@ namespace GroupProject {
 
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+				 for (auto t = fnsched.begin(); t < fnsched.end(); t++)
+				 {
 
+					 string ad = t[0].name;
+					 if (t == fnsched.end() - 1)
+					 {
+						 break;
+					 }
+					 else {	 
+						 for (auto i = fnsched.begin() +1; i < fnsched.end(); i++)
+				 {
+					 string ads = i[0].name;
+					 if (i[0].stime < t[0].stime)
+					 {
+						 std::move(*i);
+						 std::move(*t);
+						 for (int i1 = 0; i1 < fnsched.size(); i1++)
+						 {
+							auto sdj = fnsched[i1].name;
+
+						 }
+						 
+						 break;
+					 }
+				 }
+
+					 }
+				
+				  }
 				 printSched(fnsched, textBox8);
 				 
 				 int y;
@@ -1570,6 +1599,7 @@ namespace GroupProject {
 			 */
 			 void printSched(vector<c> fnsched,TextBox^ textBox)
 			 {
+				
 				 int i = 0, count = 0;
 				 for (int j = 0; j < fnsched.size(); j++)
 				 {
@@ -1578,8 +1608,13 @@ namespace GroupProject {
 						 count++;
 					 }
 				 }
-				 textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
-				 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
+				 if (draw == true)
+				 {
+				  textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
+					 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
+					 draw = false;
+				 }
+				 
 				 while (i < count )
 				 {
 					 string e; string s;
