@@ -158,7 +158,7 @@ namespace GroupProject {
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(100, 660);
+			this->textBox8->Location = System::Drawing::Point(267, 732);
 			this->textBox8->Multiline = true;
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->Size = System::Drawing::Size(193, 78);
@@ -378,7 +378,7 @@ namespace GroupProject {
 	//removes item from chosen class list (listBox2)
 	private: System::Void listBox2_DoubleClick(System::Object^  sender, System::EventArgs^  e) {
 		{
-			this->listBox2->Items->Remove(this->listBox1->SelectedItem);
+			this->listBox2->Items->Remove(this->listBox2->SelectedItem);
 			amountlist--;
 		}
 	}
@@ -1078,6 +1078,7 @@ namespace GroupProject {
 				 int firsttot1 = 0;
 				 int firsttot2 = 0;
 				 int displynum =0;
+				 int displynum1 = 0;
 				 
 				 
 
@@ -1143,38 +1144,41 @@ namespace GroupProject {
 								 finals[p][i].take = false;
 							 }
 						 }
-						 }
+						 
 						 {
 							 if (tm != 1)
 							 {
-								 int moncheck = displynum;
-								 displynum = 0;
-								 for (int j = 1; j <= firsttot2; j++)
+								 if (displynum > displynum1)
 								 {
-									 if (classCheck(finals, allclas, 0, j) == true)
-									 {
-										 if (displynum < moncheck)
-										 {
-											 if (workcheck(finals, allclas, totalm, 0, j, displynum) == true)
-											 {
-												 finals[j][0].take = true;
 
+									 for (int j = 1; j <= firsttot2; j++)
+									 {
+										 if (displynum > displynum1)
+										 {
+											 if (classCheck(finals, allclas, 0, j) == true)
+											 {
+
+												 if (workcheck(finals, allclas, totalm, 0, j, displynum1) == true)
+												 {
+													 finals[j][0].take = true;
+
+												 }
+												 else
+												 {
+													 finals[j][0].take = false;
+												 }
 											 }
 											 else
 											 {
 												 finals[j][0].take = false;
-											 }
-										 }
-										 else
-										 {
-											 finals[j][0].take = false;
 
+											 }
 										 }
 									 }
 								 }
 							 }
 						 }
-					 
+					 }
 				 }
 				 else
 				 {
@@ -1574,11 +1578,19 @@ namespace GroupProject {
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
+					 int wholeStart = ((fnsched[i].stime - 800) / 100);
+					 double remainderStart = ((fnsched[i].stime - 800) % 100);
+					 double finremainderStart = remainderStart / 60;
+					 double totalStart = (wholeStart + finremainderStart);
+					 int wholeEnd = ((fnsched[i].etime - 800) / 100);
+					 double remainderEnd = ((fnsched[i].etime - 800) % 100);
+					 double finremainderEnd = remainderEnd / 60;
+					 double totalEnd = (wholeEnd + finremainderEnd);
 					 classname[i] = fnsched[i].name;
 					 classname[i].resize(5);
-					 h = ((fnsched[i].etime - fnsched[i].stime)/100) * 40.2;
+					 h = (totalEnd - totalStart) * 40.2;
 					 b = 75;
-					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 y = (totalStart) * 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -10;
@@ -1802,11 +1814,19 @@ namespace GroupProject {
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
+					 int wholeStart = ((fnsched[i].stime - 800) / 100);
+					 double remainderStart = ((fnsched[i].stime - 800) % 100);
+					 double finremainderStart = remainderStart / 60;
+					 double totalStart = (wholeStart + finremainderStart);
+					 int wholeEnd = ((fnsched[i].etime - 800) / 100);
+					 double remainderEnd = ((fnsched[i].etime - 800) % 100);
+					 double finremainderEnd = remainderEnd / 60;
+					 double totalEnd = (wholeEnd + finremainderEnd);
 					 classname[i] = fnsched[i].name;
 					 classname[i].resize(5);
-					 h = ((fnsched[i].etime - fnsched[i].stime) / 100) * 40.2;
+					 h = (totalEnd - totalStart) * 40.2;
 					 b = 75;
-					 y = (((fnsched[i].stime - 800) / 100) * 40.2) + 2;
+					 y = ((totalStart)* 40.2) + 2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -8;
@@ -1915,11 +1935,19 @@ namespace GroupProject {
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
+					 int wholeStart = ((fnsched[i].stime - 800) / 100);
+					 double remainderStart = ((fnsched[i].stime - 800) % 100);
+					 double finremainderStart = remainderStart / 60;
+					 double totalStart = (wholeStart + finremainderStart);
+					 int wholeEnd = ((fnsched[i].etime - 800) / 100);
+					 double remainderEnd = ((fnsched[i].etime - 800) % 100);
+					 double finremainderEnd = remainderEnd / 60;
+					 double totalEnd = (wholeEnd + finremainderEnd);
 					 classname[i] = fnsched[i].name;
 					 classname[i].resize(5);
-					 h = (((fnsched[i].etime - fnsched[i].stime) / 100) * 40.2) + 3;
+					 h = (totalEnd - totalStart) * 40.2;
 					 b = 75;
-					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 y = (totalStart)* 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
 						 x1 = -10;
