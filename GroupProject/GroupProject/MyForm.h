@@ -1118,9 +1118,11 @@ namespace GroupProject {
 
 				 if (tt != 0)
 				 {
-					 for (int i = 0; i < firsttot1; i++)
+					 for (int i = 0; i <= firsttot1; i++)
 					 {
-						 int p = 0;
+						 if (i != firsttot1 && displynum < 3)
+						 {
+							 int p = 0;
 						 string fun1 = finals[p][i].name;
 						 if (displynum < 3)
 						 {
@@ -1144,17 +1146,26 @@ namespace GroupProject {
 								 finals[p][i].take = false;
 							 }
 						 }
-						 
+
 						 {
 							 if (tm != 1)
 							 {
-								 if (displynum > displynum1)
-								 {
+								 
 
 									 for (int j = 1; j <= firsttot2; j++)
-									 {
+									 {	 
 										 if (displynum > displynum1)
-										 {
+										 {	
+											 if (displynum1 == 1 && firsttot2 > 1)
+												{ 
+													j++;
+												}
+											 else if (displynum1 == 2 && firsttot2 > 2)
+											 {
+												 j++;
+												 j++;
+											 }
+											 
 											 if (classCheck(finals, allclas, 0, j) == true)
 											 {
 
@@ -1173,11 +1184,37 @@ namespace GroupProject {
 												 finals[j][0].take = false;
 
 											 }
-										 }
+										 
 									 }
+
 								 }
 							 }
 						 }
+					 }
+						 else
+						 {
+							 if (displynum == tm-1)
+							 {
+								 break;
+							 }
+							 else
+							 {
+							   i = 0;
+							 }
+							 
+						 }
+					 }
+					 if (displynum1 == 0)
+					{
+					pictureBox1->Refresh();
+					pictureBox2->Refresh();
+					pictureBox3->Refresh();
+					MessageBox::Show("There are conflicts");
+
+					}
+					 if (displynum == 0)
+					 {
+						 MessageBox::Show("There are conflicts");
 					 }
 				 }
 				 else
@@ -1203,6 +1240,10 @@ namespace GroupProject {
 								 finals[j][0].take = false;
 
 							 }
+						 }
+						 if (displynum == 0)
+						 {
+							 MessageBox::Show("There are conflicts");
 						 }
 					 }
 				 }
