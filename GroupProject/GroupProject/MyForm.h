@@ -8,6 +8,7 @@
 #include <string>
 #include <ctime>
 #include <algorithm>
+#include <functional>
 #include "Class.h"
 #include "Text.h"
 
@@ -330,7 +331,7 @@ namespace GroupProject {
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
 		Drawing::Graphics^ g4;
-		/*Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");*/
+	
 
 		//Strings for each class
 		String^ class1;
@@ -341,9 +342,6 @@ namespace GroupProject {
 		String^ class6;
 		
 		bool draw = true;
-
-
-
 		int amountlist = 0;
 		int amountofclass = 0;
 
@@ -384,13 +382,7 @@ namespace GroupProject {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		//sets all the user input to upper case 
-		/*class1 = textBox2->Text->ToUpper();
-		class2 = textBox3->Text->ToUpper();
-		class3 = textBox4->Text->ToUpper();
-		class4 = textBox5->Text->ToUpper();
-		class5 = textBox6->Text->ToUpper();
-		class6 = textBox7->Text->ToUpper();*/
+		
 		
 		  
 		//switch statement to set items from listBox2 to class names
@@ -770,183 +762,15 @@ namespace GroupProject {
 			vector<vector<c>> finalsched(mwf, vector<c>(Extra));
 			sort2(totalm, totalt, finalsched);
 			sort3(finalsched, Classesarray, totalm, totalt, tth, mwf);
-			/*passtoDraw(finalsched, tth, mwf, Classesarray);*/
 		}
 		else
 		{
 			vector<vector<c>> finalsched(mwf, vector<c>(tth));
 			sort2(totalm, totalt, finalsched);
 			sort3(finalsched, Classesarray, totalm, totalt, tth, mwf);
-			/*passtoDraw(finalsched, tth, mwf, Classesarray);*/
-
 		}
 	}
 
-			 /*
-			 =======================================================
-			 function:
-			  Check to see if the 'take' Boolean of each class
-			  in the 2D vector is true or false using the
-			  the size of the 'totalm' and 'totalt'.
-			  if the mwf class(finals[v][s]) and the tth class
-			  (finals[0][s]) are true it passes them to the
-			  'DrawSchedule()' method
-
-			 parameters:
-			  vector<vector<c>> & finals - vector<vector<c>> finals
-			  int tt - constrainer and the size is finals[][size]
-			  int tm - constrainer and the size is finals[size][]
-			  vector<c> & classesArray - vector<c> Classesarray
-			 ========================================================
-			 */
-	//void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
-	//{
-	//	srand(time(NULL));
-
-	//	int u = 1;
-
-	//	/*while (u <= 3)
-	//	{*/
-	//	/*int s = rand() % tt + 0;
-	//	int v = rand() % tm + 1;*/
-
-	//	int s = tt;
-	//	int v = tm;
-	//	for (u; u < 4; u++)
-	//	{
-	//		if (tm == 1)
-	//		{
-
-	//			for (s = 0; s < tt; s++)
-	//			{
-	//				if (finals[0][s].take == true)
-	//				{
-	//					
-	//						if (u == 1)
-	//						{
-	//							DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-	//							finals[0][s].works--;
-	//							u++;
-
-	//						}
-	//						else if (u == 2)
-	//						{
-	//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
-	//							finals[0][s].works--;
-	//							u++;
-	//						}
-	//						else if (u == 3)
-	//						{
-	//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
-	//							
-	//							finals[0][s].works--;
-	//							u++;
-	//						}
-	//					
-	//				}
-
-	//			}
-	//			if (u == 1)
-	//			{
-	//				MessageBox::Show("There are scheduling conflicts");
-	//			}
-	//		}
-	//		else if (tt == 0)
-	//		{
-	//			s = 0;
-
-	//			string ewrq = finals[2][0].name;
-	//			for (v = 1; v < tm; v++)
-	//			{
-	//				if (finals[v][s].take == true)
-	//				{
-	//					
-	//						if (u == 1)
-	//						{
-	//							DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-	//							finals[v][s].works--;
-	//							u++;
-
-	//						}
-	//						else if (u == 2)
-	//						{
-	//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
-
-	//							finals[v][s].works--;
-	//							u++;
-	//						}
-	//						else if (u == 3)
-	//						{
-	//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
-
-	//							finals[v][s].works--;
-	//							u++;
-	//						}
-	//					
-	//				}
-	//			}
-	//			if (u == 1)
-	//			{
-	//				MessageBox::Show("There are scheduling conflicts");
-	//			}
-	//		}
-	//		else
-	//		{
-	//			for (int s = 0; s < tt; s++)
-	//			{
-
-	//				for (int v = 1; v < tm; v++)
-	//				{
-
-
-
-	//					if (finals[0][s].take == true && finals[v][s].take == true)
-	//					{
-	//						
-	//							if (u == 1)
-	//							{
-
-	//								//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
-	//								DrawSchedule(finals, s, v, tt, tm, classesArray);
-
-	//								u++;
-
-	//							}
-	//							else if (u == 2)
-	//							{
-	//								DrawSchedule2(finals, s, v, tt, tm, classesArray);
-
-
-	//								u++;
-	//							}
-	//							else if (u == 3)
-	//							{
-	//								DrawSchedule3(finals, s, v, tt, tm, classesArray);
-
-
-	//								u++;
-	//							}
-	//						
-
-
-	//					}
-	//					else
-	//					{
-	//						v++;
-	//					}
-	//				}
-	//				/*}*/
-	//			}
-	//			if (u == 1)
-	//			{
-	//				MessageBox::Show("There are scheduling conflicts");
-	//			}
-	//		}
-
-	//	}
-	//}
 
 
 
@@ -1126,6 +950,7 @@ namespace GroupProject {
 							 int yu = totalt.size();
 							 if (classCheck(finals, allclas, i, p) == true)
 							 {
+								 draw = true;
 								 if (workcheck(finals, allclas, totalt, i, p, displynum) == true)
 								 {
 									 finals[p][i].take = true;
@@ -1205,301 +1030,33 @@ namespace GroupProject {
 
 			 }
 			
-			 /*
-			 =========================================================
-			 function:
-				 ---------Final Sort of the Schedule---------
-			  To take out the duplicate classes and returns a vector
-			  back to "DrawSchedule" that is used to draw the schedule
-			  takes in the 2D vector that has the classes that
-			  a. have all the classes the user has selected
-			  b. none of the classes conflict with each other
-			  also takes in the place holder in the 2D and the
-			  vector off all the classes the user has selected to
-			  the vector being returned.
+			 
 
-			 parameters:
-			  vector<vector<c>> & finals - vector<vector<c>> finals
-			  int & l - place holder for the y 2D vector [][y]
-			  int & k - place holder for the x 2D vector [x][]
-
-
-			 returns: vector<c>
-				vector<c> lastSched -- with final schedule
-			 =========================================================
-			 */
-			 vector<c> finalSort(vector<vector<c>> & finals, int & s, int & v, int tt, int tm, vector<c> & classesArray)
+			 vector<c> timeSort(vector<c> f)
 			 {
-				 vector<string> pass(amountofclass);
-
-				 string n = "NULL";
-				 int y = 0;	 int c1 = 0;
-				 int c2 = 0; int c3 = 0;
-				 int c4 = 0; int c5 = 0;
-				 int i = 0;	 int c6 = 0;
-				 //-------------------------------Checks for dublicates in TTH class---------------------\\
-
-				 int jk = s;
-				 if (tt != 0)
+				 int r = 0;
+				 vector<c> re(f.size()+1);
+				 vector<int> times(f.size());
+				 for (int i = 0; i < f.size(); i++)
 				 {
-					 string c0 = finals[0][s].name;
-					 c0.resize(5);
-					 String^ k = gcnew String(c0.c_str());
-					 while (finals[0][s].work[i] != n)
-					 {
-						 string k = finals[0][s].work[i];
-						 i++;
-					 }
-
-					 for (int p = 0; p < 1; p++)
-					 {
-						 if (k == class1 && c1 < 1)
-						 {
-							 pass[y] = finals[0][s].name;
-							 c1++;
-							 y++;
-						 }
-						 else if (k == class2 && c2 < 1)
-						 {
-							 pass[y] = finals[0][s].name;
-							 c2++;
-							 y++;
-
-						 }
-						 else if (k == class3 && c3 < 1)
-						 {
-							 pass[y] = finals[0][s].name;
-							 c3++;
-							 y++;
-						 }
-						 else if (k == class4 && c4 < 1)
-						 {
-							 pass[y] = finals[0][s].name;
-							 c4++;
-							 y++;
-						 }
-						 else if (k == class5 && c5 < 1)
-						 {
-							 pass[y] = finals[0][s].name;
-							 c5++;
-							 y++;
-						 }
-						 else if (k == class6 && c6 < 1)
-						 {
-							 pass[y] = finals[0][s].name;
-							 c6++;
-							 y++;
-						 }
-
-					 }
-
-					 int e = 0;
-
-
-					 for (int z = 0; z < i; z++)
-					 {
-						 string w = finals[0][s].work[e];
-						 w.resize(5);
-						 String^ t = gcnew String(w.c_str());
-
-						 if (t == class1 && c1 < 1)
-						 {
-							 pass[y] = finals[0][s].work[e];
-							 c1++;
-							 e++;
-							 y++;
-						 }
-						 else if (t == class2 && c2 < 1)
-						 {
-							 pass[y] = finals[0][s].work[e];
-							 c2++;
-							 e++;
-							 y++;
-						 }
-						 else if (t == class3 && c3 < 1)
-						 {
-							 pass[y] = finals[0][s].work[e];
-							 c3++;
-							 e++;
-							 y++;
-						 }
-						 else if (t == class4 && c4 < 1)
-						 {
-							 pass[y] = finals[0][s].work[e];
-							 c4++;
-							 e++;
-							 y++;
-						 }
-						 else if (t == class5 && c5 < 1)
-						 {
-							 pass[y] = finals[0][s].work[e];
-							 c5++;
-							 e++;
-							 y++;
-						 }
-						 else if (t == class6 && c6 < 1)
-						 {
-							 pass[y] = finals[0][s].work[e];
-							 c6++;
-							 e++;
-							 y++;
-						 }
-
-					 }
-
+					 times[i] = f[i].stime;
 				 }
-
-	//-------------------------------Checks for dublicates in MWF class---------------------\\
-
-				 if (tm != 1)
-				 {
-					 int ewr = v;
 				
-					 string cu = finals[v][s].name;
-					 cu.resize(5);
-
-					 String^ s1 = gcnew String(cu.c_str());
-					 int i1 = 0;
-					 while (finals[v][s].work[i1] != n)
-					 {
-						 string io = finals[v][s].work[i1];
-						 i1++;
-					 }
-					 for (int p1 = 0; p1 < 1; p1++)
-					 {
-						 if (s1 == class1 && c1 < 1)
-						 {
-							 pass[y] = finals[v][s].name;
-							 c1++;
-							 y++;
-						 }
-						 else if (s1 == class2 && c2 < 1)
-						 {
-							 pass[y] = finals[v][s].name;
-							 c2++;
-							 y++;
-
-						 }
-						 else if (s1 == class3 && c3 < 1)
-						 {
-							 pass[y] = finals[v][s].name;
-							 c3++;
-							 y++;
-						 }
-						 else if (s1 == class4 && c4 < 1)
-						 {
-							 pass[y] = finals[v][s].name;
-							 c4++;
-							 y++;
-						 }
-						 else if (s1 == class5 && c5 < 1)
-						 {
-							 pass[y] = finals[v][s].name;
-							 c5++;
-							 y++;
-						 }
-						 else if (s1 == class6 && c6 < 1)
-						 {
-							 pass[y] = finals[v][s].name;
-							 c6++;
-							 y++;
-						 }
-					 }
-
-					 int d = 0;
-
-					 for (int x = 0; x < i1; x++)
-					 {
-
-						 string w = finals[v][s].work[d];
-						 w.resize(5);
-						 String^ t = gcnew String(w.c_str());
-
-						 if (t == class1 && c1 < 1)
-						 {
-							 pass[y] = finals[v][s].work[d];
-							 c1++;
-							 d++;
-							 y++;
-						 }
-						 else if (t == class2 && c2 < 1)
-						 {
-							 pass[y] = finals[v][s].work[d];
-							 c2++;
-							 d++;
-							 y++;
-
-						 }
-						 else if (t == class3 && c3 < 1)
-						 {
-							 pass[y] = finals[v][s].work[d];
-							 c3++;
-							 d++;
-							 y++;
-						 }
-						 else if (t == class4 && c4 < 1)
-						 {
-							 pass[y] = finals[v][s].work[d];
-							 c4++;
-							 d++;
-							 y++;
-						 }
-						 else if (t == class5 && c5 < 1)
-						 {
-							 pass[y] = finals[v][s].work[d];
-							 c5++;
-							 d++;
-							 y++;
-						 }
-						 else if (t == class6 && c6 < 1)
-						 {
-							 pass[y] = finals[v][s].work[d];
-							 c6++;
-							 d++;
-							 y++;
-						 }
-						 else
-						 {
-							 d++;
-						 }
-					 }
-
-
-				 }
-
-				 //------------initializes the lastSched vector that is being returned-----------\\
-
-				 vector<c> lastSched(pass.size());
-				 int b = 0;
-				 int q = 0;
-				 int t = 0;
-				 while (b < classesArray.size())
+				 sort(times.begin(), times.end(), greater<int>());
+				 for (int y = 0; y < f.size(); y++)
 				 {
-					 int u = 0;
-					 q = 0;
-					 while (u < pass.size())
-					 {
-						 string lk = classesArray[b].name;
-						 string ggl = pass[u];
-						 if (classesArray[b].name == pass[q])
-						 {
-							 lastSched[t] = classesArray[b];
-							 q++;
-							 t++;
-
-						 }
-						 else
-						 {
-							 q++;
-						 }
-						 u++;
-					 }
-					 b++;
-				 }
-
-
-				 return lastSched;
-
+					 for (int j = 0; j < f.size(); j++)
+					{
+						if (times[y] == f[j].stime && r < f.size())
+						{
+							string t = f[j].name;
+							int io = times[y];
+							re[r] = f[j];
+							r++;
+						}
+					}
+				}
+				 return re;
 			 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																		    //
@@ -1524,9 +1081,9 @@ namespace GroupProject {
 			 */
 			 void DrawSchedule(vector<c> & fnsched) {
 
+				 vector <c> ptSched = timeSort(fnsched);
+				 printSched(ptSched, textBox8);
 
-
-				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 				 string classname[6];
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
 				 Drawing::Icon^ clas1 = gcnew System::Drawing::Icon("class1.ico");
@@ -1536,38 +1093,6 @@ namespace GroupProject {
 				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
 				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
 				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
-				 for (auto t = fnsched.begin(); t < fnsched.end(); t++)
-				 {
-
-					 string ad = t[0].name;
-					 if (t == fnsched.end() - 1)
-					 {
-						 break;
-					 }
-					 else {	 
-						 for (auto i = fnsched.begin() +1; i < fnsched.end(); i++)
-				 {
-					 string ads = i[0].name;
-					 if (i[0].stime < t[0].stime)
-					 {
-						 std::move(*i);
-						 std::move(*t);
-						 for (int i1 = 0; i1 < fnsched.size(); i1++)
-						 {
-							auto sdj = fnsched[i1].name;
-
-						 }
-						 
-						 break;
-					 }
-				 }
-
-					 }
-				
-				  }
-				 printSched(fnsched, textBox8);
-				 
-
 
 				 int y;
 				 int b, h;
@@ -1666,121 +1191,13 @@ namespace GroupProject {
 			 }
 
 
-			 /*
-			 =========================================================
-			 function:
-			 Displays the first schedule in a message box for the
-			 user to see.
-			 passing in the schedule from 'DrawSchedule1'
-
-			 parameters:
-			 vector<c> fnsched - vector<c> fnsched
-
-			 =========================================================
-			 */
-			 void printSched(vector<c> fnsched,TextBox^ textBox)
-			 {
-				
-				 int i = 0, count = 0;
-				 for (int j = 0; j < fnsched.size(); j++)
-				 {
-					 if (fnsched[j].name != "")
-					 {
-						 count++;
-					 }
-				 }
-				 if (draw == true)
-				 {
-				 textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
-				 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
-					 draw = false;
-				 }
-				 
-				 while (i < count )
-				 {
-					 string e; string s;
-					 string st; string et;
-					 int start; int end;
-
-					 string n = fnsched[i].name;  String^ name = gcnew String(n.c_str());
-
-					 string d;
-					 if (fnsched[i].day == "MWF")
-					 {
-						 d = "M,W,F";
-					 }
-					 else
-					 {
-						 d = "T,TH";
-					 }
-					 String^ day = gcnew String(d.c_str());
-
-					 System::Convert::ToString(fnsched[i].stime);
-					//Convertion from military time to stadard time and addes am/pm
-					 if (fnsched[i].stime >= 1300)
-					 {
-						 start = fnsched[i].stime - 1200;
-						 s = std::to_string(start) + "pm";
-					 }
-					 else
-					 {
-						 start = fnsched[i].stime;
-						 s = std::to_string(start) + "am";
-					 }
-					 if (fnsched[i].etime >= 1300)
-					 {
-						 end = fnsched[i].etime - 1200;
-						 e = std::to_string(end) + "pm";
-
-					 }
-					 else
-					 {
-						 end = fnsched[i].etime;
-						 e = std::to_string(end) + "am";
-					 }
-
-					 //Convers the times from ints to strings and adds ":" in the time
-					 if (s.length() == 5)
-					 {
-						 string b = s.substr(0, 1);
-						 string f = s.substr(1, 4);
-						 st = b + ":" + f;
-					 }
-					 else
-					 {
-						 string be = s.substr(0, 2);
-						 string fi = s.substr(2, 6);
-						 st = be + ":" + fi;
-					 }
-
-					 if (e.length() == 5)
-					 {
-						 string b = e.substr(0, 1);
-						 string f = e.substr(1, 4);
-						 et = b + ":" + f;
-					 }
-					 else
-					 {
-						 string be = e.substr(0, 2);
-						 string fi = e.substr(2, 6);
-						 et = be + ":" + fi;
-					 }
-
-
-					 String ^ startT = gcnew String(st.c_str());
-					 String ^ endT = gcnew String(et.c_str());
-
-					 textBox->Text = textBox->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
-
-					 i++;
-
-				 }
-
-
-			 }
+			 
 
 			 void DrawSchedule2(vector<c> & fnsched) {
 
+
+				 vector <c> ptSched = timeSort(fnsched);
+				 printSched(ptSched, textBox2);
 
 
 				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
@@ -1792,10 +1209,8 @@ namespace GroupProject {
 				 Drawing::Icon^ clas4 = gcnew System::Drawing::Icon("class4.ico");
 				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
 				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
-
-				 printSched(fnsched, textBox2);
 				
-
+			
 
 				 int y;
 				 int b, h;
@@ -1893,8 +1308,8 @@ namespace GroupProject {
 
 			 }
 			 void DrawSchedule3(vector<c> & fnsched) {
-
-
+				 vector <c> ptSched = timeSort(fnsched);
+				 printSched(ptSched, textBox4);
 
 				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
 				 string classname[6];
@@ -1906,9 +1321,7 @@ namespace GroupProject {
 				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
 				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
 
-				 printSched(fnsched, textBox4);
-
-				 
+				
 
 				 int y;
 				 int b, h;
@@ -2006,7 +1419,129 @@ namespace GroupProject {
 
 			 }
 
-			
+			 /*
+			 =========================================================
+			 function:
+			 Displays the first schedule in a message box for the
+			 user to see.
+			 passing in the schedule from 'DrawSchedule1'
+
+			 parameters:
+			 vector<c> fnsched - vector<c> fnsched
+
+			 =========================================================
+			 */
+			 void printSched(vector<c> fnsched, TextBox^ textBox)
+			 {
+
+				 int count = 0;
+				 for (int j = 0; j < fnsched.size(); j++)
+				 {
+					 if (fnsched[j].name != "")
+					 {
+						 count++;
+					 }
+				 }
+				 int i = count - 1;
+				 if (draw == true)
+				 {
+					 textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
+					 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
+					 draw = false;
+				 }
+
+				 while (i >= 0)
+				 {
+					 string e; string s;
+					 string st; string et;
+					 int start; int end;
+
+					 string n = fnsched[i].name;  String^ name = gcnew String(n.c_str());
+
+					 string d;
+					 if (fnsched[i].day == "MWF")
+					 {
+						 d = "M,W,F";
+					 }
+					 else
+					 {
+						 d = "T,TH";
+					 }
+					 String^ day = gcnew String(d.c_str());
+
+					 System::Convert::ToString(fnsched[i].stime);
+					 //Convertion from military time to stadard time and addes am/pm
+					 if (fnsched[i].stime >= 1300)
+					 {
+						 start = fnsched[i].stime - 1200;
+						 s = std::to_string(start) + "pm";
+					 }
+					 else if (fnsched[i].stime < 1300 && fnsched[i].stime >= 1200)
+					 {
+						 start = fnsched[i].stime;
+						 s = std::to_string(start) + "pm";
+					 }
+					 else
+					 {
+						 start = fnsched[i].stime;
+						 s = std::to_string(start) + "am";
+					 }
+					 if (fnsched[i].etime >= 1300)
+					 {
+						 end = fnsched[i].etime - 1200;
+						 e = std::to_string(end) + "pm";
+
+					 }
+					 else if (fnsched[i].etime < 1300 && fnsched[i].etime >= 1200)
+					 {
+						 end = fnsched[i].etime;
+						 e = std::to_string(end) + "pm";
+					 }
+					 else
+					 {
+						 end = fnsched[i].etime;
+						 e = std::to_string(end) + "am";
+					 }
+
+					 //Convers the times from ints to strings and adds ":" in the time
+					 if (s.length() == 5)
+					 {
+						 string b = s.substr(0, 1);
+						 string f = s.substr(1, 4);
+						 st = b + ":" + f;
+					 }
+					 else
+					 {
+						 string be = s.substr(0, 2);
+						 string fi = s.substr(2, 5);
+						 st = be + ":" + fi;
+					 }
+
+					 if (e.length() == 5)
+					 {
+						 string b = e.substr(0, 1);
+						 string f = e.substr(1, 4);
+						 et = b + ":" + f;
+					 }
+					 else
+					 {
+						 string be = e.substr(0, 2);
+						 string fi = e.substr(2, 5);
+						 et = be + ":" + fi;
+					 }
+
+
+					 String ^ startT = gcnew String(st.c_str());
+					 String ^ endT = gcnew String(et.c_str());
+
+					 textBox->Text = textBox->Text + name + "\t" + day + "\t" + startT + "-" + endT + "\r\n";
+
+					 i--;
+
+				 }
+
+
+			 }
 
 			   /*
 			 =====================================================
@@ -3501,19 +3036,44 @@ namespace GroupProject {
 	
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 	//Schedule 1
-	MessageBox::Show(textBox8->Text, "Schedule One");
+	if (textBox8->Text != "")
+	{
+		 MessageBox::Show(textBox8->Text, "Schedule One");
+	}
+	else
+	{
+		MessageBox::Show("No schedules possible");
+	}
+	
 }
 
 
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-
 	//Schedule 2
-	MessageBox::Show(textBox2->Text, "Schedule Two");
+	if (textBox2->Text != "")
+	{
+		MessageBox::Show(textBox2->Text, "Schedule Two");
+	}
+	else
+	{
+		MessageBox::Show("Only one schedules is possible");
+	}
+
+	
+	
 }
 
  private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
 	 //Schedule 3
-	 MessageBox::Show(textBox4->Text,"Schedule Three");
+	 if (textBox4->Text != "")
+	 {
+		 MessageBox::Show(textBox4->Text, "Schedule Three");
+	 }
+	 else
+	 {
+		 MessageBox::Show("Only two schedules are possible");
+	 } 
+	
  }
 
  private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -3613,7 +3173,494 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 		bool take;
 		};*/
 
+		/*
+		=======================================================
+		function:
+		Check to see if the 'take' Boolean of each class
+		in the 2D vector is true or false using the
+		the size of the 'totalm' and 'totalt'.
+		if the mwf class(finals[v][s]) and the tth class
+		(finals[0][s]) are true it passes them to the
+		'DrawSchedule()' method
 
+		parameters:
+		vector<vector<c>> & finals - vector<vector<c>> finals
+		int tt - constrainer and the size is finals[][size]
+		int tm - constrainer and the size is finals[size][]
+		vector<c> & classesArray - vector<c> Classesarray
+		========================================================
+		*/
+		/*passtoDraw(finalsched, tth, mwf, Classesarray);*/
+		//void passtoDraw(vector<vector<c>> & finals, int tt, int tm, vector<c> & classesArray)
+		//{
+		//	srand(time(NULL));
+
+		//	int u = 1;
+
+		//	/*while (u <= 3)
+		//	{*/
+		//	/*int s = rand() % tt + 0;
+		//	int v = rand() % tm + 1;*/
+
+		//	int s = tt;
+		//	int v = tm;
+		//	for (u; u < 4; u++)
+		//	{
+		//		if (tm == 1)
+		//		{
+
+		//			for (s = 0; s < tt; s++)
+		//			{
+		//				if (finals[0][s].take == true)
+		//				{
+		//					
+		//						if (u == 1)
+		//						{
+		//							DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+		//							finals[0][s].works--;
+		//							u++;
+
+		//						}
+		//						else if (u == 2)
+		//						{
+		//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+		//							finals[0][s].works--;
+		//							u++;
+		//						}
+		//						else if (u == 3)
+		//						{
+		//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+		//							
+		//							finals[0][s].works--;
+		//							u++;
+		//						}
+		//					
+		//				}
+
+		//			}
+		//			if (u == 1)
+		//			{
+		//				MessageBox::Show("There are scheduling conflicts");
+		//			}
+		//		}
+		//		else if (tt == 0)
+		//		{
+		//			s = 0;
+
+		//			string ewrq = finals[2][0].name;
+		//			for (v = 1; v < tm; v++)
+		//			{
+		//				if (finals[v][s].take == true)
+		//				{
+		//					
+		//						if (u == 1)
+		//						{
+		//							DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+		//							finals[v][s].works--;
+		//							u++;
+
+		//						}
+		//						else if (u == 2)
+		//						{
+		//							DrawSchedule2(finals, s, v, tt, tm, classesArray);
+
+		//							finals[v][s].works--;
+		//							u++;
+		//						}
+		//						else if (u == 3)
+		//						{
+		//							DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+		//							finals[v][s].works--;
+		//							u++;
+		//						}
+		//					
+		//				}
+		//			}
+		//			if (u == 1)
+		//			{
+		//				MessageBox::Show("There are scheduling conflicts");
+		//			}
+		//		}
+		//		else
+		//		{
+		//			for (int s = 0; s < tt; s++)
+		//			{
+
+		//				for (int v = 1; v < tm; v++)
+		//				{
+
+
+
+		//					if (finals[0][s].take == true && finals[v][s].take == true)
+		//					{
+		//						
+		//							if (u == 1)
+		//							{
+
+		//								//VECTOR Blows HERE when PY,QF,TU,EE,MA,SS	are eleted together
+		//								DrawSchedule(finals, s, v, tt, tm, classesArray);
+
+		//								u++;
+
+		//							}
+		//							else if (u == 2)
+		//							{
+		//								DrawSchedule2(finals, s, v, tt, tm, classesArray);
+
+
+		//								u++;
+		//							}
+		//							else if (u == 3)
+		//							{
+		//								DrawSchedule3(finals, s, v, tt, tm, classesArray);
+
+
+		//								u++;
+		//							}
+		//						
+
+
+		//					}
+		//					else
+		//					{
+		//						v++;
+		//					}
+		//				}
+		//				/*}*/
+		//			}
+		//			if (u == 1)
+		//			{
+		//				MessageBox::Show("There are scheduling conflicts");
+		//			}
+		//		}
+
+		//	}
+		//}
+		//sets all the user input to upper case 
+		/*class1 = textBox2->Text->ToUpper();
+		class2 = textBox3->Text->ToUpper();
+		class3 = textBox4->Text->ToUpper();
+		class4 = textBox5->Text->ToUpper();
+		class5 = textBox6->Text->ToUpper();
+		class6 = textBox7->Text->ToUpper();
+		
+		
+			 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
+		
+		
+		
+		
+		 
+			 =========================================================
+			 function:
+				 ---------Final Sort of the Schedule---------
+			  To take out the duplicate classes and returns a vector
+			  back to "DrawSchedule" that is used to draw the schedule
+			  takes in the 2D vector that has the classes that
+			  a. have all the classes the user has selected
+			  b. none of the classes conflict with each other
+			  also takes in the place holder in the 2D and the
+			  vector off all the classes the user has selected to
+			  the vector being returned.
+
+			 parameters:
+			  vector<vector<c>> & finals - vector<vector<c>> finals
+			  int & l - place holder for the y 2D vector [][y]
+			  int & k - place holder for the x 2D vector [x][]
+
+
+			 returns: vector<c>
+				vector<c> lastSched -- with final schedule
+			 =========================================================
+			
+			 vector<c> finalSort(vector<vector<c>> & finals, int & s, int & v, int tt, int tm, vector<c> & classesArray)
+			 {
+				 vector<string> pass(amountofclass);
+
+				 string n = "NULL";
+				 int y = 0;	 int c1 = 0;
+				 int c2 = 0; int c3 = 0;
+				 int c4 = 0; int c5 = 0;
+				 int i = 0;	 int c6 = 0;
+				 //-------------------------------Checks for dublicates in TTH class---------------------\\
+
+				 int jk = s;
+				 if (tt != 0)
+				 {
+					 string c0 = finals[0][s].name;
+					 c0.resize(5);
+					 String^ k = gcnew String(c0.c_str());
+					 while (finals[0][s].work[i] != n)
+					 {
+						 string k = finals[0][s].work[i];
+						 i++;
+					 }
+
+					 for (int p = 0; p < 1; p++)
+					 {
+						 if (k == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c1++;
+							 y++;
+						 }
+						 else if (k == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c2++;
+							 y++;
+
+						 }
+						 else if (k == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c3++;
+							 y++;
+						 }
+						 else if (k == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c4++;
+							 y++;
+						 }
+						 else if (k == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c5++;
+							 y++;
+						 }
+						 else if (k == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][s].name;
+							 c6++;
+							 y++;
+						 }
+
+					 }
+
+					 int e = 0;
+
+
+					 for (int z = 0; z < i; z++)
+					 {
+						 string w = finals[0][s].work[e];
+						 w.resize(5);
+						 String^ t = gcnew String(w.c_str());
+
+						 if (t == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c1++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c2++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c3++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c4++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c5++;
+							 e++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[0][s].work[e];
+							 c6++;
+							 e++;
+							 y++;
+						 }
+
+					 }
+
+				 }
+
+				
+
+				 if (tm != 1)
+				 {
+					 int ewr = v;
+
+					 string cu = finals[v][s].name;
+					 cu.resize(5);
+
+					 String^ s1 = gcnew String(cu.c_str());
+					 int i1 = 0;
+					 while (finals[v][s].work[i1] != n)
+					 {
+						 string io = finals[v][s].work[i1];
+						 i1++;
+					 }
+					 for (int p1 = 0; p1 < 1; p1++)
+					 {
+						 if (s1 == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c1++;
+							 y++;
+						 }
+						 else if (s1 == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c2++;
+							 y++;
+
+						 }
+						 else if (s1 == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c3++;
+							 y++;
+						 }
+						 else if (s1 == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c4++;
+							 y++;
+						 }
+						 else if (s1 == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c5++;
+							 y++;
+						 }
+						 else if (s1 == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[v][s].name;
+							 c6++;
+							 y++;
+						 }
+					 }
+
+					 int d = 0;
+
+					 for (int x = 0; x < i1; x++)
+					 {
+
+						 string w = finals[v][s].work[d];
+						 w.resize(5);
+						 String^ t = gcnew String(w.c_str());
+
+						 if (t == class1 && c1 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c1++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class2 && c2 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c2++;
+							 d++;
+							 y++;
+
+						 }
+						 else if (t == class3 && c3 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c3++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class4 && c4 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c4++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class5 && c5 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c5++;
+							 d++;
+							 y++;
+						 }
+						 else if (t == class6 && c6 < 1)
+						 {
+							 pass[y] = finals[v][s].work[d];
+							 c6++;
+							 d++;
+							 y++;
+						 }
+						 else
+						 {
+							 d++;
+						 }
+					 }
+
+
+				 }
+
+			
+
+				 vector<c> lastSched(pass.size());
+				 int b = 0;
+				 int q = 0;
+				 int t = 0;
+				 while (b < classesArray.size())
+				 {
+					 int u = 0;
+					 q = 0;
+					 while (u < pass.size())
+					 {
+						 string lk = classesArray[b].name;
+						 string ggl = pass[u];
+						 if (classesArray[b].name == pass[q])
+						 {
+							 lastSched[t] = classesArray[b];
+							 q++;
+							 t++;
+
+						 }
+						 else
+						 {
+							 q++;
+						 }
+						 u++;
+					 }
+					 b++;
+				 }
+
+
+				 return lastSched;
+
+			 }
+
+		
+		
+
+
+
+
+
+
+
+		
+		*/
 //========================================================================================\\
 
 
