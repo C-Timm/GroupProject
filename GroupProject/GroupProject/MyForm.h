@@ -140,7 +140,7 @@ namespace GroupProject {
 			// pictureBox2
 			// 
 			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBox2->Location = System::Drawing::Point(392, 336);
+			this->pictureBox2->Location = System::Drawing::Point(393, 336);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(268, 402);
 			this->pictureBox2->TabIndex = 4;
@@ -149,7 +149,7 @@ namespace GroupProject {
 			// pictureBox3
 			// 
 			this->pictureBox3->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBox3->Location = System::Drawing::Point(714, 336);
+			this->pictureBox3->Location = System::Drawing::Point(710, 336);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(265, 402);
 			this->pictureBox3->TabIndex = 5;
@@ -169,9 +169,9 @@ namespace GroupProject {
 			this->pictureBox4->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.BackgroundImage")));
 			this->pictureBox4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBox4->Location = System::Drawing::Point(1024, 216);
+			this->pictureBox4->Location = System::Drawing::Point(1011, 216);
 			this->pictureBox4->Name = L"pictureBox4";
-			this->pictureBox4->Size = System::Drawing::Size(259, 549);
+			this->pictureBox4->Size = System::Drawing::Size(244, 549);
 			this->pictureBox4->TabIndex = 12;
 			this->pictureBox4->TabStop = false;
 			// 
@@ -206,8 +206,9 @@ namespace GroupProject {
 			this->listBox2->ItemHeight = 26;
 			this->listBox2->Location = System::Drawing::Point(505, 46);
 			this->listBox2->Name = L"listBox2";
-			this->listBox2->Size = System::Drawing::Size(213, 186);
+			this->listBox2->Size = System::Drawing::Size(156, 186);
 			this->listBox2->TabIndex = 15;
+			this->listBox2->DoubleClick += gcnew System::EventHandler(this, &MyForm::listBox2_DoubleClick);
 			// 
 			// button2
 			// 
@@ -224,7 +225,7 @@ namespace GroupProject {
 			// 
 			this->button3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.BackgroundImage")));
 			this->button3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button3->Location = System::Drawing::Point(1121, 771);
+			this->button3->Location = System::Drawing::Point(1095, 771);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(113, 39);
 			this->button3->TabIndex = 17;
@@ -288,7 +289,7 @@ namespace GroupProject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1284, 838);
+			this->ClientSize = System::Drawing::Size(1280, 838);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->textBox4);
 			this->Controls->Add(this->textBox2);
@@ -338,6 +339,7 @@ namespace GroupProject {
 		String^ class5;
 		String^ class6;
 		
+		
 
 
 		int amountlist = 0;
@@ -370,6 +372,13 @@ namespace GroupProject {
 				this->listBox2->Items->Add(this->listBox1->SelectedItem);
 				amountlist++;
 			}
+	}
+	//removes item from chosen class list (listBox2)
+	private: System::Void listBox2_DoubleClick(System::Object^  sender, System::EventArgs^  e) {
+		{
+			this->listBox2->Items->Remove(this->listBox1->SelectedItem);
+			amountlist--;
+		}
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -1516,40 +1525,110 @@ namespace GroupProject {
 
 
 				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
-
+				 string classname[6];
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
-				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+				 Drawing::Icon^ clas1 = gcnew System::Drawing::Icon("class1.ico");
+				 Drawing::Icon^ clas2 = gcnew System::Drawing::Icon("class2.ico");
+				 Drawing::Icon^ clas3 = gcnew System::Drawing::Icon("class3.ico");
+				 Drawing::Icon^ clas4 = gcnew System::Drawing::Icon("class4.ico");
+				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
+				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
 
 				 printSched(fnsched, textBox8);
-				 
+				
+
+
 				 int y;
 				 int b, h;
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
-					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
-					 b = 130;
+					 classname[i] = fnsched[i].name;
+					 classname[i].resize(5);
+					 h = ((fnsched[i].etime - fnsched[i].stime)/100) * 40.2;
+					 b = 75;
 					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
-						 x1 = -40;
-						 x2 = 70;
-						 x3 = 180;
+						 x1 = -10;
+						 x2 = 95;
+						 x3 = 198;
 						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
 						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
 						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
-						 g1->DrawIcon(clas, gridRect1);
-						 g1->DrawIcon(clas, gridRect2);
-						 g1->DrawIcon(clas, gridRect3);
+						 if (gcnew String(classname[i].c_str()) == class1)
+						 {
+							 g1->DrawIcon(clas1, gridRect1);
+							 g1->DrawIcon(clas1, gridRect2);
+							 g1->DrawIcon(clas1, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class2)
+						 {
+							 g1->DrawIcon(clas2, gridRect1);
+							 g1->DrawIcon(clas2, gridRect2);
+							 g1->DrawIcon(clas2, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class3)
+						 {
+							 g1->DrawIcon(clas3, gridRect1);
+							 g1->DrawIcon(clas3, gridRect2);
+							 g1->DrawIcon(clas3, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class4)
+						 {
+							 g1->DrawIcon(clas4, gridRect1);
+							 g1->DrawIcon(clas4, gridRect2);
+							 g1->DrawIcon(clas4, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class5)
+						 {
+							 g1->DrawIcon(clas5, gridRect1);
+							 g1->DrawIcon(clas5, gridRect2);
+							 g1->DrawIcon(clas5, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class6)
+						 {
+							 g1->DrawIcon(clas6, gridRect1);
+							 g1->DrawIcon(clas6, gridRect2);
+							 g1->DrawIcon(clas6, gridRect3);
+						 }
 					 }
 					 else
 					 {
-						 x1 = 15;
-						 x2 = 125;
+						 x1 = 43;
+						 x2 = 145;
 						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
 						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
-						 g1->DrawIcon(clas, gridRect4);
-						 g1->DrawIcon(clas, gridRect5);
+						 if (gcnew String(classname[i].c_str()) == class1)
+						 {
+							 g1->DrawIcon(clas1, gridRect4);
+							 g1->DrawIcon(clas1, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class2)
+						 {
+							 g1->DrawIcon(clas2, gridRect4);
+							 g1->DrawIcon(clas2, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class3)
+						 {
+							 g1->DrawIcon(clas3, gridRect4);
+							 g1->DrawIcon(clas3, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class4)
+						 {
+							 g1->DrawIcon(clas4, gridRect4);
+							 g1->DrawIcon(clas4, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class5)
+						 {
+							 g1->DrawIcon(clas5, gridRect4);
+							 g1->DrawIcon(clas5, gridRect5);
+						 }
+						 else
+						 {
+							 g1->DrawIcon(clas6, gridRect4);
+							 g1->DrawIcon(clas6, gridRect5);
+						 }
 					 }
 				 }
 
@@ -1668,90 +1747,225 @@ namespace GroupProject {
 
 
 				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
-
+				 string classname[6];
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
-				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+				 Drawing::Icon^ clas1 = gcnew System::Drawing::Icon("class1.ico");
+				 Drawing::Icon^ clas2 = gcnew System::Drawing::Icon("class2.ico");
+				 Drawing::Icon^ clas3 = gcnew System::Drawing::Icon("class3.ico");
+				 Drawing::Icon^ clas4 = gcnew System::Drawing::Icon("class4.ico");
+				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
+				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
 
-				 printSched(fnsched,textBox2);
-				
+				 printSched(fnsched, textBox2);
+
+
 
 				 int y;
 				 int b, h;
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
-					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
-					 b = 130;
-					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
+					 classname[i] = fnsched[i].name;
+					 classname[i].resize(5);
+					 h = ((fnsched[i].etime - fnsched[i].stime) / 100) * 40.2;
+					 b = 75;
+					 y = (((fnsched[i].stime - 800) / 100) * 40.2) + 2;
 					 if (fnsched[i].day == "MWF")
 					 {
-						 x1 = -40;
-						 x2 = 70;
-						 x3 = 180;
+						 x1 = -8;
+						 x2 = 97;
+						 x3 = 200;
 						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
 						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
 						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
-						 g2->DrawIcon(clas, gridRect1);
-						 g2->DrawIcon(clas, gridRect2);
-						 g2->DrawIcon(clas, gridRect3);
+						 if (gcnew String(classname[i].c_str()) == class1)
+						 {
+							 g2->DrawIcon(clas1, gridRect1);
+							 g2->DrawIcon(clas1, gridRect2);
+							 g2->DrawIcon(clas1, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class2)
+						 {
+							 g2->DrawIcon(clas2, gridRect1);
+							 g2->DrawIcon(clas2, gridRect2);
+							 g2->DrawIcon(clas2, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class3)
+						 {
+							 g2->DrawIcon(clas3, gridRect1);
+							 g2->DrawIcon(clas3, gridRect2);
+							 g2->DrawIcon(clas3, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class4)
+						 {
+							 g2->DrawIcon(clas4, gridRect1);
+							 g2->DrawIcon(clas4, gridRect2);
+							 g2->DrawIcon(clas4, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class5)
+						 {
+							 g2->DrawIcon(clas5, gridRect1);
+							 g2->DrawIcon(clas5, gridRect2);
+							 g2->DrawIcon(clas5, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class6)
+						 {
+							 g2->DrawIcon(clas6, gridRect1);
+							 g2->DrawIcon(clas6, gridRect2);
+							 g2->DrawIcon(clas6, gridRect3);
+						 }
 					 }
 					 else
 					 {
-						 x1 = 15;
-						 x2 = 125;
+						 x1 = 45;
+						 x2 = 147;
 						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
 						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
-						 g2->DrawIcon(clas, gridRect4);
-						 g2->DrawIcon(clas, gridRect5);
+						 if (gcnew String(classname[i].c_str()) == class1)
+						 {
+							 g2->DrawIcon(clas1, gridRect4);
+							 g2->DrawIcon(clas1, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class2)
+						 {
+							 g2->DrawIcon(clas2, gridRect4);
+							 g2->DrawIcon(clas2, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class3)
+						 {
+							 g2->DrawIcon(clas3, gridRect4);
+							 g2->DrawIcon(clas3, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class4)
+						 {
+							 g2->DrawIcon(clas4, gridRect4);
+							 g2->DrawIcon(clas4, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class5)
+						 {
+							 g2->DrawIcon(clas5, gridRect4);
+							 g2->DrawIcon(clas5, gridRect5);
+						 }
+						 else
+						 {
+							 g2->DrawIcon(clas6, gridRect4);
+							 g2->DrawIcon(clas6, gridRect5);
+						 }
 					 }
 				 }
+
 			 }
-
-			
-
 			 void DrawSchedule3(vector<c> & fnsched) {
 
 
 
 				 //vector<c> fnsched = finalSort(finals, s, v, tt, tm, classesArray);
-
+				 string classname[6];
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
-				 Drawing::Icon^ clas = gcnew System::Drawing::Icon("class.ico");
+				 Drawing::Icon^ clas1 = gcnew System::Drawing::Icon("class1.ico");
+				 Drawing::Icon^ clas2 = gcnew System::Drawing::Icon("class2.ico");
+				 Drawing::Icon^ clas3 = gcnew System::Drawing::Icon("class3.ico");
+				 Drawing::Icon^ clas4 = gcnew System::Drawing::Icon("class4.ico");
+				 Drawing::Icon^ clas5 = gcnew System::Drawing::Icon("class5.ico");
+				 Drawing::Icon^ clas6 = gcnew System::Drawing::Icon("class6.ico");
 
-				 printSched(fnsched,textBox4);
-				 
+				 printSched(fnsched, textBox4);
+
+
 
 				 int y;
 				 int b, h;
 				 int x1, x2, x3;
 				 for (int i = 0; i < fnsched.size(); i++)
 				 {
-					 h = (fnsched[i].etime - fnsched[i].stime) / 2;
-					 b = 130;
+					 classname[i] = fnsched[i].name;
+					 classname[i].resize(5);
+					 h = (((fnsched[i].etime - fnsched[i].stime) / 100) * 40.2) + 3;
+					 b = 75;
 					 y = ((fnsched[i].stime - 800) / 100) * 40.2;
 					 if (fnsched[i].day == "MWF")
 					 {
-						 x1 = -40;
-						 x2 = 70;
-						 x3 = 180;
+						 x1 = -10;
+						 x2 = 95;
+						 x3 = 198;
 						 Rectangle gridRect1 = Rectangle(x1, y, b, h);
 						 Rectangle gridRect2 = Rectangle(x2, y, b, h);
 						 Rectangle gridRect3 = Rectangle(x3, y, b, h);
-						 g3->DrawIcon(clas, gridRect1);
-						 g3->DrawIcon(clas, gridRect2);
-						 g3->DrawIcon(clas, gridRect3);
+						 if (gcnew String(classname[i].c_str()) == class1)
+						 {
+							 g3->DrawIcon(clas1, gridRect1);
+							 g3->DrawIcon(clas1, gridRect2);
+							 g3->DrawIcon(clas1, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class2)
+						 {
+							 g3->DrawIcon(clas2, gridRect1);
+							 g3->DrawIcon(clas2, gridRect2);
+							 g3->DrawIcon(clas2, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class3)
+						 {
+							 g3->DrawIcon(clas3, gridRect1);
+							 g3->DrawIcon(clas3, gridRect2);
+							 g3->DrawIcon(clas3, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class4)
+						 {
+							 g3->DrawIcon(clas4, gridRect1);
+							 g3->DrawIcon(clas4, gridRect2);
+							 g3->DrawIcon(clas4, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class5)
+						 {
+							 g3->DrawIcon(clas5, gridRect1);
+							 g3->DrawIcon(clas5, gridRect2);
+							 g3->DrawIcon(clas5, gridRect3);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class6)
+						 {
+							 g3->DrawIcon(clas6, gridRect1);
+							 g3->DrawIcon(clas6, gridRect2);
+							 g3->DrawIcon(clas6, gridRect3);
+						 }
 					 }
 					 else
 					 {
-						 x1 = 15;
-						 x2 = 125;
+						 x1 = 43;
+						 x2 = 145;
 						 Rectangle gridRect4 = Rectangle(x1, y, b, h);
 						 Rectangle gridRect5 = Rectangle(x2, y, b, h);
-						 g3->DrawIcon(clas, gridRect4);
-						 g3->DrawIcon(clas, gridRect5);
+						 if (gcnew String(classname[i].c_str()) == class1)
+						 {
+							 g3->DrawIcon(clas1, gridRect4);
+							 g3->DrawIcon(clas1, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class2)
+						 {
+							 g3->DrawIcon(clas2, gridRect4);
+							 g3->DrawIcon(clas2, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class3)
+						 {
+							 g3->DrawIcon(clas3, gridRect4);
+							 g3->DrawIcon(clas3, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class4)
+						 {
+							 g3->DrawIcon(clas4, gridRect4);
+							 g3->DrawIcon(clas4, gridRect5);
+						 }
+						 else if (gcnew String(classname[i].c_str()) == class5)
+						 {
+							 g3->DrawIcon(clas5, gridRect4);
+							 g3->DrawIcon(clas5, gridRect5);
+						 }
+						 else
+						 {
+							 g3->DrawIcon(clas6, gridRect4);
+							 g3->DrawIcon(clas6, gridRect5);
+						 }
 					 }
 				 }
-
 
 			 }
 
@@ -3364,6 +3578,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 
 
 //========================================================================================\\
+
 
 
 
