@@ -39,8 +39,5 @@
     <Text Include="InputFile.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="Old.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

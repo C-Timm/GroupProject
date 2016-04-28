@@ -1072,12 +1072,14 @@ namespace GroupProject {
 				 int displynum =0;
 				 int displynum1 = 0;
 				 int aucsh = tm;
-				 
+				  pictureBox1->Refresh();
+					 pictureBox2->Refresh();
+					 pictureBox3->Refresh();
 				 
 
 				 for (int change1 = 0; change1 < tt; change1++)
 				 {
-
+					
 
 					 if (tt > 0)
 					 {
@@ -1144,20 +1146,22 @@ namespace GroupProject {
 						 {
 							 if (tm != 1)
 							 {
-								 
+								 bool kool = false;
 
 									 for (int j = 1; j <= firsttot2; j++)
 									 {
 										 if (displynum > displynum1)
 										 {
-											 if (displynum1 == 1 && firsttot2 > 1)
+											 if (displynum1 == 1 && firsttot2 > 1 && kool == false)
 												{ 
 													j++;
+													kool = true;
 												}
-											 else if (displynum1 == 2 && firsttot2 > 2)
+											 else if (displynum1 == 2 && firsttot2 > 2 && kool == false)
 											 {
 												 j++;
 												 j++;
+												 kool = true;
 											 }
 											 
 											 if (classCheck(finals, allclas, 0, j) == true)
@@ -3328,8 +3332,8 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 		Application::Exit();
 	
 	else
-	{	 //restarts if they dont
-		Application::Restart();
+	{	 
+		
 	}
 	
 }
