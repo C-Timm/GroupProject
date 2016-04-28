@@ -1071,6 +1071,7 @@ namespace GroupProject {
 				 int firsttot2 = 0;
 				 int displynum =0;
 				 int displynum1 = 0;
+				 int aucsh = tm;
 				 
 				 
 
@@ -1186,18 +1187,16 @@ namespace GroupProject {
 						 }
 						 else
 						 {
-							 if (displynum == tm-1)
+							 if (displynum == 1 && (displynum1 == 2 || displynum1 == 3))
 							 {
-								 break;
-					 }
-							 else
-							 {
-							   i = 0;
-				 }
+								 i = 0;
+								}
+							 
+							 
 							 
 						 }
 					 }
-					 if (displynum1 == 0)
+					 if (displynum1 == 0 && tm > 1)
 					{
 					pictureBox1->Refresh();
 					pictureBox2->Refresh();
