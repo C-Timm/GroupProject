@@ -23,9 +23,6 @@
     <ClInclude Include="MyForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Class.h">
       <Filter>Source Files</Filter>
     </ClInclude>
