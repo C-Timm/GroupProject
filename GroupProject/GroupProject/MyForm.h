@@ -23,7 +23,7 @@ namespace GroupProject {
 	using namespace std;
 
 
-	
+
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
@@ -73,6 +73,7 @@ namespace GroupProject {
 
 	private: System::Windows::Forms::TextBox^  textBox4;
 	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::Button^  button7;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -109,6 +110,7 @@ namespace GroupProject {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -178,7 +180,7 @@ namespace GroupProject {
 			// 
 			this->pictureBox5->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.BackgroundImage")));
-			this->pictureBox5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->pictureBox5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->pictureBox5->Location = System::Drawing::Point(884, 58);
 			this->pictureBox5->Name = L"pictureBox5";
 			this->pictureBox5->Size = System::Drawing::Size(333, 152);
@@ -282,6 +284,17 @@ namespace GroupProject {
 			this->button6->UseVisualStyleBackColor = true;
 			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
 			// 
+			// button7
+			// 
+			this->button7->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button7.BackgroundImage")));
+			this->button7->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button7->Location = System::Drawing::Point(905, 227);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(80, 41);
+			this->button7->TabIndex = 24;
+			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -289,6 +302,7 @@ namespace GroupProject {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1280, 838);
+			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->textBox4);
 			this->Controls->Add(this->textBox2);
@@ -328,6 +342,13 @@ namespace GroupProject {
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
 		Drawing::Graphics^ g4;
+		Drawing::Graphics^ g5;
+		Drawing::Graphics^ g6;
+		Bitmap^ bmpkava2 = gcnew Bitmap(L"kavapoint.bmp");
+		Bitmap^ bmpkava3 = gcnew Bitmap(L"kavalean.bmp");
+		Bitmap^ bmptext2 = gcnew Bitmap(L"text2.bmp");
+		Bitmap^ bmptext3 = gcnew Bitmap(L"text3.bmp");
+		/*Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");*/
 
 		//Strings for each class
 		String^ class1;
@@ -341,7 +362,9 @@ namespace GroupProject {
 		bool draw = true;
 		int amountlist = 0;
 		int amountofclass = 0;
-
+		int d1 = 0;
+		int d2 = 0;
+		int d3 = 0;
 
 	public: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 
@@ -349,6 +372,7 @@ namespace GroupProject {
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
 		g4 = pictureBox4->CreateGraphics();
+		g5 = pictureBox5->CreateGraphics();
 		
 		// vector of all the classes in the text file
 		vector<c> Classarray(totalclassCount);
@@ -377,10 +401,18 @@ namespace GroupProject {
 			amountlist--;
 		}
 	}
+			 private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
+					 g4->DrawImage(bmpkava2, 0, 0);
+					 g5->DrawImage(bmptext2, 0, 0);
+					 button7->Visible = false;
+	}
 	//Enter Button
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-
+		
+		g4->DrawImage(bmpkava3, 0, 0);
+		g5->DrawImage(bmptext3, 0, 0);
+		button7->Visible = false;
 		//switch statement to set items from listBox2 to class names
 		switch (amountlist)
 		{
@@ -769,7 +801,7 @@ namespace GroupProject {
 
 //Schedule 1
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+
 	if (textBox8->Text != "")
 	{
 		/*MessageBoxOptions::*/
@@ -784,7 +816,7 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 
   //Schedule 2
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+
 	if (textBox2->Text != "")
 	{
 		MessageBox::Show(textBox2->Text, "Schedule Two");
@@ -800,7 +832,7 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
   //Schedule 3
  private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) 
  {
-	 
+
 	 if (textBox4->Text != "")
 	 {
 		 MessageBox::Show(textBox4->Text, "Schedule Three");
@@ -814,14 +846,9 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 //Reset (clear) Button
  private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	 listBox2->Items->Clear();
-	 if (pictureBox1->Image != nullptr) {
-		 delete pictureBox1->Image;
-		 pictureBox1->Image = nullptr;
-	 }
-	// Application::Restart();
+	  Application::Restart();
  }
-	
+
 // Exit Button
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e)
 {	   
@@ -840,9 +867,9 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 	}
 
 }
-	
 
-		
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																		    //
@@ -1146,7 +1173,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 }
 				 }
 			 }
-
+			
 
 			 /*
 			 =======================================================
@@ -1169,25 +1196,25 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 				 for (int i = 0; i < f.size(); i++)
 				 {
 					 times[i] = f[i].stime;
-				 }
+					 }
 
 				 sort(times.begin(), times.end(), greater<int>());
 				 for (int y = 0; y < f.size(); y++)
 					 {
-						 for (int j = 0; j < f.size(); j++)
+					 for (int j = 0; j < f.size(); j++)
 						 {
-							if (times[y] == f[j].stime && r < f.size())
-							{
+						if (times[y] == f[j].stime && r < f.size())
+						 {
 							string t = f[j].name;
 							int io = times[y];
 							re[r] = f[j];
 							r++;
-							}
-						}
-					}
+						 }
+						 }
+						 }
 				 return re;
 			
-			 }
+						 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1210,7 +1237,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 				//orginizes classes numberically for the user 
 				 vector <c> ptSched = timeSort(fnsched);
 				 //prints schedule for the user
-				 printSched(ptSched, textBox8);
+				 printSched(ptSched, textBox8, d1);
 
 				 string classname[6];
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
@@ -1341,7 +1368,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 				 //orginizes classes numberically for the user
 				 vector <c> ptSched = timeSort(fnsched);
 				 //prints schedule for the user
-				 printSched(ptSched, textBox2);
+				 printSched(ptSched, textBox2, d2);
 
 				 string classname[6];
 				 Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");
@@ -1472,7 +1499,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 				 //orginizes classes numberically for the user
 				 vector <c> ptSched = timeSort(fnsched);
 				 //prints schedule for the user
-				 printSched(ptSched, textBox4);
+				 printSched(ptSched, textBox4, d3);
 
 			
 				 string classname[6];
@@ -1602,7 +1629,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 
 			 =========================================================
 			 */
-			 void printSched(vector<c> fnsched, TextBox^ textBox)
+			 void printSched(vector<c> fnsched, TextBox^ textBox, int & d)
 			 {
 
 				 int count = 0;
@@ -1614,11 +1641,11 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 }
 				 }
 				 int i = count - 1;
-				 if (draw == true)
+				 if (d == 0)
 				 {
 					 textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
 					 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
-					 draw = false;
+					 d++;
 				 }
 
 				 while (i >= 0)
@@ -1851,7 +1878,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 return false;
 				 }
 			 }	 
-			
+
 			 bool workcheck(vector<vector<c>> & finals, vector <c> allclass, vector <c> total, int i, int j, int & displayclassnum)
 			 {
 
@@ -2340,7 +2367,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 }
 
 					 u++;
-		
+
 
 				 }
 				 else
@@ -2422,7 +2449,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 			 /*
 			 =====================================================
 			 function:
-			  To get the number of names in an array and return it
+			To get the number of names in an array and return it
 
 			 returns:
 			  int for the amount of individual names in the 
@@ -2492,7 +2519,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 			  vector passed in
 
 			 returns:
-			  all names seperated for use in Workcheck
+			 all names seperated for use in Workcheck
 			 ======================================================
 			 */
 
@@ -3192,7 +3219,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 			  vector<c> & qw -either vector<c> MWFarray
 			  or vector<c> TTHarray
 			  returns: int
-				number of classes on TTH or MWF
+			 number of classes on TTH or MWF
 			 ======================================================
 			 */
 			 int numofnames(vector<c> & qw)
@@ -3222,7 +3249,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 			 }
 
 
-
+		 			 			 	
 
 //-------------------------------------Graveyard------------------------------------------\\
 
@@ -3770,9 +3797,10 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 				 return lastSched;
 
 			 }
-		
+
 		*/
 //========================================================================================\\
+
 
 
 
