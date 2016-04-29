@@ -1080,7 +1080,7 @@ namespace GroupProject {
 				 for (int change1 = 0; change1 < tt; change1++)
 				 {
 					
-
+				//Finds the amount of the first class in TTH array to be used later 
 					 if (tt > 0)
 					 {
 						 string o = finals[0][0].name;
@@ -1095,7 +1095,7 @@ namespace GroupProject {
 					}
 					 for (int change1 = 0; change1 < tm; change1++)
 					 {
-						 if (tm > 1)
+						 if (tm > 1)//Finds the amount of the first class in MWF array to be used later 
 						 {
 							 string p = finals[1][0].name;
 							 p.resize(5);
@@ -1112,7 +1112,7 @@ namespace GroupProject {
 
 
 				 if (tt != 0)
-				 {
+				 {// this goes through and checks to see if a class has all the classes in the work array and then if they work with eachother in the workcheck array with tth
 					 for (int i = 0; i <= firsttot1; i++)
 					 {
 						 if (i != firsttot1 && displynum < 3)
@@ -1944,9 +1944,13 @@ namespace GroupProject {
 
 				 int sij = total.size();
 
+				 //gets the total number of classes in the array passed in
 				 int num = numofindinames(total) ;
+				 //used to initialize check array which holds the work array of the class passed in 
 				 int place = 0;
+
 				 int workcount = 0;
+				 //is used for the count in the array passed ot draw
 				 int coo = 0 ;
 
 				 vector<c> classnames(num);
@@ -1983,17 +1987,14 @@ namespace GroupProject {
 					 }
 
 				 }
+				 //puts all the class names into an array for checking later
 				 Classesnames(check, classnames);
-
-				 for (int wxcf = 0; wxcf < classnames.size(); wxcf++)
-				 {
-					 string fsndofij = classnames[wxcf].name;
-				 }
 
 				 int checkiwqw = num - 1 ;
 
 				 if (check.size() == 0 && num - 1 >= 1)
 				 {
+					 // if the size of the work array is 0 or the class count is 1 it returns false as there is nothing to check
 					 return false;
 				 }
 
@@ -2021,23 +2022,27 @@ namespace GroupProject {
 					 string check2 = check[q].name;
 					 check2.resize(5);
 					 
-
+					 // starts here by getting the first class in the check array then checking all the things is works with down the line
 					 for (int q = 0; q < check.size(); q++)
 					 {	
 						 coo = 1;
 						 string check2 = check[q].name;
 						 check2.resize(5);
+						 //resizes to check against Classnames array
 						 if (check2 == classnames[0].name)
 						 {
+							 // classnames will always be the first class in the work array
 							 pass[coo] = check[q];
 							coo++;
-
+							//passing it to the final array
+							//if it fails part way through it will be reinitialized with the next class at the same point
 							 for (int q1 = 0; q1 < check.size(); q1++)
 							 {
 								 string check2 = check[q1].name;
 								 check2.resize(5);
 								 if (check2 == classnames[1].name)
 								 {
+									 //checks the time with the next class 
 									 if (check[q].stime >= check[q1].stime
 										 && check[q].stime <= check[q1].etime)
 									 {
@@ -2061,7 +2066,7 @@ namespace GroupProject {
 									 else
 									 {
 										 pass[coo] = check[q1];
-										 
+										 //if the class does not fail it is put into the array at th enext point
 
 										 if (num - 1 > 2)
 										 {
@@ -2073,6 +2078,8 @@ namespace GroupProject {
 														 check2.resize(5);
 												if (check2 == classnames[2].name)
 														 {
+															 //the next class is check against the classes in the array to see if they conflict until they find one
+															 //or it has to go back
 													 for (int q1 = 1; q1 < pass.size(); q1++)
 													 {
 														 
@@ -2117,6 +2124,7 @@ namespace GroupProject {
 																
 																 if (num - 1 > 3)
 																 {
+																	 // goes through the third class
 																	 for (int q = 0; q < check.size(); q++)
 																	 {
 																		 coo = 4;
@@ -2167,6 +2175,7 @@ namespace GroupProject {
 																						
 																						 if (num - 1 > 4)
 																						 {
+																							 //goes through the fifth class
 																							 for (int q = 0; q < 4; q++)
 																							 {
 																								 coo = 5;
@@ -2217,6 +2226,7 @@ namespace GroupProject {
 																												
 																												 if (num - 1 > 5)
 																												 {
+																													 // goes through the sixth class
 																													 for (int q = 1; q < 5; q++)
 																													 {
 																														 coo = 6;
@@ -2283,6 +2293,9 @@ namespace GroupProject {
 																												 }
 																												 else
 																												 {
+																													 // this is where it is sent to draw if all classes were found at good times
+																													 // displayclassnum is to make sure it only gets three schedules 
+																													 // and does not draw over eachother by incrementing
 																													 if (displayclassnum == 0)
 																													 {
 																														 DrawSchedule(pass);
@@ -2314,6 +2327,9 @@ namespace GroupProject {
 																						 }
 																						 else
 																						 {
+																							 // this is where it is sent to draw if all classes were found at good times
+																							 // displayclassnum is to make sure it only gets three schedules 
+																							 // and does not draw over eachother by incrementing
 																							 if (displayclassnum == 0)
 																							 {
 																								 DrawSchedule(pass);
@@ -2345,6 +2361,9 @@ namespace GroupProject {
 																 }
 																 else
 																 {
+																	 // this is where it is sent to draw if all classes were found at good times
+																	 // displayclassnum is to make sure it only gets three schedules 
+																	 // and does not draw over eachother by incrementing
 																	 if (displayclassnum == 0)
 																	 {
 																		 DrawSchedule(pass);
@@ -2375,6 +2394,9 @@ namespace GroupProject {
 										 }
 										 else
 										 {
+											 // this is where it is sent to draw if all classes were found at good times
+											 // displayclassnum is to make sure it only gets three schedules 
+											 // and does not draw over eachother by incrementing
 											 if (displayclassnum == 0)
 											 {
 												 DrawSchedule(pass);
@@ -2415,6 +2437,7 @@ namespace GroupProject {
 					 string sifjo = pass[0].name;
 					 if (num - 1 == 0)
 					 {
+						 // this is just if there is only one class in the entire thing there is no need to check anything all classes work
 						 if (displayclassnum == 0)
 						 {
 							 DrawSchedule(pass);
@@ -2436,6 +2459,7 @@ namespace GroupProject {
 					 }
 					 if (num - 1 == 1)
 					 {
+						 // if there are two classes the lcass will already have the times that work with it so there is no checking
 						 for (int p = 0; displayclassnum < 3; p++)
 						 {
 							 if (p < check.size() )
@@ -2484,6 +2508,15 @@ namespace GroupProject {
 
 			 }
 
+			 /*
+			 =====================================================
+			 function:
+			To get the number of names in an array and return it
+
+			 returns:
+			 int for the amount of individual names in the vector passed in
+			 ======================================================
+			 */
 			 int numofindinames(vector <c> total)
 			 {
 				 vector<c> test(6);
@@ -2540,7 +2573,15 @@ namespace GroupProject {
 				 return q;
 
 			 }
+			 /*
+			 =====================================================
+			 function:
+			 To get each individual names and store them into a vector passed in
 
+			 returns:
+			 all names seperated for use in Workcheck
+			 ======================================================
+			 */
 
 			 void Classesnames(vector<c> all, vector<c> & test)
 			 {
