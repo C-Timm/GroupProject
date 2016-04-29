@@ -76,6 +76,7 @@ namespace GroupProject {
 
 	private: System::Windows::Forms::TextBox^  textBox4;
 	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::Button^  button7;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -112,6 +113,7 @@ namespace GroupProject {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -181,7 +183,7 @@ namespace GroupProject {
 			// 
 			this->pictureBox5->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.BackgroundImage")));
-			this->pictureBox5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->pictureBox5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->pictureBox5->Location = System::Drawing::Point(884, 58);
 			this->pictureBox5->Name = L"pictureBox5";
 			this->pictureBox5->Size = System::Drawing::Size(333, 152);
@@ -285,6 +287,17 @@ namespace GroupProject {
 			this->button6->UseVisualStyleBackColor = true;
 			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
 			// 
+			// button7
+			// 
+			this->button7->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button7.BackgroundImage")));
+			this->button7->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button7->Location = System::Drawing::Point(905, 227);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(80, 41);
+			this->button7->TabIndex = 24;
+			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -292,6 +305,7 @@ namespace GroupProject {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1280, 838);
+			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->textBox4);
 			this->Controls->Add(this->textBox2);
@@ -331,6 +345,12 @@ namespace GroupProject {
 		Drawing::Graphics^ g2;
 		Drawing::Graphics^ g3;
 		Drawing::Graphics^ g4;
+		Drawing::Graphics^ g5;
+		Drawing::Graphics^ g6;
+		Bitmap^ bmpkava2 = gcnew Bitmap(L"kavapoint.bmp");
+		Bitmap^ bmpkava3 = gcnew Bitmap(L"kavalean.bmp");
+		Bitmap^ bmptext2 = gcnew Bitmap(L"text2.bmp");
+		Bitmap^ bmptext3 = gcnew Bitmap(L"text3.bmp");
 		/*Bitmap^ bmp = gcnew Bitmap(L"schedule.bmp");*/
 
 		//Strings for each class
@@ -355,6 +375,7 @@ namespace GroupProject {
 		g2 = pictureBox2->CreateGraphics();
 		g3 = pictureBox3->CreateGraphics();
 		g4 = pictureBox4->CreateGraphics();
+		g5 = pictureBox5->CreateGraphics();
 		
 		// vector of all the classes in the text file
 		vector<c> Classarray(totalclassCount);
@@ -383,11 +404,17 @@ namespace GroupProject {
 			amountlist--;
 		}
 	}
+			 private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
+					 g4->DrawImage(bmpkava2, 0, 0);
+					 g5->DrawImage(bmptext2, 0, 0);
+					 button7->Visible = false;
+			 }
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		
-		  
-		  
+		g4->DrawImage(bmpkava3, 0, 0);
+		g5->DrawImage(bmptext3, 0, 0);
+		button7->Visible = false;
 		//switch statement to set items from listBox2 to class names
 		switch (amountlist)
 		{
@@ -3943,6 +3970,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 		
 		*/
 //========================================================================================\\
+
 
 
 
