@@ -409,7 +409,10 @@ namespace GroupProject {
 	//Enter Button
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		
+		d1 = 0; d2 = 0; d3 = 0;
+		textBox2->Clear();
+		textBox4->Clear();
+		textBox8->Clear();
 		g4->DrawImage(bmpkava3, 0, 0);
 		g5->DrawImage(bmptext3, 0, 0);
 		button7->Visible = false;
@@ -1350,7 +1353,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 						 }
 					 }
 				 }
-
+				 d1++;
 			 }
 
 			 /*
@@ -1482,7 +1485,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 }
 				 }
 			 }
-
+				 d2++;
 			 }
 			 /*
 			 =====================================================
@@ -1614,7 +1617,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 						 }
 					 }
 				 }
-
+				 d3++;
 			 }
 
 			 /*
@@ -1629,7 +1632,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 
 			 =========================================================
 			 */
-			 void printSched(vector<c> fnsched, TextBox^ textBox, int & d)
+			 void printSched(vector<c> fnsched, TextBox^ textBox, int  y)
 			 {
 
 				 int count = 0;
@@ -1641,11 +1644,11 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 }
 				 }
 				 int i = count - 1;
-				 if (d == 0)
+				 if (y == 0 )
 				 {
 					 textBox->Text = textBox->Text + "Class\t" + "Day\t" + "Time" + "\r\n";
 					 textBox->Text = textBox->Text + "----------------------------------------------""\r\n";
-					 d++;
+					 y++;
 				 }
 
 				 while (i >= 0)
